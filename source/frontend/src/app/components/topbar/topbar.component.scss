@@ -1,0 +1,87 @@
+@import "../../../styles.scss";
+
+:host {
+    height: 100%;
+    width: 100%;
+    background: $background-clr;
+
+    display: flex;
+    align-items: center;
+}
+
+.search-container {
+    @extend .centered;
+
+    input {
+        height: 32px;
+        padding: 0;
+        margin: 0;
+        border: 1px solid transparent;
+        border-right: none;
+        padding-inline: 10px;
+        border-radius: 15px 0 0 15px;
+
+        &:focus {
+            outline: none;
+            border-color: $logo-main-clr;
+        }
+    }
+    
+    button {
+        border: none;
+        height: 34px;
+        aspect-ratio: 1/1;
+        border-radius: 0 15px 15px 0;
+        background: $logo-main-clr;
+        color: $background-clr;
+        @extend .centered;
+        transition: all 0.2s, color 80ms;
+
+        i {
+            transition: all 0.2s;
+            font-size: 18px;
+        }
+
+        &:hover {
+            background: $logo-sec-clr;
+            color: $logo-main-clr;
+            i {
+                transform: scale(1.2);
+            }
+        }
+    }
+}
+
+.menu-btn {
+    position: relative;
+    height: 40px;
+    aspect-ratio: 1/1;
+    background: none;
+    border: none;
+    margin-inline: 20px;
+    cursor: pointer;
+    color: $logo-main-clr;
+
+    @extend .centered;
+
+    i {
+        position: absolute;
+        font-size: 22px;
+    }
+}
+
+.profile-icon {
+    height: 100%;
+    margin-left: auto;
+    margin-right: 15px;
+    @extend .centered;
+
+    img {
+        height: 60%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        box-shadow: 0px 0px 7px 3px #fff;
+    }
+}
