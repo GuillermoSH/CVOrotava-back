@@ -1,41 +1,93 @@
 @import "../../../styles.scss";
 
 :host {
-    height: 100%;
+    height: calc(100% - 10px);
     width: 100%;
     background: $background-clr;
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding-top: 10px;
+    gap: 10px;
 }
 
 .option {
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     text-decoration: none;
     color: $logo-main-clr;
     @extend .centered;
+    background: transparent;
+    transition: all 0.2s;
+    border-radius: 10px;
 
     &.active {
         background: $logo-main-clr;
+        color: $background-clr;
+        pointer-events: none;
+
+        i {
+            color: $logo-sec-clr;
+        }
+    }
+
+    &:hover {
+        background: $logo-main-shade-clr;
+        color: $background-clr;
     }
 
     span {
-        display: none;
-        opacity: 0;
+        transform: scaleX(0);
+        width: 0;
+        transform-origin: left;
+        transition: all 80ms;
+    }
+
+    i {
+        font-size: 22px;
     }
 }
 
 :host.active {
     .option {
         padding-inline: 20px;
-        width: calc(100% - 40px);
+        width: calc(100% - 50px);
         
         span {
             margin-left: 20px;
             width: 20ch;
-            display: block;
-            opacity: 1;
+            transform: scaleX(1);
         }
     }
+
+    [data-title]:after {
+        display: none;
+    }
+}
+
+[data-title] {
+    position: relative;
+}
+
+[data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.2s ease 0.3s;
+    visibility: visible;
+    width: max-content;
+    transform: scaleX(1);
+}
+
+[data-title]:after {
+    content: attr(data-title);
+    position: absolute;
+    background: $logo-main-shade-clr;
+    color: $background-clr;
+    left: 100%;
+    transform-origin: left;
+    transform: scaleX(0);
+    padding: 3px 10px;
+    opacity: 0;
+    z-index: 99999;
+    visibility: hidden;
+    border-radius: 0 10px 10px 0;
 }

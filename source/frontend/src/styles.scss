@@ -3,6 +3,7 @@
 
 /*---------------- VARIABLE DECLARATIONS ----------------*/
 $logo-main-clr: #34285a;
+$logo-main-shade-clr: lighten(desaturate($logo-main-clr, 30%), 30%);
 $logo-sec-clr: #00a3e4;
 $background-clr: #dddddd;
 $shadow-clr: darken(#dddddd, 50%);
@@ -37,7 +38,7 @@ $error-clr: #f7480d;
 }
 
 body {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
