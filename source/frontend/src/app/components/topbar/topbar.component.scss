@@ -13,7 +13,7 @@
     @extend .centered;
 
     input {
-        height: 32px;
+        height: 34px;
         padding: 0;
         margin: 0;
         border: 1px solid transparent;
@@ -43,8 +43,9 @@
         }
 
         &:hover {
-            background: $logo-sec-clr;
+            background: $logo-main-shade-clr;
             color: $logo-main-clr;
+            border: 1px solid $logo-main-clr;
             i {
                 transform: scale(1.2);
             }
@@ -72,8 +73,8 @@
 
 .profile-icon {
     height: 100%;
+    aspect-ratio: 1/1;
     margin-left: auto;
-    margin-right: 15px;
     @extend .centered;
 
     img {
@@ -83,5 +84,30 @@
         border-radius: 50%;
         border: 2px solid #fff;
         box-shadow: 0px 0px 7px 3px #fff;
+    }
+}
+
+@media (width < 768px) {
+    .menu-btn {
+        display: none;
+    }
+
+    .search-container {
+        margin-inline: auto;
+    }
+
+    .profile-icon {
+        aspect-ratio: 1/1;
+        margin-left: 0;
+    }
+}
+
+@media (width < 576px) {
+    .search-container, .menu-btn {
+        display: none;
+    }
+
+    .profile-icon {
+        margin-left: auto;
     }
 }

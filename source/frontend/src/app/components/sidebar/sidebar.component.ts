@@ -23,8 +23,10 @@ export class SidebarComponent {
     for (let option of this.options) {
       option.classList.remove("active");
 
-      if(window.location.pathname.split("/")[2] == option.id) {
+      if(window.location.pathname.split("/")[2] == option.id){
         option.classList.add("active");
+      } else if (window.location.pathname.replace("/", "") == "dashboard") {
+        this.options[0].classList.add("active");
       }
     }
   }

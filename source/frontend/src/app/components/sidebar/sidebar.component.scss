@@ -1,7 +1,7 @@
 @import "../../../styles.scss";
 
 :host {
-    height: calc(100% - 10px);
+    height: 100%;
     width: 100%;
     background: $background-clr;
     display: flex;
@@ -22,12 +22,12 @@
     border-radius: 10px;
 
     &.active {
-        background: $logo-main-clr;
-        color: $background-clr;
+        background: $logo-main-clr !important;
+        color: $background-clr !important;
         pointer-events: none;
 
         i {
-            color: $logo-sec-clr;
+            color: $logo-sec-clr !important;
         }
     }
 
@@ -51,7 +51,7 @@
 :host.active {
     .option {
         padding-inline: 20px;
-        width: calc(100% - 50px);
+        width: calc(100% - 10px);
         
         span {
             margin-left: 20px;
@@ -90,4 +90,17 @@
     z-index: 99999;
     visibility: hidden;
     border-radius: 0 10px 10px 0;
+}
+
+@media (width < 768px) {
+    :host {
+        flex-direction: row;
+        justify-content: center;
+        padding-top: 0;
+        height: 100%;
+    }
+
+    [data-title]:after {
+        display: none;
+    }
 }

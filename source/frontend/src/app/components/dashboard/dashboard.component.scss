@@ -9,8 +9,9 @@
         "logo topbar"
         "sidebar main";
 
-    min-height: 100vh;
+    height: 100%;
     width: 100%;
+    overflow-y: hidden;
 }
 
 app-sidebar {
@@ -49,5 +50,21 @@ app-main {
         border-radius: 50%;
         height: 80%;
         aspect-ratio: 1/1;
+    }
+}
+
+@media (width < 768px) {
+    :host {
+        grid-template-columns: 65px 1fr;
+        grid-template-rows: 65px 1fr 65px;
+        grid-template-areas: 
+            "logo topbar"
+            "main main"
+            "sidebar sidebar";
+        height: 100svh;
+    }
+
+    app-sidebar::before {
+        display: none;
     }
 }

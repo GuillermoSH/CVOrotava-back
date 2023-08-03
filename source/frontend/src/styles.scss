@@ -35,11 +35,13 @@ $error-clr: #f7480d;
 * {
     font-family: $body-font;
     font-size: $body-size;
+    box-sizing: border-box;
 }
 
-body {
-    height: 100%;
+html, body {
+    min-height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
+    display: flex;
 }
