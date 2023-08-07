@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 import { MoneyComponent } from './components/money/money.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { IndexComponent } from './components/index/index.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     HomeComponent,
     MoneyComponent,
     NotFoundComponent,
-    DashboardComponent
+    DashboardComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
