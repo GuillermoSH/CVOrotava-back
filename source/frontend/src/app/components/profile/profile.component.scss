@@ -1,0 +1,109 @@
+@import "../../../styles.scss";
+
+.wrapper {
+    padding: 20px;
+    padding-top: 320px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    @extend .centered;
+
+    .bg-banner {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 300px;
+        width: 100%;
+        background: $logo-main-shade-clr;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 20px;
+        gap: 20px;
+        border-bottom: 8px solid $logo-main-clr;
+
+        img {
+            height: 100px;
+            filter: drop-shadow(0 0 16px $background-clr);
+
+            &:nth-child(3) {
+                height: 200px;
+            }
+        }
+    }
+
+    .profile-pic {
+        position: absolute;
+        width: 50%;
+        top: 175px;
+        left: 0;
+        padding-left: 20px;
+        @extend .centered;
+
+        img {
+            height: 250px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 8px solid $logo-main-clr;
+        }
+    }
+
+    .profile-info {
+        width: 50%;
+        height: 100%;
+        padding-top: 140px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-right: 1px solid $logo-main-clr;
+
+        .userinfo-title {
+            font-size: $title-size;
+            font-family: $title-font;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        
+        .user-mail {
+            line-height: calc($body-size * 1.5);
+            color: $logo-main-shade-clr;
+        }
+        
+        
+        .tags {
+            margin-top: 30px;
+            
+            .tags-title {
+                font-size: $subtitle-size;
+                font-family: $title-font;
+                margin: 0;
+                text-align: center;
+            }
+
+            .tags-container {
+                @extend .centered;
+                gap: 10px;
+
+                .tag-item {
+                    margin-top: calc($body-size / 1.5);
+                    background: $logo-sec-clr;
+                    color: lighten($logo-sec-clr, 45%);
+                    padding: 0.3rem 1rem;
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+
+    .profile-config {
+        width: 50%;
+        padding: 20px;
+        height: 100%;
+
+        .config-title {
+            font-size: $title-size;
+            font-family: $title-font;
+        }
+    }
+}

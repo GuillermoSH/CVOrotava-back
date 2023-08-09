@@ -10,6 +10,20 @@
     </button>
 </div>
 
-<div class="profile-icon">
+<div class="dropdown" id="profile-dropdown">
+    <ul>
+        <li [routerLink]="['/dashboard/profile']">
+            <i class="fa-solid fa-id-card"></i>
+            Ver perfil
+        </li>
+        <li (click)="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Cerrar sesión
+        </li>
+    </ul>
+</div>
+
+<div class="profile-icon" id="profile-icon">
     <img src="../../../assets/imgs/foto_perfil_ejemplo.jpg" alt="Foto de perfil">
+    <i class="fa-solid fa-caret-down"></i>
 </div>

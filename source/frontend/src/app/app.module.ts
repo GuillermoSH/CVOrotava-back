@@ -14,6 +14,7 @@ import { MoneyComponent } from './components/money/money.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { IndexComponent } from './components/index/index.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { IndexComponent } from './components/index/index.component';
     MoneyComponent,
     NotFoundComponent,
     DashboardComponent,
-    IndexComponent
+    IndexComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

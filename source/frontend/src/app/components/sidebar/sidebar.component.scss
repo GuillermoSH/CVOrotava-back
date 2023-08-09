@@ -38,9 +38,10 @@
 
     span {
         transform: scaleX(0);
+        opacity: 0;
         width: 0;
         transform-origin: left;
-        transition: all 80ms;
+        transition: all 80ms, opacity .7s;
     }
 
     i {
@@ -70,6 +71,7 @@
             
             span {
                 margin-left: 20px;
+                opacity: 1;
                 width: 20ch;
                 transform: scaleX(1);
             }
