@@ -17,9 +17,13 @@ export class DashboardComponent {
   }
 
   toggleSidebar() {
-    this.xmarkBtn.classList.toggle("hiddenplus");
-    this.burguerBtn.classList.toggle("hiddenplus");
-    document.getElementById("sidebar-container")?.classList.toggle("md:w-[300px!important]");
-    document.getElementById("header-logo-wrapper")?.classList.toggle("md:w-[300px!important]");
+    let sidebar = document.getElementById("sidebar-container");
+
+    setTimeout(() => {
+      this.xmarkBtn.classList.toggle("hiddenplus");
+      this.burguerBtn.classList.toggle("hiddenplus");
+    }, 150);
+    sidebar?.classList.toggle("active");
+    sidebar?.children[0].classList.toggle("active");
   }
 }

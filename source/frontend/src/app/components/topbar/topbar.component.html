@@ -1,13 +1,16 @@
 <button class="hidden md:flex duration-200 delay-100 h-5 w-5" id="burguer-btn">
   <i class="fa-solid fa-bars text-lg text-main"></i>
 </button>
-<button class="hidden md:flex duration-200 delay-100  h-5 w-5 hiddenplus" id="xmark-btn">
+<button
+  class="hidden md:flex duration-200 delay-100 h-5 w-5 hiddenplus"
+  id="xmark-btn"
+>
   <i class="fa-solid fa-xmark text-lg text-main"></i>
 </button>
 
 <div class="hidden md:flex search-container">
   <input
-    class="h-8 bg-slate-50 rounded-ss-full rounded-es-full indent-3 w-56 outline-none border-[1px] border-transparent focus:border-y-[1px] focus:border-s-[1px] focus:border-main focus:w-[340px] duration-300"
+    class="h-8 bg-slate-50 rounded-ss-full rounded-es-full indent-3 w-56 outline-none border-[1px] border-transparent focus:border-y-[1px] focus:border-s-[1px] focus:border-main focus:w-[300px] duration-300"
     type="text"
     placeholder="¿Qué deseas?"
   />
@@ -17,12 +20,12 @@
 </div>
 
 <div
-  class="absolute right-0 top-[60px] bg-neutral-300 p-2 rounded-es-lg text-main font-semibold font-poppins opacity-0 duration-150 delay-100"
+  class="hidden absolute right-0 top-[60px] bg-neutral-300 p-2 rounded-es-lg text-main font-semibold font-poppins opacity-0 duration-150 delay-100"
   id="profile-dropdown"
 >
   <ul class="flex flex-col gap-2">
     <li
-      class="py-1 px-5 flex gap-3 items-center hover:bg-indigo-600 hover:text-neutral-300 [&>*:first-child]:text-indigo-600 [&>*:first-child]:hover:text-neutral-300 duration-200 cursor-pointer rounded-lg"
+      class="py-1 px-5 flex gap-3 items-center hover:bg-blue-500 hover:text-neutral-300 [&>*:first-child]:text-blue-500 [&>*:first-child]:hover:text-neutral-300 duration-200 cursor-pointer rounded-lg"
       (click)="toggleDropdown()"
       [routerLink]="['/dashboard/profile']"
     >

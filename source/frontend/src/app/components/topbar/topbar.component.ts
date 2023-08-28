@@ -19,6 +19,7 @@ export class TopbarComponent {
 
   toggleDropdown() {
     this.dropdown.classList.toggle("opacity-0");
+    this.dropdown.classList.toggle("hidden");
     this.profileIcon.children[1].classList.toggle("rotate-180")
   }
 
