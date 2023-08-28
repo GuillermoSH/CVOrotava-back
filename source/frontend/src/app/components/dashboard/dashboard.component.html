@@ -1,6 +1,10 @@
-<app-topbar></app-topbar>
-<app-sidebar></app-sidebar>
-<div class="logo">
-  <img src="../assets/imgs/LogoCuadradoClubVolei(sin fondo).png" alt="Logo CVOrotava">
-</div>
-<app-main></app-main>
+<nav class="fixed top-[60px] w-[60px] left-0 duration-200 delay-100" id="sidebar-container">
+  <app-sidebar class="flex flex-col w-full h-[calc(100vh-60px)] bg-neutral-300"></app-sidebar>
+</nav>
+<header class="h-[60px] w-screen bg-neutral-300 flex fixed top-0 left-0">
+  <div class="flex items-center justify-center h-full w-[60px] duration-200 delay-100" id="header-logo-wrapper">
+    <img class="h-12 aspect-square" src="../assets/imgs/LogoCuadradoClubVolei(sin fondo).png" alt="Logo CVOrotava"/>
+  </div>
+  <app-topbar class="w-[calc(100%-60px)] h-full flex gap-3 px-3 items-center"></app-topbar>
+</header>
+<app-main class="mt-[60px] ms-[60px] w-[calc(100vw-60px)] h-[calc(100vh-60px)]"></app-main>

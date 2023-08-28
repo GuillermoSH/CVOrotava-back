@@ -15,18 +15,11 @@ export class TopbarComponent {
   ngOnInit() {
     this.dropdown = document.getElementById("profile-dropdown");
     this.profileIcon = document.getElementById("profile-icon");
-
-    document.addEventListener('mouseup', (e) => {
-      if(!this.dropdown.contains(e.target) && !this.profileIcon.contains(e.target)) {
-        this.dropdown.classList.remove("active");
-      } else {
-        this.toggleDropdown();
-      }
-    })
   }
 
   toggleDropdown() {
-    this.dropdown.classList.toggle("active");
+    this.dropdown.classList.toggle("opacity-0");
+    this.profileIcon.children[1].classList.toggle("rotate-180")
   }
 
   logout() {

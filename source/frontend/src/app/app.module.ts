@@ -15,6 +15,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { IndexComponent } from './components/index/index.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PlayersComponent } from './components/players/players.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,11 +33,14 @@ import { ProfileComponent } from './components/profile/profile.component';
     NotFoundComponent,
     DashboardComponent,
     IndexComponent,
-    ProfileComponent
+    ProfileComponent,
+    PlayersComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

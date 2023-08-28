@@ -1,0 +1,105 @@
+<div style="overflow-x: auto">
+  <table>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Fecha nacimiento</th>
+      <th>Categoría</th>
+      <th>Teléfono</th>
+      <th>Email</th>
+      <th>Dirección</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let player of players">
+      <td>{{ player.name }}</td>
+      <td>{{ player.surname1 + " " + player.surname2 }}</td>
+      <td *ngIf="player.birthday != null; else nullBirthday">
+        {{
+          player.birthday.split("-")[2] +
+            "/" +
+            player.birthday.split("-")[1] +
+            "/" +
+            player.birthday.split("-")[0]
+        }}
+      </td>
+      <ng-template #nullBirthday>
+        <td></td>
+      </ng-template>
+      <td>{{ player.category }}</td>
+      <td>{{ player.telephone }}</td>
+      <td>
+        {{ player.email }}
+      </td>
+      <td>{{ player.address }}</td>
+      <td>
+        <button
+          class="edit-btn"
+          type="button"
+          (click)="showUpdateModal(player)"
+        >
+          <i class="fa-solid fa-pencil"></i>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
+<form (submit)="saveUpdatePlayer()">
+  <h1>New player</h1>
+  <input
+    type="text"
+    placeholder="name"
+    [(ngModel)]="newPlayer.name"
+    name="name"
+    #name="ngModel"
+  />
+  <input
+    type="text"
+    placeholder="surname1"
+    [(ngModel)]="newPlayer.surname1"
+    name="surname1"
+    #name="ngModel"
+  />
+  <input
+    type="text"
+    placeholder="surname2"
+    [(ngModel)]="newPlayer.surname2"
+    name="surname2"
+    #name="ngModel"
+  />
+  <input
+    type="text"
+    placeholder="telephone"
+    [(ngModel)]="newPlayer.telephone"
+    name="telephone"
+    #name="ngModel"
+  />
+  <input
+    type="text"
+    placeholder="email"
+    [(ngModel)]="newPlayer.email"
+    name="email"
+    #name="ngModel"
+  />
+  <input
+    type="text"
+    placeholder="address"
+    [(ngModel)]="newPlayer.address"
+    name="address"
+    #name="ngModel"
+  />
+  <input
+    type="text"
+    placeholder="birthday"
+    [(ngModel)]="newPlayer.birthday"
+    name="birthday"
+    #name="ngModel"
+  />
+  <input
+    type="text"
+    placeholder="category"
+    [(ngModel)]="newPlayer.category"
+    name="category"
+    #name="ngModel"
+  />
+  <button type="submit" class="bg-amber-400">Upload</button>
+</form>

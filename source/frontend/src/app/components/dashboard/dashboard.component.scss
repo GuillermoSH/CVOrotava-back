@@ -1,70 +1,17 @@
-@import "../../../styles.scss";
-
 :host {
-    transition: all 0.2s;
-    display: grid;
-    grid-template-columns: 65px 1fr;
-    grid-template-rows: 65px 1fr;
-    grid-template-areas: 
-        "logo topbar"
-        "sidebar main";
-
-    height: 100%;
-    width: 100%;
-    overflow-y: hidden;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
 }
 
-app-sidebar {
-    grid-area: sidebar;
-    position: relative;
-    z-index: 3;
-
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: -20px;
-        height: 20px;
-        aspect-ratio: 1/1;
-        border-radius: 50%;
-        background: none;
-        box-shadow: -10px -10px 0px 2px $background-clr;
-        z-index: -1;
-    }
-}
-
-app-topbar {
-    grid-area: topbar;
-}
-
-app-main {
-    grid-area: main;
-}
-
-.logo {
-    grid-area: logo;
-    background: $background-clr;
-    @extend .centered;
-
-    img {
-        border-radius: 50%;
-        height: 80%;
-        aspect-ratio: 1/1;
-    }
-}
-
-@media (width < 768px) {
-    :host {
-        grid-template-columns: 55px 1fr !important;
-        grid-template-rows: 55px 1fr 55px !important;
-        grid-template-areas: 
-            "logo topbar"
-            "main main"
-            "sidebar sidebar";
-        height: 100svh;
-    }
-
-    app-sidebar::before {
-        display: none;
-    }
+#sidebar-container::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    aspect-ratio: 1/1;
+    background-color: transparent;
+    top: 0;
+    right: -20px;
+    border-radius: 50%;
+    box-shadow: -10px -10px 0px #d4d4d4;
 }

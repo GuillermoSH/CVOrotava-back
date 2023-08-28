@@ -1,23 +1,38 @@
 <div class="wrapper">
-    <div class="login-form">
-        <img src="../../../assets/imgs/LogoCuadradoClubVolei(sin fondo).png" alt="Logo CVOrotava">
-        <div class="input-group">
-            <input required="" type="text" name="text" autocomplete="off" class="input">
-            <label class="label">Nombre de usuario</label>
-        </div>
-        <div class="input-group">
-            <input required="" type="text" name="text" autocomplete="off" class="input">
-            <label class="label">Contraseña</label>
-        </div>
-        <a class="remember-pass" [routerLink]="['/recover-pass']">
-            ¿Has olvidado la contraseña? Recuérdamela
-        </a>
-        <button class="btn-submit" type="submit" (click)="checkForm()">
-            Empezar
-            <i class="fa-solid fa-volleyball"></i>
-        </button>
-        <a class="btn-dismiss" (click)="back()">
-            <i class="fa-solid fa-xmark"></i>
-        </a>
+  <div class="login-form">
+    <img
+      src="../../../assets/imgs/LogoCuadradoClubVolei(sin fondo).png"
+      alt="Logo CVOrotava"
+    />
+    <div class="input-group">
+      <input
+        required=""
+        type="text"
+        name="text"
+        autocomplete="off"
+        class="input"
+      />
+      <label class="label">Nombre de usuario</label>
     </div>
+    <div class="input-group">
+      <input
+        required=""
+        type="text"
+        name="text"
+        autocomplete="off"
+        class="input"
+      />
+      <label class="label">Contraseña</label>
+    </div>
+    <a class="remember-pass" [routerLink]="['/recover-pass']">
+      ¿Has olvidado la contraseña? Recuérdamela
+    </a>
+    <button class="btn-submit" type="submit" (click)="checkForm()">
+      Empezar
+      <i class="fa-solid fa-volleyball"></i>
+    </button>
+    <a class="btn-dismiss" (click)="back()">
+      <i class="fa-solid fa-xmark"></i>
+    </a>
+  </div>
 </div>

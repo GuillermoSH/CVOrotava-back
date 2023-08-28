@@ -18,7 +18,7 @@ public class UserService {
 		return userrepository.save(entity);
 	}
 
-	public User findById(String id) {
+	public User findById(Integer id) {
 		return userrepository.findById(id).get();
 	}
 
@@ -26,7 +26,7 @@ public class UserService {
 		return userrepository.findAll();
 	}
 
-	public Boolean remove(String id) {
+	public Boolean remove(Integer id) {
 		Optional<User> currentUser = userrepository.findById(id);
 		if (currentUser.isPresent()) {
 			userrepository.deleteById(id);

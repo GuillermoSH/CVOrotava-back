@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { IndexComponent } from './components/index/index.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PlayersComponent } from './components/players/players.component';
 
 const routes: Routes = [
   { path: "", component: IndexComponent, data: { title: "Web Oficial CVOrotava" } },
@@ -18,7 +19,8 @@ const routes: Routes = [
       { path: "", component: HomeComponent, data: { title: "CVOrotava - Inicio" } },
       { path: "money", component: MoneyComponent, data: { title: "CVOrotava - Registros" } },
       { path: "statistics", component: StatisticsComponent, data: { title: "CVOrotava - Estadisticas" } },
-      { path: "profile", component: ProfileComponent, data: { title: "Profile" } }
+      { path: "profile", component: ProfileComponent, data: { title: "CVOrotava - Perfil" } },
+      { path: "players", component: PlayersComponent, data: { title: "CVOrotava - Jugadores" } },
     ]
   },
   { path: "**", redirectTo: "error..." }
