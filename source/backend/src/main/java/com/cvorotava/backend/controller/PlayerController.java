@@ -1,13 +1,12 @@
 package com.cvorotava.backend.controller;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +24,11 @@ public class PlayerController {
 	@GetMapping
 	public List<Player> getPlayers() {
 		return playerservice.findAll();
+	}
+	
+	@GetMapping("/orderedBy/{order}")
+	public List<Player> getPlayersOrderedBy(@PathVariable String order) {
+		return playerservice.findAllOrdered(order);
 	}
 
 	@GetMapping("/category/{category}")

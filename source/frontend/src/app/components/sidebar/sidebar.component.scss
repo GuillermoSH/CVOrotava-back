@@ -1,4 +1,4 @@
-@media (width >= 768px) {
+@media (width >=768px) {
     :host.active .option {
         width: calc(100% - 5px);
     }
@@ -8,4 +8,8 @@
     @apply bg-main;
     @apply text-blue-500;
     pointer-events: none;
+
+    span {
+        @apply text-neutral-300;
+    }
 }

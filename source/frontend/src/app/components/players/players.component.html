@@ -1,37 +1,33 @@
 <div style="overflow-x: auto">
-  <table>
+  <table class="table-auto border-separate rounded-lg min-w-full text-xs lg:text-base">
     <tr>
-      <th>Nombre</th>
-      <th>Apellidos</th>
-      <th>Fecha nacimiento</th>
-      <th>Categoría</th>
-      <th>Teléfono</th>
-      <th>Email</th>
-      <th>Dirección</th>
+      <th class="rounded-md border border-main/50 bg-main text-neutral-50 font-medium px-3 min-w-max whitespace-nowrap">Nombre</th>
+      <th class="rounded-md border border-main/50 bg-main text-neutral-50 font-medium px-3 min-w-max whitespace-nowrap">Apellidos</th>
+      <th class="rounded-md border border-main/50 bg-main text-neutral-50 font-medium px-3 min-w-max whitespace-nowrap">Fecha nacimiento</th>
+      <th class="rounded-md border border-main/50 bg-main text-neutral-50 font-medium px-3 min-w-max whitespace-nowrap">Categoría</th>
+      <th class="rounded-md border border-main/50 bg-main text-neutral-50 font-medium px-3 min-w-max whitespace-nowrap">Teléfono</th>
+      <th class="rounded-md border border-main/50 bg-main text-neutral-50 font-medium px-3 min-w-max whitespace-nowrap">Email</th>
+      <th class="rounded-md border border-main/50 bg-main text-neutral-50 font-medium px-3 min-w-max whitespace-nowrap">Dirección</th>
       <th></th>
     </tr>
     <tr *ngFor="let player of players">
-      <td>{{ player.name }}</td>
-      <td>{{ player.surname1 + " " + player.surname2 }}</td>
-      <td *ngIf="player.birthday != null; else nullBirthday">
+      <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">{{ player.name }}</td>
+      <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">{{ player.surname1 + " " + player.surname2 }}</td>
+      <td *ngIf="player.birthday != null; else nullBirthday" class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
         {{
-          player.birthday.split("-")[2] +
-            "/" +
-            player.birthday.split("-")[1] +
-            "/" +
-            player.birthday.split("-")[0]
+          player.birthday | dateFormat
         }}
       </td>
       <ng-template #nullBirthday>
-        <td></td>
+        <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"></td>
       </ng-template>
-      <td>{{ player.category }}</td>
-      <td>{{ player.telephone }}</td>
-      <td>
+      <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">{{ player.category }}</td>
+      <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">{{ player.telephone }}</td>
+      <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
         {{ player.email }}
       </td>
-      <td>{{ player.address }}</td>
-      <td>
+      <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">{{ player.address }}</td>
+      <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
         <button
           class="edit-btn"
           type="button"

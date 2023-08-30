@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.cvorotava.backend.entity.Player;
@@ -28,6 +29,10 @@ public class PlayerService {
 
 	public List<Player> findAll() {
 		return playerrepository.findAll();
+	}
+	
+	public List<Player> findAllOrdered(String order) {
+		return playerrepository.findAllOrderedByName(Sort.by(order));
 	}
 
 	public Boolean remove(Integer id) {
