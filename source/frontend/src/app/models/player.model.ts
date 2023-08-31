@@ -1,5 +1,6 @@
 export interface Player {
     id: number,
+	dni: string,
 	name: string,
 	surname1: string,
 	surname2: string,

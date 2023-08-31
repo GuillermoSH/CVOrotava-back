@@ -10,6 +10,7 @@ public class Player implements Serializable {
 
 	@Id
 	private Integer id;
+	private String dni;
 	private String name;
 	private String surname1;
 	private String surname2;
@@ -22,7 +23,7 @@ public class Player implements Serializable {
 	public Player() {
 	}
 
-	public Player(Integer id, String name, String surname1, String surname2, Integer telephone, String email,
+	public Player(Integer id, String dni, String name, String surname1, String surname2, Integer telephone, String email,
 			String address, String birthday, String category) {
 		this.id = id;
 		this.name = name;
@@ -41,6 +42,14 @@ public class Player implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	public String getName() {

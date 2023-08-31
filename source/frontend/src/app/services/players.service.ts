@@ -7,12 +7,16 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PlayersService {
-  private url: string = 'http://localhost:9097/api/v1/players';
+  private url: string = 'http://192.168.1.27:9097/api/v1/players';
 
   constructor(private _http: HttpClient) { }
 
   getPlayers(): Observable<Player[]> {
     return this._http.get<Player[]>(this.url);
+  }
+
+  getPlayersOrderBy(order: string): Observable<Player[]> {
+    return this._http.get<Player[]>(this.url + "/orderedBy/" + order);
   }
 
   getPlayersByCategory(category: string): Observable<Player[]> {

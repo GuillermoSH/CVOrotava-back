@@ -13,7 +13,9 @@ import com.cvorotava.backend.entity.Player;
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
 	Optional<Player> findById(Integer id);
 	List<Player> findByCategory(String category);
+	List<Player> findAllOrderedBy(Sort sort);
+	Optional<Player> findByDni(String dni);
 	
-	@Query(value="SELECT p FROM Player p")
-	List<Player> findAllOrderedByName(Sort sort);
+	@Query(value="SELECT * FROM Player ORDER BY surname1, surname2, name", nativeQuery = true)
+	List<Player> findAllOrderedBySurnames();
 }

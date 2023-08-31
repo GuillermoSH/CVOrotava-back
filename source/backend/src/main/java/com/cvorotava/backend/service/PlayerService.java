@@ -16,23 +16,29 @@ public class PlayerService {
 	private PlayerRepository playerrepository;
 
 	public Player save(Player entity) {
-		if (!entity.getBirthday().isEmpty()) {				
-			String[] splittedBirthday = entity.getBirthday().split("[/.-]");
-			entity.setBirthday(String.join("-", splittedBirthday[2], splittedBirthday[1], splittedBirthday[0]));
-		}
 		return playerrepository.save(entity);
 	}
 
 	public Player findById(Integer id) {
 		return playerrepository.findById(id).get();
 	}
+	
+	public Player findByDni(String dni) {
+		return playerrepository.findByDni(dni).get();
+	}
 
 	public List<Player> findAll() {
 		return playerrepository.findAll();
 	}
 	
-	public List<Player> findAllOrdered(String order) {
-		return playerrepository.findAllOrderedByName(Sort.by(order));
+	public List<Player> findAllOrderedBy(String order) {
+		if (order.equals("surnames")) {
+			return playerrepository.findAllOrderedBy(Sort.by("surname1", "surname2", "name"));
+		} else if(order.equals("name")) {
+			return playerrepository.findAllOrderedBy(Sort.by("name", "surname1", "surname2"));
+		} else {
+			return playerrepository.findAllOrderedBy(Sort.by(order));
+		}
 	}
 
 	public Boolean remove(Integer id) {

@@ -7,6 +7,7 @@ use cvorotava_ddbb;
 
 CREATE TABLE player (
 	id INT auto_increment,
+    dni VARCHAR(10) NOT NULL,
     name VARCHAR(30) NOT NULL,
     surname1 VARCHAR(20) NOT NULL,
     surname2 VARCHAR(20) NOT NULL,
@@ -54,6 +55,6 @@ INSERT INTO user VALUES(null, "admin", "1234");
 
 INSERT INTO user_roles VALUES(1, 1);
 
-INSERT INTO player VALUES(null, "Guillermo", "Sicilia", "Hernández", null, null, null, null, null);
-INSERT INTO player VALUES(null, "Raquel", "Pérez", "García", null, null, null, null, null);
-INSERT INTO player VALUES(null, "Zaira", "Ocampos", "Lorenzo", null, null, null, null, null);
+INSERT INTO player VALUES(null, "43383780F", "Guillermo", "Sicilia", "Hernández", 616298870, "siciliahernandezguillermo@gmail.com", "C/El Toscal nº37", "2000-05-16", "SEN MAS");
+INSERT INTO player VALUES(null, "54115342E", "Raquel", "Pérez", "García", 687475475, "raquelita2909@gmail.com", "C/El millo nº14", "2000-09-29", "SEN FEM");
+INSERT INTO player VALUES(null, "12345678X", "Zaira", "Ocampos", "Lorenzo", null, null, null, null, "SEN FEM");

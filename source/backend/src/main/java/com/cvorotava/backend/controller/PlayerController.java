@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import com.cvorotava.backend.entity.Player;
 import com.cvorotava.backend.service.PlayerService;
 
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = {"http://192.168.1.27:4200/", "http://localhost:4200/"})
 @RestController
 @RequestMapping("/api/v1/players")
 public class PlayerController {
@@ -28,12 +28,17 @@ public class PlayerController {
 	
 	@GetMapping("/orderedBy/{order}")
 	public List<Player> getPlayersOrderedBy(@PathVariable String order) {
-		return playerservice.findAllOrdered(order);
+		return playerservice.findAllOrderedBy(order);
 	}
 
 	@GetMapping("/category/{category}")
 	public List<Player> getPlayersByCategory(@PathVariable String category) {
 		return playerservice.findByCategory(category);
+	}
+	
+	@GetMapping("/dni/{dni}")
+	public Player getPlayerByDni(@PathVariable String dni) {
+		return playerservice.findByDni(dni);
 	}
 
 	@GetMapping("/{id}")

@@ -12,6 +12,7 @@ export class PlayersComponent {
   players: Player[] = [];
   updatedPlayer: Player = {
     id: 0,
+    dni: '',
     name: '',
     surname1: '',
     surname2: '',
@@ -23,6 +24,7 @@ export class PlayersComponent {
   };
   newPlayer: Player = {
     id: 0,
+    dni: '',
     name: '',
     surname1: '',
     surname2: '',
@@ -62,26 +64,61 @@ export class PlayersComponent {
   }
 
   showUpdateModal(player: Player) {
-    document.getElementById('updateModal')?.classList.toggle('hidden');
     this.updatedPlayer = player;
+    document.getElementById('updateModal')?.classList.toggle('hidden');
+  }
+
+  dismissModal() {
+    document.getElementById('updateModal')?.classList.toggle('hidden');
+    this.reloadPlayersData();
   }
 
   updatePlayer() {
-    this.saveUpdatePlayer(this.updatedPlayer);
+    this.playerService.saveUpdatePlayer(this.updatedPlayer).subscribe({
+      next: () => {
+        Swal.fire({
+          title: `¡Los datos han sido actualizados!`,
+          toast: true,
+          position: 'top-end',
+          width: 'max-content',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.reloadPlayersData();
+        setTimeout(() => {
+          this.dismissModal();
 
-    this.updatedPlayer = {
-      id: 0,
-      name: '',
-      surname1: '',
-      surname2: '',
-      telephone: 0,
-      email: '',
-      address: '',
-      birthday: '',
-      category: '',
-    };
+          this.updatedPlayer = {
+            id: 0,
+            dni: '',
+            name: '',
+            surname1: '',
+            surname2: '',
+            telephone: 0,
+            email: '',
+            address: '',
+            birthday: '',
+            category: '',
+          };
+        }, 1500)
+      },
+      error: (error) => {
+        Swal.fire({
+          title: error.error.message,
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      },
+    });
 
-    document.getElementById('updateModal')?.classList.toggle('hidden');
+  }
+
+  orderPlayersBy(order: string) {
+    this.playerService.getPlayersOrderBy(order).subscribe((players: Player[]) => {
+      this.players = players;
+    })
   }
 
   private reloadPlayersData() {
