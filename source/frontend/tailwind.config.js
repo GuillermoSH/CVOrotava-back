@@ -9,10 +9,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
+        "nunito": ['Nunito', 'sans-serif'],
       },
       colors: {
-        main: "#34285a",
+        "main": "#34285a",
       },
       keyframes: {
         ballSlideInFromRight: {

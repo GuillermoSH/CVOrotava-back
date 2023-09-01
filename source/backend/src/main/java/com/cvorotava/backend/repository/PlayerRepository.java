@@ -16,6 +16,9 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
 	List<Player> findAllOrderedBy(Sort sort);
 	Optional<Player> findByDni(String dni);
 	
-	@Query(value="SELECT * FROM Player ORDER BY surname1, surname2, name", nativeQuery = true)
-	List<Player> findAllOrderedBySurnames();
+	@Query(value="SELECT COUNT(p) FROM Player p")
+	Integer countPlayers();
+	
+	@Query(value="SELECT p FROM Player p WHERE p.dni LIKE %:search% OR p.name LIKE %:search% OR p.surname1 LIKE %:search% OR p.surname2 LIKE %:search% OR p.telephone LIKE %:search% OR p.email LIKE %:search% OR p.address LIKE %:search% OR p.birthday LIKE %:search% OR p.category LIKE %:search%")
+	List<Player> searchLike(@Param("search") String search);
 }

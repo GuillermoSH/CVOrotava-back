@@ -26,6 +26,11 @@ public class PlayerController {
 		return playerservice.findAll();
 	}
 	
+	@GetMapping("/count")
+	public Integer getPlayersCount() {
+		return playerservice.countPlayers();
+	}
+	
 	@GetMapping("/orderedBy/{order}")
 	public List<Player> getPlayersOrderedBy(@PathVariable String order) {
 		return playerservice.findAllOrderedBy(order);
@@ -34,6 +39,11 @@ public class PlayerController {
 	@GetMapping("/category/{category}")
 	public List<Player> getPlayersByCategory(@PathVariable String category) {
 		return playerservice.findByCategory(category);
+	}
+	
+	@GetMapping("/search/{search}")
+	public List<Player> searchPlayersBy(@PathVariable String search) {
+		return playerservice.searchLike(search);
 	}
 	
 	@GetMapping("/dni/{dni}")
@@ -46,12 +56,36 @@ public class PlayerController {
 		return playerservice.findById(id);
 	}
 
-	@PostMapping
-	public ResponseEntity<?> saveUpdatePlayer(@RequestBody Player player) {
+	@PutMapping
+	public ResponseEntity<?> updatePlayer(@RequestBody Player player) {
 		Player newPlayer;
 		HashMap<String, Object> response = new HashMap<>();
 
 		try {
+			newPlayer = playerservice.save(player);
+		} catch (DataAccessException e) {
+			response.put("message", "Error al realizar el insert en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		response.put("message", "¡Se han cambiado los datos con éxito!");
+		response.put("player", newPlayer);
+		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@PostMapping
+	public ResponseEntity<?> savePlayer(@RequestBody Player player) {
+		Player newPlayer;
+		HashMap<String, Object> response = new HashMap<>();
+
+		try {
+			for (Player _player : this.getPlayers()) {
+				if (_player.getDni().equals(player.getDni())) {
+					response.put("message", "Error al realizar el guardado. El jugador ya existe");
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+				}
+			}
 			newPlayer = playerservice.save(player);
 		} catch (DataAccessException e) {
 			response.put("message", "Error al realizar el insert en la base de datos");

@@ -7,20 +7,8 @@
 >
   <i class="fa-solid fa-xmark text-lg text-main"></i>
 </button>
-
-<div class="hidden md:flex search-container">
-  <input
-    class="h-8 bg-slate-50 rounded-ss-full rounded-es-full indent-3 w-56 outline-none border-[1px] border-transparent focus:border-y-[1px] focus:border-s-[1px] focus:border-main focus:w-[300px] duration-300"
-    type="text"
-    placeholder="¿Qué deseas?"
-  />
-  <button class="h-8 bg-main aspect-square rounded-se-full rounded-ee-full">
-    <i class="fa-solid fa-magnifying-glass text-lg text-slate-50"></i>
-  </button>
-</div>
-
 <div
-  class="hidden absolute right-0 top-[50px] bg-neutral-300 p-2 rounded-es-lg text-main font-semibold font-poppins opacity-0 duration-150 delay-100"
+  class="hidden absolute right-0 top-[50px] bg-neutral-300 p-2 rounded-es-lg text-main font-semibold opacity-0 duration-150 delay-100"
   id="profile-dropdown"
 >
   <ul class="flex flex-col gap-2">
@@ -45,12 +33,12 @@
 </div>
 
 <div
-  class="flex justify-center items-center ms-auto gap-3 cursor-pointer [&>*:first-child]:hover:scale-110"
+  class="flex justify-center items-center ms-auto gap-3 cursor-pointer [&>*:first-child]:hover:scale-105"
   id="profile-icon"
   (click)="toggleDropdown()"
 >
   <img
-    class="h-[30px] rounded-full border-2 border-main duration-200"
+    class="h-9 rounded-full border-2 border-main duration-200"
     src="../../../assets/imgs/foto_perfil_ejemplo.jpg"
     alt="Foto de perfil"
   />

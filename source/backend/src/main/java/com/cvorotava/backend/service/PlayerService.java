@@ -18,6 +18,10 @@ public class PlayerService {
 	public Player save(Player entity) {
 		return playerrepository.save(entity);
 	}
+	
+	public Integer countPlayers() {
+		return playerrepository.countPlayers();
+	}
 
 	public Player findById(Integer id) {
 		return playerrepository.findById(id).get();
@@ -39,6 +43,10 @@ public class PlayerService {
 		} else {
 			return playerrepository.findAllOrderedBy(Sort.by(order));
 		}
+	}
+	
+	public List<Player> searchLike(String search) {
+		return playerrepository.searchLike(search);
 	}
 
 	public Boolean remove(Integer id) {

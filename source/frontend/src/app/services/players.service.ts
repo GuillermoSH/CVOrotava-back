@@ -27,11 +27,19 @@ export class PlayersService {
     return this._http.get<Player>(this.url + `/${id}`);
   }
 
-  saveUpdatePlayer(player: Player): Observable<Player> {
+  savePlayer(player: Player): Observable<Player> {
     return this._http.post<Player>(this.url, player);
+  }
+
+  updatePlayer(player: Player): Observable<Player> {
+    return this._http.put<Player>(this.url, player);
   }
 
   deletePlayer(id: number): Observable<Player> {
     return this._http.delete<Player>(this.url + `/${id}`);
+  }
+
+  searchBy(search: string): Observable<Player[]> {
+    return this._http.get<Player[]>(this.url + "/search/" + search);
   }
 }

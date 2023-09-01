@@ -10,7 +10,7 @@ CREATE TABLE player (
     dni VARCHAR(10) NOT NULL,
     name VARCHAR(30) NOT NULL,
     surname1 VARCHAR(20) NOT NULL,
-    surname2 VARCHAR(20) NOT NULL,
+    surname2 VARCHAR(20),
     telephone INT,
     email VARCHAR(200),
     address VARCHAR(250),
