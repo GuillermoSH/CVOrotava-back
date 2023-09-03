@@ -1,9 +1,14 @@
 <div class="w-full h-full">
-  <button (click)="showSaveModal()" class="bg-blue-500 text-neutral-50 font-medium [&>*:first-child]:hover:rotate-180 px-4 py-2 rounded-md mb-5">
+  <button
+    (click)="showSaveModal()"
+    class="bg-blue-500 text-neutral-50 font-medium [&>*:first-child]:hover:rotate-180 px-4 py-2 rounded-md mb-5"
+  >
     Añadir jugador
     <i class="fa-solid fa-plus duration-200"></i>
   </button>
-  <div class="flex justify-center items-center mb-6 rounded-full overflow-hidden w-full">
+  <div
+    class="flex justify-center items-center mb-6 rounded-full overflow-hidden w-full"
+  >
     <div class="relative flex justify-center items-center w-full md:w-max">
       <input
         class="h-8 bg-slate-100 px-3 rounded-ss-full rounded-es-full w-[calc(100%-32px)] md:w-[400px] outline-none border-[1px] border-transparent focus:border-y-[1px] focus:border-s-[1px] focus:border-main duration-300 placeholder:text-neutral-500"
@@ -12,10 +17,16 @@
         (keyup.enter)="searchPlayers()"
         id="search-input"
       />
-      <button class="absolute right-[42px] text-neutral-500 hover:text-neutral-800 duration-200" (click)="resetSearch()">
+      <button
+        class="absolute right-[42px] text-neutral-500 hover:text-neutral-800 duration-200"
+        (click)="resetSearch()"
+      >
         <i class="fa-solid fa-xmark"></i>
       </button>
-      <button class="h-8 bg-main aspect-square rounded-se-full rounded-ee-full flex items-center justify-center" (click)="searchPlayers()">
+      <button
+        class="h-8 bg-main aspect-square rounded-se-full rounded-ee-full flex items-center justify-center"
+        (click)="searchPlayers()"
+      >
         <i class="fa-solid fa-magnifying-glass text-lg text-slate-50"></i>
       </button>
     </div>
@@ -137,10 +148,10 @@
   <!-- ******************************** UPDATE MODAL ******************************** -->
   <div
     id="update-modal"
-    class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-screen bg-neutral-800/80 hidden p-3 lg:p-6"
+    class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-screen bg-neutral-800/80 hidden p-3 lg:p-6 z-[10]"
   >
     <div
-      class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base"
+      class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base relative"
     >
       <h1 class="text-2xl font-semibold text-main">Editar jugador.-</h1>
       <!-- ************************** PC TABLE ************************** -->
@@ -159,7 +170,9 @@
           </th>
         </tr>
         <tr>
-          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+          <td
+            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
+          >
             <input
               type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
@@ -168,7 +181,9 @@
               #name="ngModel"
             />
           </td>
-          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+          <td
+            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
+          >
             <input
               type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
@@ -177,7 +192,9 @@
               #surname1="ngModel"
             />
           </td>
-          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+          <td
+            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
+          >
             <input
               type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
@@ -205,7 +222,9 @@
           </th>
         </tr>
         <tr>
-          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+          <td
+            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
+          >
             <input
               type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
@@ -214,7 +233,9 @@
               #dni="ngModel"
             />
           </td>
-          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+          <td
+            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
+          >
             <input
               type="date"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
@@ -223,7 +244,9 @@
               #birthday="ngModel"
             />
           </td>
-          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+          <td
+            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
+          >
             <select
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
               type="text"
@@ -231,7 +254,9 @@
               name="category"
               #name="ngModel"
             >
-              <option [value]="category" *ngFor="let category of categories">{{category}}</option>
+              <option [value]="category" *ngFor="let category of categories">
+                {{ category }}
+              </option>
             </select>
           </td>
         </tr>
@@ -253,7 +278,9 @@
           </th>
         </tr>
         <tr>
-          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+          <td
+            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
+          >
             <input
               type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
@@ -262,7 +289,9 @@
               #telephone="ngModel"
             />
           </td>
-          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+          <td
+            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
+          >
             <input
               type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
@@ -271,7 +300,9 @@
               #email="ngModel"
             />
           </td>
-          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+          <td
+            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
+          >
             <input
               type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
@@ -315,7 +346,9 @@
           </th>
         </tr>
         <tr>
-          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+          <td
+            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
+          >
             <input
               type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
@@ -324,7 +357,9 @@
               #surname1="ngModel"
             />
           </td>
-          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+          <td
+            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
+          >
             <input
               type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
@@ -390,7 +425,9 @@
               name="category"
               #name="ngModel"
             >
-              <option [value]="category" *ngFor="let category of categories">{{category}}</option>
+              <option [value]="category" *ngFor="let category of categories">
+                {{ category }}
+              </option>
             </select>
           </td>
         </tr>
@@ -469,23 +506,34 @@
           id="btn-update-player"
         >
           <span>Guardar</span>
+          <span class="hiddenplus">Guardando...</span>
           <i class="fa-solid fa-save"></i>
+          <i class="fa-solid fa-spinner fa-spin hiddenplus"></i>
         </button>
         <button
           class="text-sm lg:text-xl bg-red-600 px-5 py-1 rounded-md shadow-xl text-neutral-50 w-2/5 lg:w-72 duration-200 flex items-center justify-center gap-2"
-          (click)="dismissUpdateModal()"
-          id="btn-cancel-update-player"
+          (click)="deletePlayer()"
+          id="btn-delete-player"
         >
-          <span>Cancelar</span>
-          <i class="fa-solid fa-ban"></i>
+          <span>Eliminar</span>
+          <span class="hiddenplus">Eliminando...</span>
+          <i class="fa-solid fa-trash"></i>
+          <i class="fa-solid fa-spinner fa-spin hiddenplus"></i>
         </button>
       </div>
+      <button
+        class="text-sm lg:text-xl text-main duration-200 absolute top-3 right-3 lg:top-5 lg:right-5 w-5 h-5 flex justify-center items-center"
+        (click)="dismissUpdateModal()"
+        id="btn-cancel-update-player"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
     </div>
   </div>
   <!-- ******************************** NEW PLAYER MODAL ******************************** -->
   <div
     id="new-player-modal"
-    class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-screen bg-neutral-800/80 p-3 lg:p-6 hidden"
+    class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-screen bg-neutral-800/80 p-3 lg:p-6 hidden z-[10]"
   >
     <div
       class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base"
@@ -498,7 +546,6 @@
           >
             <label
               class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-
               >DNI</label
             >
             <input
@@ -514,7 +561,6 @@
           >
             <label
               class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-
               >Nombre</label
             >
             <input
@@ -532,7 +578,6 @@
           >
             <label
               class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-
               >Primer apellido</label
             >
             <input
@@ -548,7 +593,6 @@
           >
             <label
               class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-
               >Segundo apellido</label
             >
             <input
@@ -566,7 +610,6 @@
           >
             <label
               class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-
               >Fecha de nacimiento</label
             >
             <input
@@ -582,7 +625,6 @@
           >
             <label
               class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-
               >Categoría</label
             >
             <select
@@ -592,7 +634,9 @@
               name="category"
               #name="ngModel"
             >
-              <option [value]="category" *ngFor="let category of categories">{{category}}</option>
+              <option [value]="category" *ngFor="let category of categories">
+                {{ category }}
+              </option>
             </select>
           </div>
         </div>
@@ -602,7 +646,6 @@
           >
             <label
               class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-
               >Teléfono</label
             >
             <input
@@ -618,7 +661,6 @@
           >
             <label
               class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-
               >Email</label
             >
             <input
@@ -654,7 +696,9 @@
           id="btn-new-player"
         >
           <span>Guardar</span>
+          <span class="hiddenplus">Guardando...</span>
           <i class="fa-solid fa-save"></i>
+          <i class="fa-solid fa-spinner fa-spin hiddenplus"></i>
         </button>
         <button
           class="text-sm lg:text-xl bg-red-600 px-5 py-1 rounded-md shadow-xl text-neutral-50 w-2/5 lg:w-72 duration-200 flex items-center justify-center gap-2"

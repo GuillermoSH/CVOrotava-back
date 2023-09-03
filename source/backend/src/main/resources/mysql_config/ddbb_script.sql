@@ -57,4 +57,6 @@ INSERT INTO user_roles VALUES(1, 1);
 
 INSERT INTO player VALUES(null, "43383780F", "Guillermo", "Sicilia", "Hernández", 616298870, "siciliahernandezguillermo@gmail.com", "C/El Toscal nº37", "2000-05-16", "SEN MAS");
 INSERT INTO player VALUES(null, "54115342E", "Raquel", "Pérez", "García", 687475475, "raquelita2909@gmail.com", "C/El millo nº14", "2000-09-29", "SEN FEM");
-INSERT INTO player VALUES(null, "12345678X", "Zaira", "Ocampos", "Lorenzo", null, null, null, null, "SEN FEM");
+INSERT INTO player VALUES(null, "12345678X", "Zaira", "Ocampos", "Lorenzo", 62314123, "zairaoc@gmail.com", "C/No se, por ahi", "2000-12-24", "SEN FEM");
+INSERT INTO player VALUES(null, "18712678X", "Raúl", "Moleiro", "Regalado", 61745541, "raulregalado@gmail.com", "C/El Toscal nº56", "2000-09-02", "SEN MAS");
+INSERT INTO player VALUES(null, "32445678X", "Luisa", "Sicilia", "Hernández", 78612534, "luisasic@gmail.com", "C/El Toscal nº37", "2007-01-22", "JUV FEM");
