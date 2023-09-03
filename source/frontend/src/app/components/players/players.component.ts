@@ -89,7 +89,7 @@ export class PlayersComponent {
           btnSave?.classList.toggle("bg-green-600");
           btnCancel?.classList.toggle("disabled");
           if(btnSave) {
-            btnSave.children[0].innerHTML = "Guardar cambios";
+            btnSave.children[0].innerHTML = "Guardar";
           }
           
           this.newPlayer = {
@@ -195,7 +195,7 @@ export class PlayersComponent {
           btnUpdate?.classList.toggle("bg-green-600");
           btnCancel?.classList.toggle("disabled");
           if(btnUpdate) {
-            btnUpdate.children[0].innerHTML = "Guardar cambios";
+            btnUpdate.children[0].innerHTML = "Guardar";
           }
 
           this.updatedPlayer = {
@@ -240,8 +240,8 @@ export class PlayersComponent {
   }
 
   searchPlayers() {
-    let search = <HTMLInputElement>document.getElementById("search-input");
-    this.playerService.searchBy(search?.value).subscribe((players: Player[]) => {
+    let searchInput = <HTMLInputElement>document.getElementById("search-input");
+    this.playerService.searchBy(searchInput?.value).subscribe((players: Player[]) => {
       if (players.length!=0) {
         this.players = players;
       } else {
@@ -260,5 +260,13 @@ export class PlayersComponent {
         })
       }
     })
+  }
+
+  resetSearch() {
+    let searchInput = <HTMLInputElement>document.getElementById("search-input");
+    if(searchInput) {
+      searchInput.value = "";
+    }
+    this.reloadPlayersData();
   }
 }

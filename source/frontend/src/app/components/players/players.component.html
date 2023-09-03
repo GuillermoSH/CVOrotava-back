@@ -3,17 +3,22 @@
     Añadir jugador
     <i class="fa-solid fa-plus duration-200"></i>
   </button>
-  <div class="flex justify-center mb-6 rounded-full overflow-hidden">
-    <input
-      class="h-8 bg-slate-100 px-3 rounded-ss-full rounded-es-full w-[400px] max-w-[calc(100%-32px)] outline-none border-[1px] border-transparent focus:border-y-[1px] focus:border-s-[1px] focus:border-main duration-300"
-      type="text"
-      placeholder="¿Qué deseas?"
-      (keyup.enter)="searchPlayers()"
-      id="search-input"
-    />
-    <button class="h-8 bg-main aspect-square rounded-se-full rounded-ee-full flex items-center justify-center" (click)="searchPlayers()">
-      <i class="fa-solid fa-magnifying-glass text-lg text-slate-50"></i>
-    </button>
+  <div class="flex justify-center items-center mb-6 rounded-full overflow-hidden w-full">
+    <div class="relative flex justify-center items-center w-full md:w-max">
+      <input
+        class="h-8 bg-slate-100 px-3 rounded-ss-full rounded-es-full w-[calc(100%-32px)] md:w-[400px] outline-none border-[1px] border-transparent focus:border-y-[1px] focus:border-s-[1px] focus:border-main duration-300 placeholder:text-neutral-500"
+        type="text"
+        placeholder="¿Qué deseas?"
+        (keyup.enter)="searchPlayers()"
+        id="search-input"
+      />
+      <button class="absolute right-[42px] text-neutral-500 hover:text-neutral-800 duration-200" (click)="resetSearch()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <button class="h-8 bg-main aspect-square rounded-se-full rounded-ee-full flex items-center justify-center" (click)="searchPlayers()">
+        <i class="fa-solid fa-magnifying-glass text-lg text-slate-50"></i>
+      </button>
+    </div>
   </div>
   <div class="overflow-x-auto">
     <table
