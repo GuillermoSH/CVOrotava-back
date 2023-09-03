@@ -1,8 +1,6 @@
 :host {
-    height: 100vh;
     display: flex;
 }
-
 
 @media (width >= 768px) {
     #sidebar-container.active {

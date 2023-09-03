@@ -6,6 +6,12 @@
     @apply font-nunito
 }
 
+:root {
+    min-height: 100vh;
+    width: 100vw;
+    scrollbar-width: 0;
+}
+
 .hiddenplus {
     display: none !important;
 }

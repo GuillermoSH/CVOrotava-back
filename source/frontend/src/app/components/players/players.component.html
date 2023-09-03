@@ -1,4 +1,4 @@
-<div class="w-full h-full">
+<div class="w-full min-h-full">
   <button
     (click)="showSaveModal()"
     class="bg-blue-500 text-neutral-50 font-medium [&>*:first-child]:hover:rotate-180 px-4 py-2 rounded-md mb-5"
@@ -151,7 +151,7 @@
     class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-screen bg-neutral-800/80 hidden p-3 lg:p-6 z-[10]"
   >
     <div
-      class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base relative"
+      class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base relative animate-popup"
     >
       <h1 class="text-2xl font-semibold text-main">Editar jugador.-</h1>
       <!-- ************************** PC TABLE ************************** -->
@@ -522,7 +522,7 @@
         </button>
       </div>
       <button
-        class="text-sm lg:text-xl text-main duration-200 absolute top-3 right-3 lg:top-5 lg:right-5 w-5 h-5 flex justify-center items-center"
+        class="text-xl text-main duration-200 absolute top-3 right-3 lg:top-5 lg:right-5 w-5 h-5 flex justify-center items-center"
         (click)="dismissUpdateModal()"
         id="btn-cancel-update-player"
       >
@@ -533,10 +533,10 @@
   <!-- ******************************** NEW PLAYER MODAL ******************************** -->
   <div
     id="new-player-modal"
-    class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-screen bg-neutral-800/80 p-3 lg:p-6 hidden z-[10]"
+    class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-full bg-neutral-800/80 p-3 lg:p-6 hidden z-[10]"
   >
     <div
-      class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base"
+      class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base animate-popup"
     >
       <h1 class="text-2xl font-semibold text-main">Añadir jugador.-</h1>
       <div class="flex flex-col gap-2">
