@@ -40,6 +40,10 @@ export class PlayersService {
     return this._http.delete<Player>(this.url + `/${id}`);
   }
 
+  deleteAll() {
+    return this._http.delete(this.url);
+  }
+
   searchBy(search: string): Observable<Player[]> {
     return this._http.get<Player[]>(this.url + "/search/" + search);
   }

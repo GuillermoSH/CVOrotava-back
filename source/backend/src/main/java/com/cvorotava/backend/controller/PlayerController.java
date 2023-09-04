@@ -116,4 +116,18 @@ public class PlayerController {
 		response.put("message", "¡El jugador fue eliminado con éxito!");
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 	}
+	
+	@DeleteMapping
+	public ResponseEntity<?> deleteAll() {
+		HashMap<String, Object> response = new HashMap<>();
+		try {
+			playerservice.removeAll();
+		} catch (DataAccessException e) {
+			response.put("message", "Error al eliminar los jugadores de la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("message", "¡La lista de jugadores fue eliminada con éxito!");
+		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
+	}
 }

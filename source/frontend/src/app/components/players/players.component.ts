@@ -35,7 +35,7 @@ export class PlayersComponent {
     category: '',
   };
 
-  constructor(private playerService: PlayersService) {}
+  constructor(private playerService: PlayersService) { }
 
   ngOnInit() {
     this.reloadPlayersData();
@@ -352,5 +352,45 @@ export class PlayersComponent {
         });
       },
     });
+  }
+
+  deleteAll() {
+    Swal.fire({
+      icon: "warning",
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonColor: "#dc2626",
+      focusConfirm: false,
+      focusCancel: true,
+      confirmButtonText: "Confirmar",
+      title: "¿Estás seguro/a de borrar todos los jugadores?"
+    }).then(() => {
+      this.playerService.deleteAll().subscribe({
+        next: () => {
+          Swal.fire({
+            icon: "success",
+            title: "¡Se han borrado correctamente!",
+            timer: 1500,
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timerProgressBar: true,
+          })
+          setTimeout(() => {
+            this.reloadPlayersData();
+          }, 1500);
+        },
+        error: () => {
+          Swal.fire({
+            icon: "error",
+            title: "Error al borrar todos los datos",
+            text: "Se ha producido un error y no se ha podidon borrar todos los datos de los jugadores...",
+            showConfirmButton: true,
+            confirmButtonColor: "#34285a",
+            confirmButtonText: "Entendido",
+          })
+        }
+      })
+    })
   }
 }

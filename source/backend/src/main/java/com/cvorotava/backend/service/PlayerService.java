@@ -59,6 +59,10 @@ public class PlayerService {
 		return false;
 	}
 	
+	public void removeAll() {
+		playerrepository.deleteAll();
+	}
+	
 	public List<Player> findByCategory(String category) {
 		return playerrepository.findByCategory(category);
 	}
