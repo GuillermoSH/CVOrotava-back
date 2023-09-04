@@ -20,7 +20,7 @@ module.exports = {
           '100%': { transform: 'translateX(0) rotate(0deg)', opacity: 1}
         },
         popup: {
-          '0%': { transform: 'scale(0)', opacity: 0 },
+          '0%': { transform: 'scale(0.25)', opacity: 0 },
           '100%': { transform: 'scale(1)', opacity: 1 }
         },
         dropdown: {
@@ -30,7 +30,7 @@ module.exports = {
       },
       animation: {
         ballSlideInFromRight: 'ballSlideInFromRight 1s ease-out',
-        popup: 'popup 0.2s ease-out',
+        popup: 'popup 0.3s ease-out',
         dropdown: 'dropdown 0.2s linear',
       }
     },
