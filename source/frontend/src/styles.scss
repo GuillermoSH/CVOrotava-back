@@ -695,6 +695,18 @@ video {
   height: max-content;
 }
 
+.h-56 {
+  height: 14rem;
+}
+
+.h-1\/2 {
+  height: 50%;
+}
+
+.h-72 {
+  height: 18rem;
+}
+
 .min-h-full {
   min-height: 100%;
 }
@@ -757,6 +769,10 @@ video {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-2\/3 {
+  width: 66.666667%;
 }
 
 .min-w-\[240px\] {
@@ -883,6 +899,10 @@ video {
 
 .gap-\[5px\] {
   gap: 5px;
+}
+
+.gap-6 {
+  gap: 1.5rem;
 }
 
 .overflow-hidden {
@@ -1017,6 +1037,23 @@ video {
 
 .bg-transparent {
   background-color: transparent;
+}
+
+.bg-neutral-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 229 229 / var(--tw-bg-opacity));
+}
+
+.bg-main\/50 {
+  background-color: rgb(52 40 90 / 0.5);
+}
+
+.bg-main\/30 {
+  background-color: rgb(52 40 90 / 0.3);
+}
+
+.bg-main\/20 {
+  background-color: rgb(52 40 90 / 0.2);
 }
 
 .p-2 {
@@ -1200,6 +1237,10 @@ video {
 
 .duration-300 {
   transition-duration: 300ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
 }
 
 * {
@@ -1466,6 +1507,11 @@ video {
 
 .\[\&\>\*\:first-child\]\:hover\:rotate-180:hover>*:first-child {
   --tw-rotate: 180deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.\[\&\>\*\:first-child\]\:hover\:rotate-\[360deg\]:hover>*:first-child {
+  --tw-rotate: 360deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 

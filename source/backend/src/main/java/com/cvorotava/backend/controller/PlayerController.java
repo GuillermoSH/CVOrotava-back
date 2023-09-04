@@ -43,6 +43,9 @@ public class PlayerController {
 	
 	@GetMapping("/search/{search}")
 	public List<Player> searchPlayersBy(@PathVariable String search) {
+		if (search.equals("empty")) {
+			return playerservice.findAll();
+		}
 		return playerservice.searchLike(search);
 	}
 	

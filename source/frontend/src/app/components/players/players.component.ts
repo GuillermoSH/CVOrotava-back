@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 export class PlayersComponent {
   players: Player[] = [];
   categories: string[] = [];
+  loaderErrorMsg: string = "";
   updatedPlayer: Player = {
     id: 0,
     dni: '',
@@ -237,15 +238,30 @@ export class PlayersComponent {
   }
 
   private reloadPlayersData() {
-    this.playerService.getPlayers().subscribe((players: Player[]) => {
-      this.players = players;
+    this.playerService.getPlayers().subscribe({
+      next: (players: Player[]) => {
+        if (players.length < 1) {
+          this.loaderErrorMsg = "Parece que no existen jugadores aún. ¡Es hora de formar un equipo!";
+        } else {
+          this.players = players;
+        }
+      },
+      error: () => {
+        this.loaderErrorMsg = "Parece que no se han podido cargar los datos, recarga la página y si no se soluciona contacte con un técnico.";
+        document.getElementById("players-table")?.classList.toggle("hidden");
+        document.getElementById("not-loaded-wrapper")?.classList.toggle("hidden");
+      }
     });
   }
 
   searchPlayers() {
     let searchInput = <HTMLInputElement>document.getElementById('search-input');
+    let aux = searchInput.value;
+    if (aux.length < 1) {
+      aux = "empty";
+    }
     this.playerService
-      .searchBy(searchInput?.value)
+      .searchBy(aux)
       .subscribe((players: Player[]) => {
         if (players.length != 0) {
           this.players = players;

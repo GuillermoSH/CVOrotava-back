@@ -1,142 +1,105 @@
 <div class="w-full min-h-full">
-  <button
-    (click)="showSaveModal()"
-    class="bg-blue-500 text-neutral-50 font-medium [&>*:first-child]:hover:rotate-180 px-4 py-2 rounded-md mb-5"
-  >
+  <button (click)="showSaveModal()"
+    class="bg-blue-500 text-neutral-50 font-medium [&>*:first-child]:hover:rotate-180 px-4 py-2 rounded-md mb-5">
     Añadir jugador
-    <i class="fa-solid fa-plus duration-200"></i>
+    <i class="fa-solid fa-plus duration-500"></i>
   </button>
-  <div
-    class="flex justify-center items-center mb-6 rounded-full overflow-hidden w-full"
-  >
+  <div class="flex justify-center items-center mb-6 rounded-full overflow-hidden w-full">
     <div class="relative flex justify-center items-center w-full md:w-max">
       <input
         class="h-8 bg-slate-100 px-3 rounded-ss-full rounded-es-full w-[calc(100%-32px)] md:w-[400px] outline-none border-[1px] border-transparent focus:border-y-[1px] focus:border-s-[1px] focus:border-main duration-300 placeholder:text-neutral-500"
-        type="text"
-        placeholder="¿Qué deseas?"
-        (keyup.enter)="searchPlayers()"
-        id="search-input"
-      />
-      <button
-        class="absolute right-[42px] text-neutral-500 hover:text-neutral-800 duration-200"
-        (click)="resetSearch()"
-      >
+        type="text" placeholder="¿Qué deseas?" (keyup.enter)="searchPlayers()" id="search-input" />
+      <button class="absolute right-[42px] text-neutral-500 hover:text-neutral-800 duration-200"
+        (click)="resetSearch()">
         <i class="fa-solid fa-xmark"></i>
       </button>
-      <button
-        class="h-8 bg-main aspect-square rounded-se-full rounded-ee-full flex items-center justify-center"
-        (click)="searchPlayers()"
-      >
+      <button class="h-8 bg-main aspect-square rounded-se-full rounded-ee-full flex items-center justify-center"
+        (click)="searchPlayers()">
         <i class="fa-solid fa-magnifying-glass text-lg text-slate-50"></i>
       </button>
     </div>
   </div>
   <div class="overflow-x-auto">
-    <table
-      class="table-auto border-separate rounded-lg min-w-full text-xs lg:text-base"
-    >
+    <div id="not-loaded-wrapper"
+      class="h-72 w-full bg-neutral-300 rounded-md flex flex-col items-center justify-center gap-6 hidden">
+      <h1 class="text-xl w-2/5 text-center text-main font-semibold">{{loaderErrorMsg}}</h1>
+      <button onclick="location.reload()"
+        class="bg-blue-500 text-neutral-50 font-medium [&>*:first-child]:hover:rotate-[360deg] px-4 py-2 rounded-md mb-5">
+        Recargar la pagina
+        <i class="fa-solid fa-rotate-right duration-500"></i>
+      </button>
+    </div>
+    <table id="players-table" class="table-auto border-separate rounded-lg min-w-full text-xs lg:text-base">
       <tr>
         <th
           class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap cursor-pointer"
-          (click)="orderPlayersBy('category')"
-        >
+          (click)="orderPlayersBy('category')">
           Categoría
         </th>
         <th
           class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap cursor-pointer"
-          (click)="orderPlayersBy('name')"
-        >
+          (click)="orderPlayersBy('name')">
           Nombre
         </th>
         <th
           class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap cursor-pointer"
-          (click)="orderPlayersBy('surnames')"
-        >
+          (click)="orderPlayersBy('surnames')">
           Apellidos
         </th>
         <th
           class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap cursor-pointer"
-          (click)="orderPlayersBy('birthday')"
-        >
+          (click)="orderPlayersBy('birthday')">
           Fecha nacimiento
         </th>
         <th
-          class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap"
-        >
+          class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap">
           DNI
         </th>
         <th
-          class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap"
-        >
+          class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap">
           Teléfono
         </th>
         <th
-          class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap"
-        >
+          class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap">
           Email
         </th>
         <th
-          class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap"
-        >
+          class="rounded-md border border-main/50 bg-main text-neutral-50 font-semibold px-3 min-w-max whitespace-nowrap">
           Dirección
         </th>
         <th></th>
       </tr>
       <tr *ngFor="let player of players">
-        <td
-          class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"
-        >
+        <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
           {{ player.category }}
         </td>
-        <td
-          class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"
-        >
+        <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
           {{ player.name }}
         </td>
-        <td
-          class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"
-        >
+        <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
           {{ player.surname1 + " " + player.surname2 }}
         </td>
-        <td
-          *ngIf="player.birthday != null; else nullBirthday"
-          class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"
-        >
+        <td *ngIf="player.birthday != null; else nullBirthday"
+          class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
           {{ player.birthday | dateFormat }}
         </td>
         <ng-template #nullBirthday>
-          <td
-            class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"
-          ></td>
+          <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"></td>
         </ng-template>
-        <td
-          class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"
-        >
+        <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
           {{ player.dni }}
         </td>
-        <td
-          class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"
-        >
+        <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
           {{ player.telephone }}
         </td>
-        <td
-          class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"
-        >
+        <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
           {{ player.email }}
         </td>
-        <td
-          class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"
-        >
+        <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
           {{ player.address }}
         </td>
-        <td
-          class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap"
-        >
-          <button
-            class="edit-btn"
-            type="button"
-            (click)="showUpdateModal(player)"
-          >
+        <td class="rounded-md border border-main/50 px-3 min-w-max whitespace-nowrap">
+          <button class="edit-btn" type="button" (click)="showUpdateModal(player)">
             <i class="fa-solid fa-pencil"></i>
           </button>
         </td>
@@ -146,114 +109,63 @@
 
   <!-- ******************************************************** MODALS ******************************************************** -->
   <!-- ******************************** UPDATE MODAL ******************************** -->
-  <div
-    id="update-modal"
-    class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-screen bg-neutral-800/80 hidden p-3 lg:p-6 z-[10]"
-  >
+  <div id="update-modal"
+    class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-screen bg-neutral-800/80 hidden p-3 lg:p-6 z-[10]">
     <div
-      class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base relative animate-popup"
-    >
+      class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base relative animate-popup">
       <h1 class="text-2xl font-semibold text-main">Editar jugador.-</h1>
       <!-- ************************** PC TABLE ************************** -->
       <table class="table-auto border-separate hidden lg:table">
         <tr>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md w-[200px]"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md w-[200px]">
             Nombre
           </th>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-            colspan="2"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md" colspan="2">
             Apellidos
           </th>
         </tr>
         <tr>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.name"
-              name="name"
-              #name="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.name" name="name" #name="ngModel" />
           </td>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.surname1"
-              name="surname1"
-              #surname1="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.surname1" name="surname1" #surname1="ngModel" />
           </td>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.surname2"
-              name="surname2"
-              #surname2="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.surname2" name="surname2" #surname2="ngModel" />
           </td>
         </tr>
         <tr>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md">
             DNI
           </th>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md">
             Fecha de nacimiento
           </th>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md">
             Categoría
           </th>
         </tr>
         <tr>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.dni"
-              name="dni"
-              #dni="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.dni" name="dni" #dni="ngModel" />
           </td>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="date"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="date"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.birthday"
-              name="birthday"
-              #birthday="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.birthday" name="birthday" #birthday="ngModel" />
           </td>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <select
-              class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              type="text"
-              [(ngModel)]="updatedPlayer.category"
-              name="category"
-              #name="ngModel"
-            >
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <select class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
+              type="text" [(ngModel)]="updatedPlayer.category" name="category" #name="ngModel">
               <option [value]="category" *ngFor="let category of categories">
                 {{ category }}
               </option>
@@ -261,170 +173,94 @@
           </td>
         </tr>
         <tr>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md">
             Teléfono
           </th>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md">
             Email
           </th>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md">
             Dirección
           </th>
         </tr>
         <tr>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.telephone"
-              name="telephone"
-              #telephone="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.telephone" name="telephone" #telephone="ngModel" />
           </td>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.email"
-              name="email"
-              #email="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.email" name="email" #email="ngModel" />
           </td>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.address"
-              name="address"
-              #address="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.address" name="address" #address="ngModel" />
           </td>
         </tr>
       </table>
       <!-- ************************** MOBILE TABLE ************************** -->
       <table class="table-auto border-separate lg:hidden text-sm">
         <tr>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-            colspan="2"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md" colspan="2">
             Nombre
           </th>
         </tr>
         <tr>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-            colspan="2"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50" colspan="2">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.name"
-              name="name"
-              #name="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.name" name="name" #name="ngModel" />
           </td>
         </tr>
         <tr>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-            colspan="2"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md" colspan="2">
             Apellidos
           </th>
         </tr>
         <tr>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.surname1"
-              name="surname1"
-              #surname1="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.surname1" name="surname1" #surname1="ngModel" />
           </td>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.surname2"
-              name="surname2"
-              #surname2="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.surname2" name="surname2" #surname2="ngModel" />
           </td>
         </tr>
         <tr>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md">
             DNI
           </th>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md">
             Fecha de nacimiento
           </th>
         </tr>
         <tr>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.dni"
-              name="dni"
-              #dni="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.dni" name="dni" #dni="ngModel" />
           </td>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-          >
-            <input
-              type="date"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50">
+            <input type="date"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.birthday"
-              name="birthday"
-              #birthday="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.birthday" name="birthday" #birthday="ngModel" />
           </td>
         </tr>
         <tr>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-            colspan="2"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md" colspan="2">
             Categoría
           </th>
         </tr>
         <tr>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-            colspan="2"
-          >
-            <select
-              class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              type="text"
-              [(ngModel)]="updatedPlayer.category"
-              name="category"
-              #name="ngModel"
-            >
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50" colspan="2">
+            <select class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
+              type="text" [(ngModel)]="updatedPlayer.category" name="category" #name="ngModel">
               <option [value]="category" *ngFor="let category of categories">
                 {{ category }}
               </option>
@@ -432,79 +268,46 @@
           </td>
         </tr>
         <tr>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-            colspan="2"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md" colspan="2">
             Teléfono
           </th>
         </tr>
         <tr>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-            colspan="2"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50" colspan="2">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.telephone"
-              name="telephone"
-              #telephone="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.telephone" name="telephone" #telephone="ngModel" />
           </td>
         </tr>
         <tr>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-            colspan="2"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md" colspan="2">
             Email
           </th>
         </tr>
         <tr>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-            colspan="2"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50" colspan="2">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.email"
-              name="email"
-              #email="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.email" name="email" #email="ngModel" />
           </td>
         </tr>
         <tr>
-          <th
-            class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md"
-            colspan="2"
-          >
+          <th class="text-start bg-main text-slate-300 px-3 border border-main/50 rounded-md" colspan="2">
             Dirección
           </th>
         </tr>
         <tr>
-          <td
-            class="border border-main/50 rounded-md overflow-hidden bg-neutral-50"
-            colspan="2"
-          >
-            <input
-              type="text"
+          <td class="border border-main/50 rounded-md overflow-hidden bg-neutral-50" colspan="2">
+            <input type="text"
               class="w-full bg-transparent outline-none px-3 focus:bg-main/20 h-[28px] rounded-md duration-200"
-              [(ngModel)]="updatedPlayer.address"
-              name="address"
-              #address="ngModel"
-            />
+              [(ngModel)]="updatedPlayer.address" name="address" #address="ngModel" />
           </td>
         </tr>
       </table>
       <div class="flex lg:justify-center gap-3 lg:gap-6">
-        <button
-          type="button"
+        <button type="button"
           class="text-sm lg:text-xl bg-blue-600 px-5 py-1 rounded-md shadow-xl text-neutral-50 w-3/5 lg:w-72 duration-200 flex items-center justify-center gap-2"
-          (click)="updatePlayer()"
-          id="btn-update-player"
-        >
+          (click)="updatePlayer()" id="btn-update-player">
           <span>Guardar</span>
           <span class="hiddenplus">Guardando...</span>
           <i class="fa-solid fa-save"></i>
@@ -512,9 +315,7 @@
         </button>
         <button
           class="text-sm lg:text-xl bg-red-600 px-5 py-1 rounded-md shadow-xl text-neutral-50 w-2/5 lg:w-72 duration-200 flex items-center justify-center gap-2"
-          (click)="deletePlayer()"
-          id="btn-delete-player"
-        >
+          (click)="deletePlayer()" id="btn-delete-player">
           <span>Eliminar</span>
           <span class="hiddenplus">Eliminando...</span>
           <i class="fa-solid fa-trash"></i>
@@ -523,117 +324,52 @@
       </div>
       <button
         class="text-xl text-main duration-200 absolute top-3 right-3 lg:top-5 lg:right-5 w-5 h-5 flex justify-center items-center"
-        (click)="dismissUpdateModal()"
-        id="btn-cancel-update-player"
-      >
+        (click)="dismissUpdateModal()" id="btn-cancel-update-player">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
   </div>
   <!-- ******************************** NEW PLAYER MODAL ******************************** -->
-  <div
-    id="new-player-modal"
-    class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-full bg-neutral-800/80 p-3 lg:p-6 hidden z-[10]"
-  >
+  <div id="new-player-modal"
+    class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-full bg-neutral-800/80 p-3 lg:p-6 hidden z-[10]">
     <div
-      class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base animate-popup"
-    >
+      class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base animate-popup">
       <h1 class="text-2xl font-semibold text-main">Añadir jugador.-</h1>
       <div class="flex flex-col gap-2">
         <div class="flex flex-col lg:flex-row w-full gap-2">
-          <div
-            class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden"
-          >
-            <label
-              class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-              >DNI</label
-            >
-            <input
-              class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200"
-              type="text"
-              [(ngModel)]="newPlayer.dni"
-              name="dni"
-              #dni="ngModel"
-            />
+          <div class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden">
+            <label class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300">DNI</label>
+            <input class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200" type="text"
+              [(ngModel)]="newPlayer.dni" name="dni" #dni="ngModel" />
           </div>
-          <div
-            class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden"
-          >
-            <label
-              class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-              >Nombre</label
-            >
-            <input
-              class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200"
-              type="text"
-              [(ngModel)]="newPlayer.name"
-              name="name"
-              #name="ngModel"
-            />
+          <div class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden">
+            <label class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300">Nombre</label>
+            <input class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200" type="text"
+              [(ngModel)]="newPlayer.name" name="name" #name="ngModel" />
           </div>
         </div>
         <div class="flex flex-col lg:flex-row w-full gap-2">
-          <div
-            class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden"
-          >
-            <label
-              class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-              >Primer apellido</label
-            >
-            <input
-              class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200"
-              type="text"
-              [(ngModel)]="newPlayer.surname1"
-              name="surname1"
-              #name="ngModel"
-            />
+          <div class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden">
+            <label class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300">Primer apellido</label>
+            <input class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200" type="text"
+              [(ngModel)]="newPlayer.surname1" name="surname1" #name="ngModel" />
           </div>
-          <div
-            class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden"
-          >
-            <label
-              class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-              >Segundo apellido</label
-            >
-            <input
-              class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200"
-              type="text"
-              [(ngModel)]="newPlayer.surname2"
-              name="surname2"
-              #name="ngModel"
-            />
+          <div class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden">
+            <label class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300">Segundo apellido</label>
+            <input class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200" type="text"
+              [(ngModel)]="newPlayer.surname2" name="surname2" #name="ngModel" />
           </div>
         </div>
         <div class="flex flex-col lg:flex-row w-full gap-2">
-          <div
-            class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden"
-          >
-            <label
-              class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-              >Fecha de nacimiento</label
-            >
-            <input
-              class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200"
-              type="date"
-              [(ngModel)]="newPlayer.birthday"
-              name="birthday"
-              #name="ngModel"
-            />
+          <div class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden">
+            <label class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300">Fecha de nacimiento</label>
+            <input class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200" type="date"
+              [(ngModel)]="newPlayer.birthday" name="birthday" #name="ngModel" />
           </div>
-          <div
-            class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden"
-          >
-            <label
-              class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-              >Categoría</label
-            >
-            <select
-              class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200"
-              type="text"
-              [(ngModel)]="newPlayer.category"
-              name="category"
-              #name="ngModel"
-            >
+          <div class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden">
+            <label class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300">Categoría</label>
+            <select class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200" type="text"
+              [(ngModel)]="newPlayer.category" name="category" #name="ngModel">
               <option [value]="category" *ngFor="let category of categories">
                 {{ category }}
               </option>
@@ -641,60 +377,27 @@
           </div>
         </div>
         <div class="flex flex-col lg:flex-row w-full gap-2">
-          <div
-            class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden"
-          >
-            <label
-              class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-              >Teléfono</label
-            >
-            <input
-              class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200"
-              type="text"
-              [(ngModel)]="newPlayer.telephone"
-              name="telephone"
-              #name="ngModel"
-            />
+          <div class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden">
+            <label class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300">Teléfono</label>
+            <input class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200" type="text"
+              [(ngModel)]="newPlayer.telephone" name="telephone" #name="ngModel" />
           </div>
-          <div
-            class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden"
-          >
-            <label
-              class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-              >Email</label
-            >
-            <input
-              class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200"
-              type="text"
-              [(ngModel)]="newPlayer.email"
-              name="email"
-              #name="ngModel"
-            />
+          <div class="lg:basis-1/2 h-[28px] flex items-center rounded-md overflow-hidden">
+            <label class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300">Email</label>
+            <input class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200" type="text"
+              [(ngModel)]="newPlayer.email" name="email" #name="ngModel" />
           </div>
         </div>
-        <div
-          class="flex w-full h-[28px] items-center rounded-md overflow-hidden"
-        >
-          <label
-            class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300"
-            >Dirección</label
-          >
-          <input
-            class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200"
-            type="text"
-            [(ngModel)]="newPlayer.address"
-            name="address"
-            #name="ngModel"
-          />
+        <div class="flex w-full h-[28px] items-center rounded-md overflow-hidden">
+          <label class="bg-main h-full w-[20ch] px-2 flex items-center text-slate-300">Dirección</label>
+          <input class="w-[calc(100%-20ch)] h-[28px] px-2 outline-none focus:bg-main/20 duration-200" type="text"
+            [(ngModel)]="newPlayer.address" name="address" #name="ngModel" />
         </div>
       </div>
       <div class="flex lg:justify-center gap-3 lg:gap-6">
-        <button
-          type="button"
+        <button type="button"
           class="text-sm lg:text-xl bg-blue-600 px-5 py-1 rounded-md shadow-xl text-neutral-50 w-3/5 lg:w-72 duration-200 flex items-center justify-center gap-2"
-          (click)="savePlayer()"
-          id="btn-new-player"
-        >
+          (click)="savePlayer()" id="btn-new-player">
           <span>Guardar</span>
           <span class="hiddenplus">Guardando...</span>
           <i class="fa-solid fa-save"></i>
@@ -702,9 +405,7 @@
         </button>
         <button
           class="text-sm lg:text-xl bg-red-600 px-5 py-1 rounded-md shadow-xl text-neutral-50 w-2/5 lg:w-72 duration-200 flex items-center justify-center gap-2"
-          (click)="dismissSaveModal()"
-          id="btn-cancel-new-player"
-        >
+          (click)="dismissSaveModal()" id="btn-cancel-new-player">
           <span>Cancelar</span>
           <i class="fa-solid fa-ban"></i>
         </button>
