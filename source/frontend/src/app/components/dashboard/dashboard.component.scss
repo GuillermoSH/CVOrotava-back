@@ -2,6 +2,10 @@
     display: flex;
 }
 
+:host:has(app-home) {
+    @apply bg-gray-200/70;
+}
+
 @media (width >= 768px) {
     #sidebar-container.active {
         width: 300px;

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input, ViewChild} from '@angular/core';
 import { Player } from 'src/app/models/player.model';
 import { PlayersService } from 'src/app/services/players.service';
 import Swal from 'sweetalert2';
+import { NotLoadedComponent } from '../not-loaded/not-loaded.component';
 
 @Component({
   selector: 'app-players',
@@ -9,9 +10,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./players.component.scss'],
 })
 export class PlayersComponent {
+  @Input() loaderErrorMsg: string = "";
+  @Input() errorType: string = "";
+  @ViewChild(NotLoadedComponent) notLoadedComponent: NotLoadedComponent = new NotLoadedComponent;
   players: Player[] = [];
   categories: string[] = [];
-  loaderErrorMsg: string = "";
   updatedPlayer: Player = {
     id: 0,
     dni: '',
@@ -238,18 +241,28 @@ export class PlayersComponent {
   }
 
   private reloadPlayersData() {
+    let wrapper = document.getElementById("players-wrapper");
+    let notLoadedWrapper = document.getElementsByTagName("app-not-loaded")[0];
     this.playerService.getPlayers().subscribe({
       next: (players: Player[]) => {
         if (players.length < 1) {
           this.loaderErrorMsg = "Parece que no existen jugadores aún. ¡Es hora de formar un equipo!";
+          wrapper?.classList.add("hidden");
+          notLoadedWrapper?.classList.remove("hidden");
+          document.getElementById("btn-reload")?.classList.add("hidden");
+          document.getElementById("btn-show_modal")?.classList.remove("hidden")
         } else {
           this.players = players;
+          wrapper?.classList.remove("hidden");
+          notLoadedWrapper?.classList.add("hidden");
         }
       },
       error: () => {
         this.loaderErrorMsg = "Parece que no se han podido cargar los datos, recarga la página y si no se soluciona contacte con un técnico.";
-        document.getElementById("players-table")?.classList.toggle("hidden");
-        document.getElementById("not-loaded-wrapper")?.classList.toggle("hidden");
+        wrapper?.classList.add("hidden");
+        notLoadedWrapper?.classList.remove("hidden");
+        document.getElementById("btn-reload")?.classList.remove("hidden");
+        document.getElementById("btn-show_modal")?.classList.add("hidden");
       }
     });
   }
@@ -364,33 +377,35 @@ export class PlayersComponent {
       focusCancel: true,
       confirmButtonText: "Confirmar",
       title: "¿Estás seguro/a de borrar todos los jugadores?"
-    }).then(() => {
-      this.playerService.deleteAll().subscribe({
-        next: () => {
-          Swal.fire({
-            icon: "success",
-            title: "¡Se han borrado correctamente!",
-            timer: 1500,
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timerProgressBar: true,
-          })
-          setTimeout(() => {
-            this.reloadPlayersData();
-          }, 1500);
-        },
-        error: () => {
-          Swal.fire({
-            icon: "error",
-            title: "Error al borrar todos los datos",
-            text: "Se ha producido un error y no se ha podidon borrar todos los datos de los jugadores...",
-            showConfirmButton: true,
-            confirmButtonColor: "#34285a",
-            confirmButtonText: "Entendido",
-          })
-        }
-      })
+    }).then((result) => {
+      if(result.isConfirmed) {
+        this.playerService.deleteAll().subscribe({
+          next: () => {
+            Swal.fire({
+              icon: "success",
+              title: "¡Se han borrado correctamente!",
+              timer: 1500,
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timerProgressBar: true,
+            })
+            setTimeout(() => {
+              this.reloadPlayersData();
+            }, 1500);
+          },
+          error: () => {
+            Swal.fire({
+              icon: "error",
+              title: "Error al borrar todos los datos",
+              text: "Se ha producido un error y no se ha podidon borrar todos los datos de los jugadores...",
+              showConfirmButton: true,
+              confirmButtonColor: "#34285a",
+              confirmButtonText: "Entendido",
+            })
+          }
+        })
+      }
     })
   }
 }

@@ -28,6 +28,10 @@ export class PlayersService {
     return this._http.get<Player>(this.url + `/${id}`);
   }
 
+  getTotalNumPlayers(): Observable<string[]> {
+    return this._http.get<string[]>(this.url + "/total");
+  }
+
   savePlayer(player: Player): Observable<Player> {
     return this._http.post<Player>(this.url, player);
   }

@@ -19,6 +19,7 @@ import { PlayersComponent } from './components/players/players.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DateFormatPipe } from './pipes/date-format.pipe';
+import { NotLoadedComponent } from './components/not-loaded/not-loaded.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     IndexComponent,
     ProfileComponent,
     PlayersComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    NotLoadedComponent
   ],
   imports: [
     BrowserModule,
