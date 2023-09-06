@@ -1,5 +1,6 @@
 package com.cvorotava.backend.service;
 
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +21,9 @@ public class PlayerService {
 		return playerrepository.save(entity);
 	}
 	
-	public Integer countPlayers() {
-		return playerrepository.countPlayers();
+	public String[] countPlayers() {
+		String result[] = {playerrepository.countFemPlayers(), playerrepository.countMasPlayers()};
+		return result;
 	}
 
 	public Player findById(Integer id) {

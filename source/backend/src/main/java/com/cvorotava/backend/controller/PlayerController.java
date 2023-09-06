@@ -26,8 +26,8 @@ public class PlayerController {
 		return playerservice.findAll();
 	}
 	
-	@GetMapping("/count")
-	public Integer getPlayersCount() {
+	@GetMapping("/total")
+	public String[] getPlayersCount() {
 		return playerservice.countPlayers();
 	}
 	

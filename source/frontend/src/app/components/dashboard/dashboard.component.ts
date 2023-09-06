@@ -11,9 +11,16 @@ export class DashboardComponent {
 
   ngOnInit() {
     this.burguerBtn = document.getElementById("burguer-btn");
-    this.burguerBtn.addEventListener("click", () => this.toggleSidebar())
+    this.burguerBtn.addEventListener("click", () => this.toggleSidebar());
     this.xmarkBtn = document.getElementById("xmark-btn");
-    this.xmarkBtn.addEventListener("click", () => this.toggleSidebar())
+    this.xmarkBtn.addEventListener("click", () => this.toggleSidebar());
+    Array.from(document.getElementsByClassName("option")).forEach((option)=> {
+      option.addEventListener("click", () => {
+        if(document.getElementById("sidebar-container")?.classList.contains("active")) {
+          this.toggleSidebar()
+        }
+      });
+    })
   }
 
   toggleSidebar() {
