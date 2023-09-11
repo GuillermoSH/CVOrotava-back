@@ -4,5 +4,6 @@
 		<class>com.cvorotava.backend.entity.Player</class>
 		<class>com.cvorotava.backend.entity.User</class>
 		<class>com.cvorotava.backend.entity.Role</class>
+		<class>com.cvorotava.backend.entity.Payment</class>
 	</persistence-unit>
 </persistence>

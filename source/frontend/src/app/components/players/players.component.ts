@@ -242,6 +242,7 @@ export class PlayersComponent {
 
   private reloadPlayersData() {
     let wrapper = document.getElementById("players-wrapper");
+    let spinner = document.getElementById("player-spinner");
     let notLoadedWrapper = document.getElementsByTagName("app-not-loaded")[0];
     this.playerService.getPlayers().subscribe({
       next: (players: Player[]) => {
@@ -249,10 +250,12 @@ export class PlayersComponent {
           this.loaderErrorMsg = "Parece que no existen jugadores aún. ¡Es hora de formar un equipo!";
           wrapper?.classList.add("hidden");
           notLoadedWrapper?.classList.remove("hidden");
+          spinner?.classList.add("hidden");
           document.getElementById("btn-reload")?.classList.add("hidden");
           document.getElementById("btn-show_modal")?.classList.remove("hidden")
         } else {
           this.players = players;
+          spinner?.classList.add("hidden");
           wrapper?.classList.remove("hidden");
           notLoadedWrapper?.classList.add("hidden");
         }
@@ -261,6 +264,7 @@ export class PlayersComponent {
         this.loaderErrorMsg = "Parece que no se han podido cargar los datos, recarga la página y si no se soluciona contacte con un técnico.";
         wrapper?.classList.add("hidden");
         notLoadedWrapper?.classList.remove("hidden");
+        spinner?.classList.add("hidden");
         document.getElementById("btn-reload")?.classList.remove("hidden");
         document.getElementById("btn-show_modal")?.classList.add("hidden");
       }

@@ -1,5 +1,6 @@
 package com.cvorotava.backend.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.cvorotava.backend.entity.Payment;
 import com.cvorotava.backend.entity.Player;
+import com.cvorotava.backend.service.PaymentService;
 import com.cvorotava.backend.service.PlayerService;
 
 @CrossOrigin(origins = {"http://192.168.1.27:4200/", "http://localhost:4200/"})
@@ -20,6 +23,9 @@ import com.cvorotava.backend.service.PlayerService;
 public class PlayerController {
 	@Autowired
 	private PlayerService playerservice;
+	
+	@Autowired
+	private PaymentService paymentservice;
 
 	@GetMapping
 	public List<Player> getPlayers() {
@@ -74,6 +80,36 @@ public class PlayerController {
 
 		response.put("message", "¡Se han cambiado los datos con éxito!");
 		response.put("player", newPlayer);
+		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.ACCEPTED);
+	}
+	
+	@PutMapping("/{player_id}/add/payment/{id}")
+	public ResponseEntity<?> addPaymentToPlayer(@PathVariable Integer player_id, @PathVariable Integer id) {
+		Payment payment = null;
+		List<Payment> payments = new ArrayList<>();
+		HashMap<String, Object> response = new HashMap<>();
+		Player player;
+		
+		payment = paymentservice.findById(id);
+		payments.add(payment);
+		player = playerservice.findById(player_id);
+		
+		if (player!=null) {
+			player.setPayments(payments);
+		}
+		
+		try {
+			player = playerservice.save(player);
+		} catch (DataAccessException e) {
+			response.put("message", "Error al realizar el insert en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
+		
+		response.put("message", "¡Se han cambiado los datos con éxito!");
+		//response.put("payment", newPayment);
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.CREATED);
 	}
 	

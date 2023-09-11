@@ -10,7 +10,6 @@ import { MainComponent } from './components/main/main.component';
 import { LoginComponent } from './components/login/login.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { HomeComponent } from './components/home/home.component';
-import { MoneyComponent } from './components/money/money.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { IndexComponent } from './components/index/index.component';
@@ -20,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { NotLoadedComponent } from './components/not-loaded/not-loaded.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -31,14 +31,14 @@ import { NotLoadedComponent } from './components/not-loaded/not-loaded.component
     LoginComponent,
     StatisticsComponent,
     HomeComponent,
-    MoneyComponent,
     NotFoundComponent,
     DashboardComponent,
     IndexComponent,
     ProfileComponent,
     PlayersComponent,
     DateFormatPipe,
-    NotLoadedComponent
+    NotLoadedComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,

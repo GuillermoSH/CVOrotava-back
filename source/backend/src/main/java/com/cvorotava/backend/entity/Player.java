@@ -1,6 +1,8 @@
 package com.cvorotava.backend.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,6 +11,7 @@ public class Player implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String dni;
 	private String name;
@@ -19,12 +22,14 @@ public class Player implements Serializable {
 	private String address;
 	private String birthday;
 	private String category;
+	@OneToMany
+	private List<Payment> payments;
 
 	public Player() {
 	}
 
 	public Player(Integer id, String dni, String name, String surname1, String surname2, Integer telephone, String email,
-			String address, String birthday, String category) {
+			String address, String birthday, String category, List<Payment> payments) {
 		this.id = id;
 		this.name = name;
 		this.surname1 = surname1;
@@ -34,6 +39,7 @@ public class Player implements Serializable {
 		this.address = address;
 		this.birthday = birthday;
 		this.category = category;
+		this.payments = payments;
 	}
 
 	public Integer getId() {
@@ -114,5 +120,13 @@ public class Player implements Serializable {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public List<Payment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
 	}
 }
