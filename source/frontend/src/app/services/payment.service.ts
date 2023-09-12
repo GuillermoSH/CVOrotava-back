@@ -7,8 +7,8 @@ import { Payment } from '../models/payment.model';
   providedIn: 'root'
 })
 export class PaymentService {
-  //private url: string = 'http://192.168.1.27:9097/api/v1/payments';
-  private url: string = 'http://localhost:9097/api/v1/payments';
+  private url: string = 'http://192.168.1.27:9097/api/v1/payments';
+  //private url: string = 'http://localhost:9097/api/v1/payments';
 
   constructor(private _http: HttpClient) { }
 

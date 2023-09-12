@@ -24,7 +24,7 @@ public class PaymentService {
 	}
 
 	public List<Payment> findAll() {
-		return paymentrepository.findAll(PageRequest.of(0, 20)).getContent();
+		return paymentrepository.findAll();
 	}
 
 	public Boolean remove(Integer id) {

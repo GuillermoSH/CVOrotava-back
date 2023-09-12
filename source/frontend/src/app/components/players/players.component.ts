@@ -3,6 +3,7 @@ import { Player } from 'src/app/models/player.model';
 import { PlayersService } from 'src/app/services/players.service';
 import Swal from 'sweetalert2';
 import { NotLoadedComponent } from '../not-loaded/not-loaded.component';
+import { DateFormatPipe } from 'src/app/pipes/date-format.pipe';
 
 @Component({
   selector: 'app-players',
@@ -274,9 +275,15 @@ export class PlayersComponent {
   searchPlayers() {
     let searchInput = <HTMLInputElement>document.getElementById('search-input');
     let aux = searchInput.value;
+
     if (aux.length < 1) {
       aux = "empty";
     }
+
+    if (aux.includes("/")) {
+      aux = aux.split("/")[2] + "-" + aux.split("/")[1] + "-" + aux.split("/")[0];
+    }
+
     this.playerService
       .searchBy(aux)
       .subscribe((players: Player[]) => {
@@ -411,5 +418,13 @@ export class PlayersComponent {
         })
       }
     })
+  }
+  
+  toggleListMode() {
+    document.getElementById("players-list")?.classList.toggle("listed-player-cards");
+    document.getElementById("list-mode-btn")?.children[0].classList.toggle("hiddenplus");
+    document.getElementById("list-mode-btn")?.children[1].classList.toggle("hiddenplus");
+    document.getElementById("list-mode-btn")?.children[0].classList.toggle("opacity-0");
+    document.getElementById("list-mode-btn")?.children[1].classList.toggle("opacity-0");
   }
 }

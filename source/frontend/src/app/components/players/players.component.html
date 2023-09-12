@@ -5,8 +5,12 @@
 <!-- ****************************************************** NOT LOADED ****************************************************** -->
 <app-not-loaded class="hidden" [loaderErrorMsg]="loaderErrorMsg" [errorType]="errorType"></app-not-loaded>
 
-<div id="players-wrapper" class="w-full min-h-full hidden">
-  <section class="grid grid-cols-[auto_1fr_auto] grid-rows-2 lg:grid-rows-1 gap-3 md:gap-5 mb-3 md:mb-5">
+<div id="players-wrapper" class="w-full min-h-full relative hidden pb-10">
+  <button id="list-mode-btn" class="fixed h-10 w-10 bg-blue-500 rounded-full shadow-xl text-neutral-50 bottom-16 md:bottom-7 right-5 md:right-7 z-20 border-2 border-neutral-50" (click)="toggleListMode()">
+    <i class="fa-solid fa-list opacity-100 duration-200"></i>
+    <i class="fa-solid fa-address-card opacity-100 opacity-0 duration-200 hiddenplus"></i>
+  </button>
+  <section class="grid grid-cols-[auto_1fr_auto] grid-rows-2 lg:grid-rows-1 gap-3 md:gap-5 mb-3 md:mb-5 sticky">
     <button (click)="showSaveModal()"
       class="bg-blue-500 text-neutral-50 font-medium text-sm md:text-base [&>*:first-child]:hover:rotate-180 px-2 py-1 md:px-4 md:py-2 rounded-md lg:order-1">
       Añadir jugador
@@ -36,9 +40,9 @@
       </div>
     </div>
   </section>
-  <section class="w-full flex flex-wrap gap-5">
+  <section id="players-list" class="w-full flex flex-wrap gap-3 md:gap-5">
     <div *ngFor="let player of players"
-      class="text-xs md:text-sm basis-full xl:basis-[calc(50%-10px)] flex flex-wrap items-center gap-3 md:gap-5 p-3 md:p-5 shadow-lg rounded-xl border-s-4 border-s-blue-500 bg-gray-200/75">
+      class="text-xs md:text-sm basis-full xl:basis-[calc(50%-10px)] flex flex-wrap gap-3 md:gap-5 p-3 md:p-5 shadow-lg rounded-xl border-s-4 border-s-blue-500 bg-gray-200/75">
       <div class="w-24">
         <h1 class="font-extrabold">Categoría:</h1>
         <p class="text-base md:text-lg">{{player.category}}</p>
@@ -67,7 +71,7 @@
         <h1 class="font-extrabold">Dirección:</h1>
         <p class="text-base md:text-lg">{{player.address}}</p>
       </div>
-      <div class="ms-auto flex gap-3 md:gap-5">
+      <div class="ms-auto flex gap-3 md:gap-5 self-center">
         <button class="bg-blue-500 h-8 md:h-10 w-8 md:w-10 rounded-md hover:bg-blue-700 duration-200 [&>*:first-child]:hover:animate-lateralBounce" (click)="showUpdateModal(player)">
           <i class="fa-solid fa-pencil text-neutral-50 text-lg"></i>
         </button>
@@ -79,7 +83,7 @@
 <!-- ******************************************************** MODALS ******************************************************** -->
 <!-- ******************************** UPDATE MODAL ******************************** -->
 <div id="update-modal"
-  class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-screen bg-neutral-800/80 hidden p-3 lg:p-6 z-[10]">
+  class="flex justify-center items-center fixed top-0 right-0 w-screen h-screen bg-neutral-800/80 hidden p-3 lg:p-6 z-[25]">
   <div
     class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base relative animate-popup">
     <h1 class="text-2xl font-semibold text-main">Editar jugador.-</h1>
@@ -300,7 +304,7 @@
 </div>
 <!-- ******************************** NEW PLAYER MODAL ******************************** -->
 <div id="new-player-modal"
-  class="flex justify-center items-center absolute top-0 right-0 w-screen min-h-full bg-neutral-800/80 p-3 lg:p-6 hidden z-[10]">
+  class="flex justify-center items-center fixed top-0 right-0 w-screen h-screen bg-neutral-800/80 p-3 lg:p-6 hidden z-[25]">
   <div
     class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base animate-popup">
     <h1 class="text-2xl font-semibold text-main">Añadir jugador.-</h1>
