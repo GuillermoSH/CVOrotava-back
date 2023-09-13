@@ -16,8 +16,13 @@ export class HomeComponent {
 
   ngOnInit() {
     this.playersService.getTotalNumPlayers().subscribe((total: string[]) => {
-      this.totalNumPlayers.TFem = total[0],
-      this.totalNumPlayers.TMas = total[1]
+      this.totalNumPlayers.TFem = total[0];
+      this.totalNumPlayers.TMas = total[1];
     });
+
+    setTimeout(()=>{
+      document.getElementById("players-count-squeleton")?.classList.toggle("hidden");
+      document.getElementById("players-count")?.classList.toggle("hidden");
+    }, 1200)
   }
 }

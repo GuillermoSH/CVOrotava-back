@@ -3,7 +3,6 @@ import { Player } from 'src/app/models/player.model';
 import { PlayersService } from 'src/app/services/players.service';
 import Swal from 'sweetalert2';
 import { NotLoadedComponent } from '../not-loaded/not-loaded.component';
-import { DateFormatPipe } from 'src/app/pipes/date-format.pipe';
 
 @Component({
   selector: 'app-players',
@@ -12,7 +11,6 @@ import { DateFormatPipe } from 'src/app/pipes/date-format.pipe';
 })
 export class PlayersComponent {
   @Input() loaderErrorMsg: string = "";
-  @Input() errorType: string = "";
   @ViewChild(NotLoadedComponent) notLoadedComponent: NotLoadedComponent = new NotLoadedComponent;
   players: Player[] = [];
   categories: string[] = [];
@@ -131,7 +129,7 @@ export class PlayersComponent {
 
   showUpdateModal(player: Player) {
     this.updatedPlayer = player;
-    document.getElementById('update-modal')?.classList.toggle('hidden');
+    document.getElementById('player-update-modal')?.classList.toggle('hidden');
   }
 
   showSaveModal() {
@@ -154,7 +152,7 @@ export class PlayersComponent {
   }
 
   dismissUpdateModal() {
-    document.getElementById('update-modal')?.classList.toggle('hidden');
+    document.getElementById('player-update-modal')?.classList.toggle('hidden');
     this.updatedPlayer = {
       id: 0,
       dni: '',

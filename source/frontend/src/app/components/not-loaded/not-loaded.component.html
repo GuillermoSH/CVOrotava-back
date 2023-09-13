@@ -11,11 +11,19 @@
     <i class="fa-solid fa-rotate-right duration-500"></i>
   </button>
   <button
-    (click)="showModal()"
-    id="btn-show_modal"
+    (click)="showPlayerModal()"
+    id="btn-show_player_modal"
     class="bg-blue-500 text-neutral-50 font-medium [&>*:first-child]:hover:rotate-180 px-4 py-2 rounded-md mb-5 hidden"
   >
     Añadir un jugador
+    <i class="fa-solid fa-plus duration-500"></i>
+  </button>
+  <button
+    (click)="showPaymentModal()"
+    id="btn-show_payment_modal"
+    class="bg-blue-500 text-neutral-50 font-medium [&>*:first-child]:hover:rotate-180 px-4 py-2 rounded-md mb-5 hidden"
+  >
+    Añadir un pago
     <i class="fa-solid fa-plus duration-500"></i>
   </button>
 </div>

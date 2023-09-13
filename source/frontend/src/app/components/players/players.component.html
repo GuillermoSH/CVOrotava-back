@@ -1,24 +1,24 @@
-<div id="player-spinner" class="h-full w-full flex justify-center items-center">
-  <img src="../../../assets/imgs/Volleyball-PNG.png" class="h-16 drop-shadow-2xl animate-[spin_1.5s_infinite]">
-</div>
+<section id="player-spinner" class="h-full w-full flex justify-center items-center">
+  <img src="../../../assets/imgs/Volleyball-PNG.webp" class="h-16 drop-shadow-2xl animate-[spin_1.5s_infinite]">
+</section>
 
 <!-- ****************************************************** NOT LOADED ****************************************************** -->
-<app-not-loaded class="hidden" [loaderErrorMsg]="loaderErrorMsg" [errorType]="errorType"></app-not-loaded>
+<app-not-loaded class="hidden" [loaderErrorMsg]="loaderErrorMsg"></app-not-loaded>
 
 <div id="players-wrapper" class="w-full min-h-full relative hidden pb-10">
-  <button id="list-mode-btn" class="fixed h-10 w-10 bg-blue-500 rounded-full shadow-xl text-neutral-50 bottom-16 md:bottom-7 right-5 md:right-7 z-20 border-2 border-neutral-50" (click)="toggleListMode()">
+  <button id="list-mode-btn" class="fixed h-10 w-10 bg-green-500 rounded-full drop-shadow-xl text-neutral-50 bottom-16 md:bottom-7 right-5 md:right-7 z-20 border-2 border-neutral-50" (click)="toggleListMode()">
     <i class="fa-solid fa-list opacity-100 duration-200"></i>
     <i class="fa-solid fa-address-card opacity-100 opacity-0 duration-200 hiddenplus"></i>
   </button>
   <section class="grid grid-cols-[auto_1fr_auto] grid-rows-2 lg:grid-rows-1 gap-3 md:gap-5 mb-3 md:mb-5 sticky">
     <button (click)="showSaveModal()"
-      class="bg-blue-500 text-neutral-50 font-medium text-sm md:text-base [&>*:first-child]:hover:rotate-180 px-2 py-1 md:px-4 md:py-2 rounded-md lg:order-1">
+      class="bg-blue-500 hover:bg-blue-700 duration-200 text-neutral-50 font-medium text-sm md:text-base [&>*:first-child]:hover:rotate-180 px-2 py-1 md:px-4 md:py-2 rounded-md lg:order-1">
       Añadir jugador
       <i class="fa-solid fa-plus duration-500"></i>
     </button>
     <div class="lg:hidden"></div>
     <button (click)="deleteAll()"
-      class="bg-red-500 text-neutral-50 font-medium text-sm md:text-base [&>*:first-child]:hover:animate-shake px-2 py-1 md:px-4 md:py-2 rounded-md lg:order-3">
+      class="bg-red-500 hover:bg-red-700 duration-200 text-neutral-50 font-medium text-sm md:text-base [&>*:first-child]:hover:animate-shake px-2 py-1 md:px-4 md:py-2 rounded-md lg:order-3">
       Borrar jugadores
       <i class="fa-solid fa-trash duration-500"></i>
     </button>
@@ -26,7 +26,7 @@
       class="flex justify-center items-center rounded-full overflow-hidden lg:order-2 row-start-2 lg:row-start-1 col-span-3 lg:col-span-1 lg:col-start-2">
       <div class="relative flex justify-center items-center w-full md:w-max">
         <input
-          class="h-7 md:h-8 text-sm md:text-base bg-main/[0.13] px-3 rounded-ss-full rounded-es-full w-[calc(100%-32px)] md:w-[400px] outline-none border-[1px] border-transparent focus:border-y-[1px] focus:border-s-[1px] focus:border-main duration-300 placeholder:text-neutral-500"
+          class="h-7 md:h-8 text-sm md:text-base bg-gray-200/75 px-3 rounded-ss-full rounded-es-full w-[calc(100%-32px)] md:w-[400px] outline-none border-[1px] border-transparent focus:border-y-[1px] focus:border-s-[1px] focus:border-main duration-300 placeholder:text-neutral-500"
           type="text" placeholder="¿A quién buscas?" (keyup.enter)="searchPlayers()" id="search-input" />
         <button class="absolute right-[42px] text-neutral-500 hover:text-neutral-800 duration-200"
           (click)="resetSearch()">
@@ -82,8 +82,8 @@
 
 <!-- ******************************************************** MODALS ******************************************************** -->
 <!-- ******************************** UPDATE MODAL ******************************** -->
-<div id="update-modal"
-  class="flex justify-center items-center fixed top-0 right-0 w-screen h-screen bg-neutral-800/80 hidden p-3 lg:p-6 z-[25]">
+<div id="player-update-modal"
+  class="flex justify-center items-center fixed top-0 right-0 w-screen min-h-screen bg-neutral-800/80 hidden p-3 lg:p-6 z-[25]">
   <div
     class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base relative animate-popup">
     <h1 class="text-2xl font-semibold text-main">Editar jugador.-</h1>
@@ -304,7 +304,7 @@
 </div>
 <!-- ******************************** NEW PLAYER MODAL ******************************** -->
 <div id="new-player-modal"
-  class="flex justify-center items-center fixed top-0 right-0 w-screen h-screen bg-neutral-800/80 p-3 lg:p-6 hidden z-[25]">
+  class="flex justify-center items-center fixed top-0 right-0 w-screen h-screen overflow-y-auto bg-neutral-800/80 p-3 lg:p-6 hidden z-[25]">
   <div
     class="h-max w-full md:w-[600px] lg:w-[1000px] bg-neutral-300 flex flex-col gap-3 lg:gap-6 rounded-lg p-3 lg:p-6 text-xs md:text-base animate-popup">
     <h1 class="text-2xl font-semibold text-main">Añadir jugador.-</h1>

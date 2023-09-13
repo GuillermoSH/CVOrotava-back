@@ -7,9 +7,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class NotLoadedComponent {
   @Input() loaderErrorMsg: string = "";
-  @Input() errorType: string = "";
 
-  showModal() {
+  showPlayerModal() {
     document.getElementById("new-player-modal")?.classList.toggle("hidden");
+  }
+
+  showPaymentModal() {
+    document.getElementById("new-payment-modal")?.classList.toggle("hidden");
   }  
 }
