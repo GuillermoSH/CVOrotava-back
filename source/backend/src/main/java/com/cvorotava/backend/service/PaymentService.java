@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.cvorotava.backend.entity.Payment;
+import com.cvorotava.backend.entity.Player;
 import com.cvorotava.backend.repository.PaymentRepository;
 
 @Service
@@ -42,5 +43,9 @@ public class PaymentService {
 	
 	public List<Payment> findByConcept(String category) {
 		return paymentrepository.findByConcept(category);
+	}
+	
+	public List<Payment> searchLike(String search) {
+		return paymentrepository.searchLike(search);
 	}
 }

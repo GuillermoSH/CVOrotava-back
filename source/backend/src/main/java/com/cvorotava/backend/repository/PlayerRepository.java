@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import com.cvorotava.backend.entity.Player;
 
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
+	
 	Optional<Player> findById(Integer id);
 	List<Player> findByCategory(String category);
 	List<Player> findAllOrderedBy(Sort sort);
@@ -22,6 +23,6 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
 	@Query(value="SELECT COUNT(p) FROM Player p WHERE p.category LIKE '%FEM%'")
 	String countFemPlayers();
 	
-	@Query(value="SELECT p FROM Player p WHERE p.dni LIKE %:search% OR p.name LIKE %:search% OR p.surname1 LIKE %:search% OR p.surname2 LIKE %:search% OR p.telephone LIKE %:search% OR p.email LIKE %:search% OR p.address LIKE %:search% OR p.birthday LIKE %:search% OR p.category LIKE %:search%")
+	@Query(value="SELECT p FROM Player p WHERE CONCAT_WS(' ', p.dni, p.name, p.surname1, p.surname2, p.telephone, p.email, p.address, p.birthday, p.category) LIKE %:search%")
 	List<Player> searchLike(@Param("search") String search);
 }

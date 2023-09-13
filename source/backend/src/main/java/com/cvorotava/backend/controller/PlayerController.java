@@ -17,7 +17,7 @@ import com.cvorotava.backend.entity.Player;
 import com.cvorotava.backend.service.PaymentService;
 import com.cvorotava.backend.service.PlayerService;
 
-@CrossOrigin(origins = {"http://192.168.1.27:4200/", "http://localhost:4200/"})
+@CrossOrigin(origins = {"http://192.168.1.27:4200/", "http://localhost:4200/", "https://zm220cwj-4200.euw.devtunnels.ms/"})
 @RestController
 @RequestMapping("/api/v1/players")
 public class PlayerController {
@@ -139,10 +139,10 @@ public class PlayerController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletePlayer(@PathVariable Integer id) {
-		Player profesor = playerservice.findById(id);
+		Player player = playerservice.findById(id);
 		HashMap<String, Object> response = new HashMap<>();
 		try {
-			playerservice.remove(profesor.getId());
+			playerservice.remove(player.getId());
 		} catch (DataAccessException e) {
 			response.put("message", "Error al eliminar el jugador de la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

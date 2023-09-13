@@ -34,7 +34,7 @@ public class PlayerService {
 	}
 
 	public List<Player> findAll() {
-		return playerrepository.findAll(PageRequest.of(0, 20)).getContent();
+		return playerrepository.findAll();
 	}
 	
 	public List<Player> findAllOrderedBy(String order) {
