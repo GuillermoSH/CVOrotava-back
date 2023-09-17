@@ -22,7 +22,7 @@ import com.cvorotava.backend.entity.Payment;
 import com.cvorotava.backend.entity.Player;
 import com.cvorotava.backend.service.PaymentService;
 
-@CrossOrigin(origins = {"http://192.168.1.27:4200/", "http://localhost:4200/", "https://zm220cwj-4200.euw.devtunnels.ms/"})
+@CrossOrigin(origins = {"http://192.168.1.27:4200/", "http://localhost:4200/", "https://c24djzb4-4200.uks1.devtunnels.ms/"})
 @RestController
 @RequestMapping("/api/v1/payments")
 public class PaymentController {

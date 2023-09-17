@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class PlayersService {
   //private url: string = 'http://192.168.1.27:9097/api/v1/players';
   //private url: string = 'http://localhost:9097/api/v1/players';
-  private url: string = 'https://zm220cwj-9097.euw.devtunnels.ms/api/v1/players';
+  private url: string = 'https://c24djzb4-9097.uks1.devtunnels.ms/api/v1/players';
 
   constructor(private _http: HttpClient) { }
 
@@ -25,7 +25,7 @@ export class PlayersService {
     return this._http.get<Player[]>(this.url + `/${category}`);
   }
 
-  getPlayerById(id: number): Observable<Player> {
+  getPlayerById(id: string): Observable<Player> {
     return this._http.get<Player>(this.url + `/${id}`);
   }
 
@@ -41,7 +41,7 @@ export class PlayersService {
     return this._http.put<Player>(this.url, player);
   }
 
-  deletePlayer(id: number): Observable<Player> {
+  deletePlayer(id: string): Observable<Player> {
     return this._http.delete<Player>(this.url + `/${id}`);
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild} from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Player } from 'src/app/models/player.model';
 import { PlayersService } from 'src/app/services/players.service';
 import Swal from 'sweetalert2';
@@ -10,34 +10,15 @@ import { NotLoadedComponent } from '../not-loaded/not-loaded.component';
   styleUrls: ['./players.component.scss'],
 })
 export class PlayersComponent {
-  @Input() loaderErrorMsg: string = "";
-  @ViewChild(NotLoadedComponent) notLoadedComponent: NotLoadedComponent = new NotLoadedComponent;
+  @Input() loaderErrorMsg: string = '';
+  @ViewChild(NotLoadedComponent) notLoadedComponent: NotLoadedComponent =
+    new NotLoadedComponent();
   players: Player[] = [];
   categories: string[] = [];
-  updatedPlayer: Player = {
-    id: 0,
-    dni: '',
-    name: '',
-    surname1: '',
-    surname2: '',
-    email: '',
-    address: '',
-    birthday: '',
-    category: '',
-  };
-  newPlayer: Player = {
-    id: 0,
-    dni: '',
-    name: '',
-    surname1: '',
-    surname2: '',
-    email: '',
-    address: '',
-    birthday: '',
-    category: '',
-  };
+  updatedPlayer: Player = new Player();
+  newPlayer: Player = new Player();
 
-  constructor(private playerService: PlayersService) { }
+  constructor(private playerService: PlayersService) {}
 
   ngOnInit() {
     this.reloadPlayersData();
@@ -59,58 +40,50 @@ export class PlayersComponent {
     ];
   }
 
+  transformDisableHideBtns(
+    transformBtn: any,
+    hideBtn: any,
+    disabledBtn: any = null,
+    transformBtnColor: string
+  ) {
+    transformBtn?.classList.toggle('pointer-events-none');
+    transformBtn?.children[0].classList.toggle('hiddenplus');
+    transformBtn?.children[1].classList.toggle('hiddenplus');
+    transformBtn?.children[2].classList.toggle('hiddenplus');
+    transformBtn?.children[3].classList.toggle('hiddenplus');
+    transformBtn?.classList.toggle(transformBtnColor);
+    hideBtn?.classList.toggle('hidden');
+    if (disabledBtn != null) {
+      disabledBtn?.classList.toggle('disabled');
+    }
+  }
+
   savePlayer() {
     let btnSave = document.getElementById('btn-new-player');
     let btnCancel = document.getElementById('btn-cancel-new-player');
+
+    this.transformDisableHideBtns(btnSave, btnCancel, null, 'bg-blue-700');
+
     this.playerService.savePlayer(this.newPlayer).subscribe({
       next: () => {
-        btnSave?.children[0].classList.toggle('hiddenplus');
-        btnSave?.children[1].classList.toggle('hiddenplus');
-        btnSave?.children[2].classList.toggle('hiddenplus');
-        btnSave?.children[3].classList.toggle('hiddenplus');
-        btnSave?.classList.toggle('bg-green-600');
-        btnCancel?.classList.toggle('disabled');
-        if (btnSave) {
-          btnSave.children[0].innerHTML = 'Guardando...';
-        }
+        Swal.fire({
+          title: `¡Nuevo jugador añadido!`,
+          toast: true,
+          position: 'top-end',
+          width: 'max-content',
+          icon: 'success',
+          confirmButtonColor: '#34285a',
+          showConfirmButton: false,
+          timer: 2000,
+        });
 
-        setTimeout(() => {
-          Swal.fire({
-            title: `¡Nuevo jugador añadido!`,
-            toast: true,
-            position: 'top-end',
-            width: 'max-content',
-            icon: 'success',
-            confirmButtonColor: '#34285a',
-            showConfirmButton: false,
-            timer: 2000,
-          });
+        this.dismissSaveModal();
 
-          this.dismissSaveModal();
+        this.transformDisableHideBtns(btnSave, btnCancel, null, 'bg-blue-700');
 
-          btnSave?.children[0].classList.toggle('hiddenplus');
-          btnSave?.children[1].classList.toggle('hiddenplus');
-          btnSave?.children[2].classList.toggle('hiddenplus');
-          btnSave?.children[3].classList.toggle('hiddenplus');
-          btnSave?.classList.toggle('bg-green-600');
-          btnCancel?.classList.toggle('disabled');
-          if (btnSave) {
-            btnSave.children[0].innerHTML = 'Guardar';
-          }
-
-          this.newPlayer = {
-            id: 0,
-            dni: '',
-            name: '',
-            surname1: '',
-            surname2: '',
-            email: '',
-            address: '',
-            birthday: '',
-            category: '',
-          };
-          this.reloadPlayersData();
-        }, 2000);
+        this.newPlayer = new Player();
+        
+        this.reloadPlayersData();
       },
       error: () => {
         Swal.fire({
@@ -123,6 +96,8 @@ export class PlayersComponent {
           color: '#34285a',
           iconColor: '#dc2626',
         });
+
+        this.transformDisableHideBtns(btnSave, btnCancel, null, 'bg-blue-700');
       },
     });
   }
@@ -132,89 +107,57 @@ export class PlayersComponent {
     document.getElementById('player-update-modal')?.classList.toggle('hidden');
   }
 
-  showSaveModal() {
+  toggleSaveModal() {
     document.getElementById('new-player-modal')?.classList.toggle('hidden');
   }
 
   dismissSaveModal() {
-    document.getElementById('new-player-modal')?.classList.toggle('hidden');
-    this.newPlayer = {
-      id: 0,
-      dni: '',
-      name: '',
-      surname1: '',
-      surname2: '',
-      email: '',
-      address: '',
-      birthday: '',
-      category: '',
-    };
+    this.toggleSaveModal();
+    this.newPlayer = new Player();
   }
 
   dismissUpdateModal() {
     document.getElementById('player-update-modal')?.classList.toggle('hidden');
-    this.updatedPlayer = {
-      id: 0,
-      dni: '',
-      name: '',
-      surname1: '',
-      surname2: '',
-      email: '',
-      address: '',
-      birthday: '',
-      category: '',
-    };
+    this.reloadPlayersData();
+    this.updatedPlayer = new Player();
   }
 
   updatePlayer() {
     let btnUpdate = document.getElementById('btn-update-player');
     let btnCancel = document.getElementById('btn-cancel-update-player');
     let btnDelete = document.getElementById('btn-delete-player');
+
+    this.transformDisableHideBtns(
+      btnUpdate,
+      btnCancel,
+      btnDelete,
+      'bg-blue-700'
+    );
+
     this.playerService.updatePlayer(this.updatedPlayer).subscribe({
       next: () => {
-        btnUpdate?.children[0].classList.toggle('hiddenplus');
-        btnUpdate?.children[1].classList.toggle('hiddenplus');
-        btnUpdate?.children[2].classList.toggle('hiddenplus');
-        btnUpdate?.children[3].classList.toggle('hiddenplus');
-        btnCancel?.classList.toggle('hidden');
-        btnUpdate?.classList.toggle('bg-green-600');
-        btnDelete?.classList.toggle('disabled');
+        Swal.fire({
+          title: `¡Los datos han sido actualizados!`,
+          toast: true,
+          position: 'top-end',
+          width: 'max-content',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000,
+        });
 
-        setTimeout(() => {
-          Swal.fire({
-            title: `¡Los datos han sido actualizados!`,
-            toast: true,
-            position: 'top-end',
-            width: 'max-content',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 2000,
-          });
+        this.dismissUpdateModal();
 
-          this.dismissUpdateModal();
+        this.transformDisableHideBtns(
+          btnUpdate,
+          btnCancel,
+          btnDelete,
+          'bg-blue-700'
+        );
 
-          btnUpdate?.children[0].classList.toggle('hiddenplus');
-          btnUpdate?.children[1].classList.toggle('hiddenplus');
-          btnUpdate?.children[2].classList.toggle('hiddenplus');
-          btnUpdate?.children[3].classList.toggle('hiddenplus');
-          btnCancel?.classList.toggle('hidden');
-          btnUpdate?.classList.toggle('bg-green-600');
-          btnDelete?.classList.toggle('disabled');
+        this.reloadPlayersData();
 
-          this.reloadPlayersData();
-
-          this.updatedPlayer = {
-            id: 0,
-            dni: '',
-            name: '',
-            surname1: '',
-            surname2: '',
-            email: '',
-            address: '',
-            birthday: '',
-            category: '',
-          };
-        }, 2000);
+        this.updatedPlayer = new Player();
       },
       error: () => {
         Swal.fire({
@@ -227,6 +170,12 @@ export class PlayersComponent {
           color: '#34285a',
           iconColor: '#dc2626',
         });
+        this.transformDisableHideBtns(
+          btnUpdate,
+          btnCancel,
+          btnDelete,
+          'bg-blue-700'
+        );
       },
     });
   }
@@ -240,33 +189,35 @@ export class PlayersComponent {
   }
 
   private reloadPlayersData() {
-    let wrapper = document.getElementById("players-wrapper");
-    let spinner = document.getElementById("player-spinner");
-    let notLoadedWrapper = document.getElementsByTagName("app-not-loaded")[0];
+    let wrapper = document.getElementById('players-wrapper');
+    let spinner = document.getElementById('player-spinner');
+    let notLoadedWrapper = document.getElementsByTagName('app-not-loaded')[0];
     this.playerService.getPlayers().subscribe({
       next: (players: Player[]) => {
         if (players.length < 1) {
-          this.loaderErrorMsg = "Parece que no existen jugadores aún. ¡Es hora de formar un equipo!";
-          wrapper?.classList.add("hidden");
-          notLoadedWrapper?.classList.remove("hidden");
-          spinner?.classList.add("hidden");
-          document.getElementById("btn-reload")?.classList.add("hidden");
-          document.getElementById("btn-show_modal")?.classList.remove("hidden")
+          this.loaderErrorMsg =
+            'Parece que no existen jugadores aún. ¡Es hora de formar un equipo!';
+          wrapper?.classList.add('hidden');
+          notLoadedWrapper?.classList.remove('hidden');
+          spinner?.classList.add('hidden');
+          document.getElementById('btn-reload')?.classList.add('hidden');
+          document.getElementById('btn-show_modal')?.classList.remove('hidden');
         } else {
           this.players = players;
-          spinner?.classList.add("hidden");
-          wrapper?.classList.remove("hidden");
-          notLoadedWrapper?.classList.add("hidden");
+          spinner?.classList.add('hidden');
+          wrapper?.classList.remove('hidden');
+          notLoadedWrapper?.classList.add('hidden');
         }
       },
       error: () => {
-        this.loaderErrorMsg = "Parece que no se han podido cargar los datos, recarga la página y si no se soluciona contacte con un técnico.";
-        wrapper?.classList.add("hidden");
-        notLoadedWrapper?.classList.remove("hidden");
-        spinner?.classList.add("hidden");
-        document.getElementById("btn-reload")?.classList.remove("hidden");
-        document.getElementById("btn-show_modal")?.classList.add("hidden");
-      }
+        this.loaderErrorMsg =
+          'Parece que no se han podido cargar los datos, recarga la página y si no se soluciona contacte con un técnico.';
+        wrapper?.classList.add('hidden');
+        notLoadedWrapper?.classList.remove('hidden');
+        spinner?.classList.add('hidden');
+        document.getElementById('btn-reload')?.classList.remove('hidden');
+        document.getElementById('btn-show_modal')?.classList.add('hidden');
+      },
     });
   }
 
@@ -275,34 +226,33 @@ export class PlayersComponent {
     let aux = searchInput.value;
 
     if (aux.length < 1) {
-      aux = "empty";
+      aux = 'empty';
     }
 
-    if (aux.includes("/")) {
-      aux = aux.split("/")[2] + "-" + aux.split("/")[1] + "-" + aux.split("/")[0];
+    if (aux.includes('/')) {
+      aux =
+        aux.split('/')[2] + '-' + aux.split('/')[1] + '-' + aux.split('/')[0];
     }
 
-    this.playerService
-      .searchBy(aux)
-      .subscribe((players: Player[]) => {
-        if (players.length != 0) {
-          this.players = players;
-        } else {
-          Swal.fire({
-            title: 'No se han encontrado resultados',
-            icon: 'error',
-            toast: true,
-            position: 'top-end',
-            width: 'max-content',
-            background: '#dc2626',
-            timerProgressBar: true,
-            color: 'white',
-            iconColor: 'white',
-            timer: 1500,
-            showConfirmButton: false,
-          });
-        }
-      });
+    this.playerService.searchBy(aux).subscribe((players: Player[]) => {
+      if (players.length != 0) {
+        this.players = players;
+      } else {
+        Swal.fire({
+          title: 'No se han encontrado resultados',
+          icon: 'error',
+          toast: true,
+          position: 'top-end',
+          width: 'max-content',
+          background: '#dc2626',
+          timerProgressBar: true,
+          color: 'white',
+          iconColor: 'white',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    });
   }
 
   resetSearch() {
@@ -317,8 +267,27 @@ export class PlayersComponent {
     let btnUpdate = document.getElementById('btn-update-player');
     let btnCancel = document.getElementById('btn-cancel-update-player');
     let btnDelete = document.getElementById('btn-delete-player');
+    btnDelete?.children[0].classList.toggle('hiddenplus');
+    btnDelete?.children[1].classList.toggle('hiddenplus');
+    btnDelete?.children[2].classList.toggle('hiddenplus');
+    btnDelete?.children[3].classList.toggle('hiddenplus');
+    btnCancel?.classList.toggle('hidden');
+    btnUpdate?.classList.toggle('disabled');
+
     this.playerService.deletePlayer(this.updatedPlayer.id).subscribe({
       next: () => {
+        Swal.fire({
+          title: `¡Se eliminó el jugador!`,
+          toast: true,
+          position: 'top-end',
+          width: 'max-content',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000,
+        });
+
+        this.dismissUpdateModal();
+
         btnDelete?.children[0].classList.toggle('hiddenplus');
         btnDelete?.children[1].classList.toggle('hiddenplus');
         btnDelete?.children[2].classList.toggle('hiddenplus');
@@ -326,40 +295,9 @@ export class PlayersComponent {
         btnCancel?.classList.toggle('hidden');
         btnUpdate?.classList.toggle('disabled');
 
-        setTimeout(() => {
-          Swal.fire({
-            title: `¡Se eliminó el jugador!`,
-            toast: true,
-            position: 'top-end',
-            width: 'max-content',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 2000,
-          });
+        this.reloadPlayersData();
 
-          this.dismissUpdateModal();
-
-          btnDelete?.children[0].classList.toggle('hiddenplus');
-          btnDelete?.children[1].classList.toggle('hiddenplus');
-          btnDelete?.children[2].classList.toggle('hiddenplus');
-          btnDelete?.children[3].classList.toggle('hiddenplus');
-          btnCancel?.classList.toggle('hidden');
-          btnUpdate?.classList.toggle('disabled');
-
-          this.reloadPlayersData();
-
-          this.updatedPlayer = {
-            id: 0,
-            dni: '',
-            name: '',
-            surname1: '',
-            surname2: '',
-            email: '',
-            address: '',
-            birthday: '',
-            category: '',
-          };
-        }, 2000);
+        this.updatedPlayer = new Player();
       },
       error: () => {
         Swal.fire({
@@ -378,51 +316,59 @@ export class PlayersComponent {
 
   deleteAll() {
     Swal.fire({
-      icon: "warning",
+      icon: 'warning',
       showConfirmButton: true,
       showCancelButton: true,
-      confirmButtonColor: "#dc2626",
+      confirmButtonColor: '#dc2626',
       focusConfirm: false,
       focusCancel: true,
-      confirmButtonText: "Confirmar",
-      title: "¿Estás seguro/a de borrar todos los jugadores?"
+      confirmButtonText: 'Confirmar',
+      title: '¿Estás seguro/a de borrar todos los jugadores?',
     }).then((result) => {
-      if(result.isConfirmed) {
+      if (result.isConfirmed) {
         this.playerService.deleteAll().subscribe({
           next: () => {
             Swal.fire({
-              icon: "success",
-              title: "¡Se han borrado correctamente!",
+              icon: 'success',
+              title: '¡Se han borrado correctamente!',
               timer: 1500,
               toast: true,
-              position: "top-end",
+              position: 'top-end',
               showConfirmButton: false,
               timerProgressBar: true,
-            })
-            setTimeout(() => {
-              this.reloadPlayersData();
-            }, 1500);
+            });
+            this.reloadPlayersData();
           },
           error: () => {
             Swal.fire({
-              icon: "error",
-              title: "Error al borrar todos los datos",
-              text: "Se ha producido un error y no se ha podidon borrar todos los datos de los jugadores...",
+              icon: 'error',
+              title: 'Error al borrar todos los datos',
+              text: 'Se ha producido un error y no se ha podidon borrar todos los datos de los jugadores...',
               showConfirmButton: true,
-              confirmButtonColor: "#34285a",
-              confirmButtonText: "Entendido",
-            })
-          }
-        })
+              confirmButtonColor: '#34285a',
+              confirmButtonText: 'Entendido',
+            });
+          },
+        });
       }
-    })
+    });
   }
-  
+
   toggleListMode() {
-    document.getElementById("players-list")?.classList.toggle("listed-player-cards");
-    document.getElementById("list-mode-btn")?.children[0].classList.toggle("hiddenplus");
-    document.getElementById("list-mode-btn")?.children[1].classList.toggle("hiddenplus");
-    document.getElementById("list-mode-btn")?.children[0].classList.toggle("opacity-0");
-    document.getElementById("list-mode-btn")?.children[1].classList.toggle("opacity-0");
+    document
+      .getElementById('players-list')
+      ?.classList.toggle('listed-player-cards');
+    document
+      .getElementById('list-mode-btn')
+      ?.children[0].classList.toggle('hiddenplus');
+    document
+      .getElementById('list-mode-btn')
+      ?.children[1].classList.toggle('hiddenplus');
+    document
+      .getElementById('list-mode-btn')
+      ?.children[0].classList.toggle('opacity-0');
+    document
+      .getElementById('list-mode-btn')
+      ?.children[1].classList.toggle('opacity-0');
   }
 }

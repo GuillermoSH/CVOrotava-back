@@ -37,6 +37,7 @@ export class PaymentComponent {
   saveNewPayment() {
     let btnSave = document.getElementById('btn-save-payment');
     let btnCancel = document.getElementById('btn-cancel-save-payment');
+    btnSave?.classList.toggle('pointer-events-none');
     this.paymentService.savePayment(this.newPayment).subscribe({
       next: () => {
         btnSave?.children[0].classList.toggle('hiddenplus');
@@ -68,6 +69,7 @@ export class PaymentComponent {
           btnSave?.children[2].classList.toggle('hiddenplus');
           btnSave?.children[3].classList.toggle('hiddenplus');
           btnSave?.classList.toggle('bg-green-600');
+          btnSave?.classList.toggle('pointer-events-none');
           btnCancel?.classList.toggle('hidden');
           if (btnSave) {
             btnSave.children[0].innerHTML = 'Guardar';
@@ -101,6 +103,7 @@ export class PaymentComponent {
     let btnUpdate = document.getElementById('btn-update-payment');
     let btnCancel = document.getElementById('btn-cancel-update-payment');
     let btnDelete = document.getElementById('btn-delete-payment');
+    btnUpdate?.classList.toggle('pointer-events-none');
     this.paymentService.updatePayment(this.updatedPayment).subscribe({
       next: () => {
         btnUpdate?.children[0].classList.toggle('hiddenplus');
@@ -129,6 +132,7 @@ export class PaymentComponent {
           btnUpdate?.children[2].classList.toggle('hiddenplus');
           btnUpdate?.children[3].classList.toggle('hiddenplus');
           btnCancel?.classList.toggle('hidden');
+          btnUpdate?.classList.toggle('pointer-events-none');
           btnUpdate?.classList.toggle('bg-green-600');
           btnDelete?.classList.toggle('disabled');
 
@@ -154,6 +158,7 @@ export class PaymentComponent {
     let btnUpdate = document.getElementById('btn-update-payment');
     let btnCancel = document.getElementById('btn-cancel-update-payment');
     let btnDelete = document.getElementById('btn-delete-payment');
+    btnDelete?.classList.toggle('pointer-events-none');
     this.paymentService.deletePayment(this.updatedPayment.id).subscribe({
       next: () => {
         btnDelete?.children[0].classList.toggle('hiddenplus');
@@ -182,6 +187,7 @@ export class PaymentComponent {
           btnDelete?.children[3].classList.toggle('hiddenplus');
           btnCancel?.classList.toggle('hidden');
           btnUpdate?.classList.toggle('disabled');
+          btnDelete?.classList.toggle('pointer-events-none');
 
           this.reloadPaymentsData();
 
