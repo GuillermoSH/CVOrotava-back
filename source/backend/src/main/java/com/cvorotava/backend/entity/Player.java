@@ -24,14 +24,12 @@ public class Player implements Serializable {
 	private String address;
 	private String birthday;
 	private String category;
-	@OneToMany
-	private List<Payment> payments;
 
 	public Player() {
 	}
 
 	public Player(Integer id, String dni, String name, String surname1, String surname2, Integer telephone, String email,
-			String address, String birthday, String category, List<Payment> payments) {
+			String address, String birthday, String category) {
 		this.id = id;
 		this.name = name;
 		this.surname1 = surname1;
@@ -41,7 +39,6 @@ public class Player implements Serializable {
 		this.address = address;
 		this.birthday = birthday;
 		this.category = category;
-		this.payments = payments;
 	}
 
 	public Integer getId() {
@@ -122,13 +119,5 @@ public class Player implements Serializable {
 
 	public void setCategory(String category) {
 		this.category = category;
-	}
-
-	public List<Payment> getPayments() {
-		return payments;
-	}
-
-	public void setPayments(List<Payment> payments) {
-		this.payments = payments;
 	}
 }

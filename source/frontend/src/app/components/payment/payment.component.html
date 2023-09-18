@@ -1,3 +1,4 @@
+<!-- ******************************************************** SPINNER ******************************************************* -->
 <section id="payment-spinner" class="h-full w-full flex justify-center items-center">
     <img src="../../../assets/imgs/Volleyball-PNG.webp" class="h-16 drop-shadow-2xl animate-[spin_1.5s_infinite]">
 </section>
@@ -5,6 +6,7 @@
 <!-- ****************************************************** NOT LOADED ****************************************************** -->
 <app-not-loaded class="hidden" [loaderErrorMsg]="loaderErrorMsg"></app-not-loaded>
 
+<!-- **************************************************** PAYMENTS LIST ***************************************************** -->
 <section class="w-full h-full hidden" id="payment-wrapper">
     <section class="grid grid-cols-[auto_1fr_auto] grid-rows-2 lg:grid-rows-1 gap-3 md:gap-5 mb-3 md:mb-5 sticky">
         <button (click)="toggleSaveModal()"
@@ -55,13 +57,134 @@
                 <h1 class="font-extrabold">Año:</h1>
                 <p class="capitalize text-base md:text-lg">{{payment.year}}</p>
             </div>
-            <div class="ms-auto flex gap-3 md:gap-5">
+            <div class="ms-auto flex gap-3 md:gap-5 text-base md:text-lg">
                 <button
                     class="bg-green-500 h-8 md:h-10 w-8 md:w-10 rounded-md hover:bg-green-700 duration-200 [&>*:first-child]:hover:animate-lateralBounce"
-                    (click)="toggleUpdateModal(payment)">
+                    (click)="toggleDetails(payment)">
                     <i class="fa-solid fa-pencil text-neutral-50"></i>
                 </button>
             </div>
+        </div>
+    </section>
+</section>
+
+<!-- ***************************************** PAYMENT DETAILS ***************************************** -->
+<section
+    class="min-h-full w-full flex flex-col gap-3 md:gap-5 bg-gray-50 shadow-xl rounded-xl animate-[popup_0.5s_ease-out] hidden p-3 md:p-5"
+    id="payment-details">
+    <section class="flex flex-wrap gap-3 md:gap-5 w-full bg-green-50 rounded-lg p-3 md:p-5 shadow-lg sticky">
+        <div class="w-full flex justify-between items-center gap-3 md:gap-5">
+            <div class="text-sm md:text-base lg:text-lg font-semibold">
+                {{updatedPayment.concept + " - " + updatedPayment.month + "/" + updatedPayment.year}}
+            </div>
+            <button (click)="toggleDetails()"
+                class="self-end bg-green-700 text-gray-50 px-3 py-1 rounded-lg flex gap-2 justify-center items-center text-sm md:text-base">
+                Volver atrás
+                <i class="fa-solid fa-arrow-left-long"></i>
+            </button>
+        </div>
+        <div class="flex flex-wrap gap-3 md:gap-5 w-full">
+            <div class="h-9 min-w-[120px] md:min-w-[180px] w-1/12 border border-main relative flex rounded-lg">
+                <input type="text" [(ngModel)]="updatedPayment.quantity" name="quantity" #quantity="ngModel"
+                    class="h-full w-full rounded-lg px-3 bg-transparent outline-green-500 focus:outline-green-300 duration-200 outline-2 outline"
+                    name="input">
+                <label
+                    class="absolute left-0 self-center ms-2 pointer-events-none duration-200 font-semibold top-[-10px] md:top-[-15px] scale-95 px-[5px] bg-green-50 text-xs md:text-base">Cantidad:</label>
+            </div>
+            <div class="h-9 min-w-[120px] md:min-w-[180px] w-1/12 relative flex rounded-lg">
+                <select
+                    class="w-full h-full bg-transparent outline-green-500 focus:outline-green-300 duration-200 outline-2 outline px-3 border-none capitalize rounded-md duration-200"
+                    [(ngModel)]="updatedPayment.month" name="month" #month="ngModel">
+                    <option [value]="months.indexOf(month) + 1" *ngFor="let month of months">
+                        {{ month }}
+                    </option>
+                </select>
+                <label
+                    class="absolute left-0 self-center ms-2 pointer-events-none duration-200 font-semibold top-[-10px] md:top-[-15px] scale-95 px-[5px] bg-green-50 text-xs md:text-base">Mes:</label>
+            </div>
+            <div class="h-9 min-w-[120px] md:min-w-[180px] w-1/12 relative flex rounded-lg">
+                <input type="text" [(ngModel)]="updatedPayment.year" name="year" #year="ngModel"
+                    class="h-full w-full rounded-lg px-3 bg-transparent outline-green-500 focus:outline-green-300 duration-200 outline-2 outline"
+                    name="input">
+                <label
+                    class="absolute left-0 self-center ms-2 pointer-events-none duration-200 font-semibold top-[-10px] md:top-[-15px] scale-95 px-[5px] bg-green-50 text-xs md:text-base">Año:</label>
+            </div>
+            <div class="h-9 min-w-[250px] md:min-w-[300px] w-3/12 relative flex rounded-lg">
+                <input [(ngModel)]="updatedPayment.concept" name="concept" #concept="ngModel"
+                    class="h-full w-full rounded-lg px-3 bg-transparent outline-green-500 focus:outline-green-300 duration-200 outline-2 outline"
+                    name="input">
+                <label
+                    class="absolute left-0 self-center ms-2 pointer-events-none duration-200 font-semibold top-[-10px] md:top-[-15px] scale-95 px-[5px] bg-green-50 text-xs md:text-base">Concepto:</label>
+            </div>
+            <button
+                class="bg-green-500 w-[1/2fr] min-w-max px-4 text-neutral-50 h-9 rounded-lg text-lg font-semibold flex gap-2 justify-center items-center"
+                id="btn-update-payment" (click)="updatePayment()">
+                <span>Guardar</span>
+                <span class="hiddenplus">Guardando...</span>
+                <i class="fa-solid fa-save"></i>
+                <i class="fa-solid fa-spinner fa-spin hiddenplus"></i>
+            </button>
+            <button
+                class="w-[1/2fr] min-w-max px-4 bg-red-500 text-neutral-50 h-9 rounded-lg text-lg font-semibold flex gap-2 justify-center items-center"
+                id="btn-delete-payment" (click)="deletePayment()">
+                <span>Eliminar</span>
+                <span class="hiddenplus">Eliminando...</span>
+                <i class="fa-solid fa-trash"></i>
+                <i class="fa-solid fa-spinner fa-spin hiddenplus"></i>
+            </button>
+        </div>
+    </section>
+    <h1 class="mt-5 font-extrabold text-xl">Jugadores que han pagado:</h1>
+    <section class="w-full overflow-y-auto flex flex-col gap-3 md:gap-5">
+        <div *ngIf="updatedPayment.players.length > 0; else listaNoPagadosVacia" class="w-full overflow-y-auto flex flex-col gap-3 md:gap-5 pb-5">
+            <div *ngFor="let player of updatedPayment.players"
+                class="w-full flex flex-wrap items-center gap-3 md:gap-5 border-s-4 border-s-green-500 hover:bg-green-100/80 duration-200 rounded-lg p-3 shadow-lg">
+                <div class="text-sm md:text-base">
+                    <h1 class="font-extrabold text-xs md:text-sm">Nombre:</h1>
+                    <p>{{player.name + " " + player.surname1 + " " + player.surname2}}</p>
+                </div>
+                <div class="text-sm md:text-base">
+                    <h1 class="font-extrabold text-xs md:text-sm">DNI:</h1>
+                    <p>{{player.dni}}</p>
+                </div>
+                <div class="text-sm md:text-base">
+                    <h1 class="font-extrabold text-xs md:text-sm">Categoría:</h1>
+                    <p>{{player.category}}</p>
+                </div>
+                <button
+                    class="bg-red-500 text-gray-50 h-9 aspect-square ms-auto rounded-md hover:bg-red-700 [&>*:first-child]:hover:animate-shake duration-200"
+                    (click)="deletePlayerFromPayment(player)">
+                    <i class="fa-solid fa-trash"></i>
+                    <i class="fa-solid fa-spinner fa-spin hiddenplus"></i>
+                </button>
+            </div>
+        </div>
+        <ng-template #listaNoPagadosVacia>
+            Parece que aún no ha pagado nadie, habrá que recordarselos 😆
+        </ng-template>
+    </section>
+    <h1 class=" font-extrabold text-xl">Jugadores no incluidos:</h1>
+    <section class="w-full overflow-y-auto flex flex-col gap-3 md:gap-5 pb-5">
+        <div *ngFor="let player of getNotPaidList()"
+            class="w-full flex flex-wrap items-center gap-3 md:gap-5 border-s-4 border-s-green-500 hover:bg-green-100/80 duration-200 rounded-lg p-3 shadow-lg">
+            <div class="text-sm md:text-base">
+                <h1 class="font-extrabold text-xs md:text-sm">Nombre:</h1>
+                <p>{{player.name + " " + player.surname1 + " " + player.surname2}}</p>
+            </div>
+            <div class="text-sm md:text-base">
+                <h1 class="font-extrabold text-xs md:text-sm">DNI:</h1>
+                <p>{{player.dni}}</p>
+            </div>
+            <div class="text-sm md:text-base">
+                <h1 class="font-extrabold text-xs md:text-sm">Categoría:</h1>
+                <p>{{player.category}}</p>
+            </div>
+            <button
+                class="bg-green-500 text-gray-50 h-9 aspect-square ms-auto rounded-md hover:bg-green-700 duration-200"
+                (click)="addPlayerToPayment(player)">
+                <i class="fa-solid fa-plus"></i>
+                <i class="fa-solid fa-spinner fa-spin hiddenplus"></i>
+            </button>
         </div>
     </section>
 </section>
@@ -71,7 +194,7 @@
     class="flex justify-center items-center fixed top-0 right-0 w-screen min-h-screen overflow-y-auto bg-neutral-800/70 backdrop-blur-sm hidden p-3 md:p-5 lg:p-6 z-[25]">
     <div class="bg-neutral-50 h-max w-full md:w-96 flex flex-wrap gap-5 p-5 relative animate-popup rounded-lg">
         <button
-            class="text-xl text-main duration-200 absolute top-3 right-3 lg:top-5 lg:right-5 w-5 h-5 flex justify-center items-center"
+            class="text-xl text-main duration-200 absolute top-3 right-3 hover:scale-125 lg:top-5 lg:right-5 w-5 h-5 flex justify-center items-center"
             (click)="toggleSaveModal()" id="btn-cancel-save-payment">
             <i class="fa-solid fa-xmark"></i>
         </button>
@@ -108,8 +231,7 @@
         </div>
         <button
             class="w-full bg-green-500 text-neutral-50 h-12 rounded-lg text-lg font-semibold flex gap-2 justify-center items-center"
-            id="btn-save-payment"
-            (click)="saveNewPayment()">
+            id="btn-save-payment" (click)="saveNewPayment()">
             <span>Guardar</span>
             <span class="hiddenplus">Guardando...</span>
             <i class="fa-solid fa-save"></i>
@@ -118,12 +240,12 @@
     </div>
 </div>
 
-<!-- **************************************** UPDATE PAYMENT MODAL **************************************** -->
+<!-- **************************************** UPDATE PAYMENT MODAL **************************************** 
 <div id="update-payment-modal"
     class="flex justify-center items-center fixed top-0 right-0 w-screen min-h-screen overflow-y-auto bg-neutral-800/70 backdrop-blur-sm p-3 hidden md:p-5 lg:p-6 z-[25]">
     <div class="bg-neutral-50 h-max w-full md:w-96 flex flex-wrap gap-5 p-5 relative animate-popup rounded-lg">
         <button
-            class="text-xl text-main duration-200 absolute top-3 right-3 lg:top-5 lg:right-5 w-5 h-5 flex justify-center items-center"
+            class="text-xl text-main duration-200 absolute top-3 right-3 hover:scale-125 lg:top-5 lg:right-5 w-5 h-5 flex justify-center items-center"
             (click)="toggleUpdateModal()" id="btn-cancel-update-payment">
             <i class="fa-solid fa-xmark"></i>
         </button>
@@ -178,3 +300,4 @@
         </button>
     </div>
 </div>
+-->

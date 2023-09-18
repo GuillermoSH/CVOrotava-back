@@ -1,5 +1,6 @@
 package com.cvorotava.backend.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,13 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cvorotava.backend.entity.Payment;
 import com.cvorotava.backend.entity.Player;
 import com.cvorotava.backend.service.PaymentService;
+import com.cvorotava.backend.service.PlayerService;
 
-@CrossOrigin(origins = {"http://192.168.1.27:4200/", "http://localhost:4200/", "https://c24djzb4-4200.uks1.devtunnels.ms/"})
+@CrossOrigin(origins = {"http://192.168.1.27:4200/", "http://localhost:4200/", "https://zm220cwj-4200.euw.devtunnels.ms/"})
 @RestController
 @RequestMapping("/api/v1/payments")
 public class PaymentController {
 	@Autowired
 	private PaymentService paymentservice;
+	
+	@Autowired
+	private PlayerService playerservice;
 	
 	@GetMapping
 	public List<Payment> getPayments() {
@@ -61,7 +66,7 @@ public class PaymentController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<?> updatePlayer(@RequestBody Payment payment) {
+	public ResponseEntity<?> updatePayment(@RequestBody Payment payment) {
 		Payment newPayment;
 		HashMap<String, Object> response = new HashMap<>();
 
@@ -76,6 +81,66 @@ public class PaymentController {
 		response.put("message", "¡Se han cambiado los datos con éxito!");
 		response.put("payment", newPayment);
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.ACCEPTED);
+	}
+	
+	@PutMapping("/{payment_id}/add/player")
+	public ResponseEntity<?> addPlayerToPayment(@PathVariable Integer payment_id, @RequestBody Player newPlayer) {
+		Player player = null;
+		HashMap<String, Object> response = new HashMap<>();
+		Payment payment;
+		payment = paymentservice.findById(payment_id);
+		
+		List<Player> players = payment.getPlayers();
+		player = playerservice.findById(newPlayer.getId());
+		
+		if (!players.contains(player) || payment == null) {
+			players.add(player);
+			payment.setPlayers(players);
+		} else {
+			response.put("message", "Error, el jugador ya tiene este pago.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		try {
+			payment = paymentservice.save(payment);
+		} catch (DataAccessException e) {
+			response.put("message", "Error al realizar el insert en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
+		
+		response.put("message", "¡Se han cambiado los datos con éxito!");
+		//response.put("payment", newPayment);
+		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@DeleteMapping("/{payment_id}/delete/player/{id}")
+	public ResponseEntity<?> deletePlayerToPayment(@PathVariable Integer payment_id, @PathVariable Integer id) {
+		Player player = null;
+		HashMap<String, Object> response = new HashMap<>();
+		Payment payment;
+		payment = paymentservice.findById(payment_id);
+		
+		List<Player> players = payment.getPlayers();
+		player = playerservice.findById(id);
+		
+		try {
+			players.remove(player);
+			payment.setPlayers(players);
+			payment = paymentservice.save(payment);
+		} catch (DataAccessException e) {
+			response.put("message", "Error al realizar el insert en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
+		
+		response.put("message", "¡Se han cambiado los datos con éxito!");
+		//response.put("payment", newPayment);
+		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")

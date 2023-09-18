@@ -14,6 +14,7 @@ export class PaymentComponent {
   payments: Payment[] = [];
   newPayment: Payment = new Payment();
   updatedPayment: Payment = new Payment();
+  paymentDetails: Payment = new Payment();
   players: Player[] = [];
   months: string[] = [];
   loaderErrorMsg: string = "";
@@ -26,7 +27,7 @@ export class PaymentComponent {
     this.months = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
   }
 
-  getMonthStr(payment: Payment) {
+  getMonthStr(payment: Payment = this.updatedPayment) {
     return this.months[parseInt(this.payments[this.payments.indexOf(payment)].month) - 1]
   }
 
@@ -125,8 +126,6 @@ export class PaymentComponent {
             timer: 2000,
           });
 
-          this.toggleUpdateModal();
-
           btnUpdate?.children[0].classList.toggle('hiddenplus');
           btnUpdate?.children[1].classList.toggle('hiddenplus');
           btnUpdate?.children[2].classList.toggle('hiddenplus');
@@ -135,8 +134,6 @@ export class PaymentComponent {
           btnUpdate?.classList.toggle('pointer-events-none');
           btnUpdate?.classList.toggle('bg-green-600');
           btnDelete?.classList.toggle('disabled');
-
-          this.reloadPaymentsData();
         }, 2000);
       },
       error: () => {
@@ -179,8 +176,6 @@ export class PaymentComponent {
             timer: 2000,
           });
 
-          this.toggleUpdateModal();
-
           btnDelete?.children[0].classList.toggle('hiddenplus');
           btnDelete?.children[1].classList.toggle('hiddenplus');
           btnDelete?.children[2].classList.toggle('hiddenplus');
@@ -189,7 +184,7 @@ export class PaymentComponent {
           btnUpdate?.classList.toggle('disabled');
           btnDelete?.classList.toggle('pointer-events-none');
 
-          this.reloadPaymentsData();
+          this.toggleDetails();
 
           this.updatedPayment = new Payment();
         }, 2000);
@@ -281,5 +276,63 @@ export class PaymentComponent {
         document.getElementById("btn-show_payment_modal")?.classList.add("hidden");
       }
     });
+  }
+
+  toggleDetails(payment: Payment = new Payment()) {
+    document.getElementById("payment-details")?.classList.toggle("hidden");
+    document.getElementById("payment-wrapper")?.classList.toggle("hidden");
+    this.updatedPayment = payment;
+
+    if (payment == new Payment()) {
+      this.reloadPaymentsData();
+    }
+  }
+
+  deletePlayerFromPayment(playerToDelete: Player) {
+    this.paymentService.deletePlayerFromPayment(playerToDelete.id, this.updatedPayment.id).subscribe({
+      next: (payment: Payment) => {
+        Swal.fire({
+          icon: "success",
+          title: "Furulo",
+        })
+
+        this.updatedPayment.players = this.updatedPayment.players.filter(player => player != playerToDelete);
+        this.getNotPaidList();
+      },
+      error: () => {
+        Swal.fire({
+          icon: "error",
+          title: "No furulo",
+        })
+      }
+    })
+  }
+
+  addPlayerToPayment(playerToAdd: Player) {
+    this.paymentService.addPlayerToPayment(playerToAdd, this.updatedPayment.id).subscribe({
+      next: (payment: Payment) => {
+        Swal.fire({
+          icon: "success",
+          title: "Furulo",
+        })
+
+        this.updatedPayment.players.push(playerToAdd);
+        this.getNotPaidList();
+      },
+      error: () => {
+        Swal.fire({
+          icon: "error",
+          title: "No furulo",
+        })
+      }
+    })
+  }
+
+  getNotPaidList() {
+    let notPaidList: Player[] = [];
+
+    notPaidList = this.players.filter(player => !this.updatedPayment.players.some(excludePlayer => excludePlayer.id === player.id));
+
+    return notPaidList;
   }
 }

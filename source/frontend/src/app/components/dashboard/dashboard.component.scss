@@ -2,7 +2,8 @@
     display: flex;
 }
 
-:host:has(app-home) {
+:host:has(app-home),
+:host:has(section[id="payment-details"]:not(.hidden)) {
     @apply bg-gray-200/70;
 }
 

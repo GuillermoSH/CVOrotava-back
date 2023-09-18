@@ -18,7 +18,7 @@ export class PlayersComponent {
   updatedPlayer: Player = new Player();
   newPlayer: Player = new Player();
 
-  constructor(private playerService: PlayersService) {}
+  constructor(private playerService: PlayersService) { }
 
   ngOnInit() {
     this.reloadPlayersData();
@@ -82,7 +82,7 @@ export class PlayersComponent {
         this.transformDisableHideBtns(btnSave, btnCancel, null, 'bg-blue-700');
 
         this.newPlayer = new Player();
-        
+
         this.reloadPlayersData();
       },
       error: () => {
@@ -102,9 +102,9 @@ export class PlayersComponent {
     });
   }
 
-  showUpdateModal(player: Player) {
+  toggleUpdateModal(player: Player = new Player()) {
     this.updatedPlayer = player;
-    document.getElementById('player-update-modal')?.classList.toggle('hidden');
+    document.getElementById('update-player-modal')?.classList.toggle('hidden');
   }
 
   toggleSaveModal() {
@@ -117,9 +117,7 @@ export class PlayersComponent {
   }
 
   dismissUpdateModal() {
-    document.getElementById('player-update-modal')?.classList.toggle('hidden');
-    this.reloadPlayersData();
-    this.updatedPlayer = new Player();
+    this.toggleUpdateModal();
   }
 
   updatePlayer() {
@@ -267,12 +265,13 @@ export class PlayersComponent {
     let btnUpdate = document.getElementById('btn-update-player');
     let btnCancel = document.getElementById('btn-cancel-update-player');
     let btnDelete = document.getElementById('btn-delete-player');
-    btnDelete?.children[0].classList.toggle('hiddenplus');
-    btnDelete?.children[1].classList.toggle('hiddenplus');
-    btnDelete?.children[2].classList.toggle('hiddenplus');
-    btnDelete?.children[3].classList.toggle('hiddenplus');
-    btnCancel?.classList.toggle('hidden');
-    btnUpdate?.classList.toggle('disabled');
+
+    this.transformDisableHideBtns(
+      btnDelete,
+      btnCancel,
+      btnUpdate,
+      'bg-red-700'
+    );
 
     this.playerService.deletePlayer(this.updatedPlayer.id).subscribe({
       next: () => {
@@ -288,12 +287,12 @@ export class PlayersComponent {
 
         this.dismissUpdateModal();
 
-        btnDelete?.children[0].classList.toggle('hiddenplus');
-        btnDelete?.children[1].classList.toggle('hiddenplus');
-        btnDelete?.children[2].classList.toggle('hiddenplus');
-        btnDelete?.children[3].classList.toggle('hiddenplus');
-        btnCancel?.classList.toggle('hidden');
-        btnUpdate?.classList.toggle('disabled');
+        this.transformDisableHideBtns(
+          btnDelete,
+          btnCancel,
+          btnUpdate,
+          'bg-red-700'
+        );
 
         this.reloadPlayersData();
 
