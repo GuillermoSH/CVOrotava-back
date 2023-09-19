@@ -78,51 +78,19 @@
                 {{updatedPayment.concept + " - " + updatedPayment.month + "/" + updatedPayment.year}}
             </div>
             <button (click)="toggleDetails()"
-                class="self-end bg-green-700 text-gray-50 px-3 py-1 rounded-lg flex gap-2 justify-center items-center text-sm md:text-base">
+                class="self-end bg-green-700 text-gray-50 px-3 py-1 rounded-lg flex gap-2 justify-center items-center text-sm md:text-base" 
+                id="btn-details-back">
                 Volver atrás
                 <i class="fa-solid fa-arrow-left-long"></i>
             </button>
         </div>
-        <div class="flex flex-wrap gap-3 md:gap-5 w-full">
-            <div class="h-9 min-w-[120px] md:min-w-[180px] w-1/12 border border-main relative flex rounded-lg">
-                <input type="text" [(ngModel)]="updatedPayment.quantity" name="quantity" #quantity="ngModel"
-                    class="h-full w-full rounded-lg px-3 bg-transparent outline-green-500 focus:outline-green-300 duration-200 outline-2 outline"
-                    name="input">
-                <label
-                    class="absolute left-0 self-center ms-2 pointer-events-none duration-200 font-semibold top-[-10px] md:top-[-15px] scale-95 px-[5px] bg-green-50 text-xs md:text-base">Cantidad:</label>
-            </div>
-            <div class="h-9 min-w-[120px] md:min-w-[180px] w-1/12 relative flex rounded-lg">
-                <select
-                    class="w-full h-full bg-transparent outline-green-500 focus:outline-green-300 duration-200 outline-2 outline px-3 border-none capitalize rounded-md duration-200"
-                    [(ngModel)]="updatedPayment.month" name="month" #month="ngModel">
-                    <option [value]="months.indexOf(month) + 1" *ngFor="let month of months">
-                        {{ month }}
-                    </option>
-                </select>
-                <label
-                    class="absolute left-0 self-center ms-2 pointer-events-none duration-200 font-semibold top-[-10px] md:top-[-15px] scale-95 px-[5px] bg-green-50 text-xs md:text-base">Mes:</label>
-            </div>
-            <div class="h-9 min-w-[120px] md:min-w-[180px] w-1/12 relative flex rounded-lg">
-                <input type="text" [(ngModel)]="updatedPayment.year" name="year" #year="ngModel"
-                    class="h-full w-full rounded-lg px-3 bg-transparent outline-green-500 focus:outline-green-300 duration-200 outline-2 outline"
-                    name="input">
-                <label
-                    class="absolute left-0 self-center ms-2 pointer-events-none duration-200 font-semibold top-[-10px] md:top-[-15px] scale-95 px-[5px] bg-green-50 text-xs md:text-base">Año:</label>
-            </div>
-            <div class="h-9 min-w-[250px] md:min-w-[300px] w-3/12 relative flex rounded-lg">
-                <input [(ngModel)]="updatedPayment.concept" name="concept" #concept="ngModel"
-                    class="h-full w-full rounded-lg px-3 bg-transparent outline-green-500 focus:outline-green-300 duration-200 outline-2 outline"
-                    name="input">
-                <label
-                    class="absolute left-0 self-center ms-2 pointer-events-none duration-200 font-semibold top-[-10px] md:top-[-15px] scale-95 px-[5px] bg-green-50 text-xs md:text-base">Concepto:</label>
-            </div>
+        <div class="flex justify-between gap-3 md:gap-5 w-full">
             <button
                 class="bg-green-500 w-[1/2fr] min-w-max px-4 text-neutral-50 h-9 rounded-lg text-lg font-semibold flex gap-2 justify-center items-center"
-                id="btn-update-payment" (click)="updatePayment()">
-                <span>Guardar</span>
-                <span class="hiddenplus">Guardando...</span>
-                <i class="fa-solid fa-save"></i>
-                <i class="fa-solid fa-spinner fa-spin hiddenplus"></i>
+                id="btn-edit-payment"
+                (click)="toggleUpdateModal()">
+                <span>Editar</span>
+                <i class="fa-solid fa-pencil"></i>
             </button>
             <button
                 class="w-[1/2fr] min-w-max px-4 bg-red-500 text-neutral-50 h-9 rounded-lg text-lg font-semibold flex gap-2 justify-center items-center"
@@ -240,7 +208,7 @@
     </div>
 </div>
 
-<!-- **************************************** UPDATE PAYMENT MODAL **************************************** 
+<!-- **************************************** UPDATE PAYMENT MODAL **************************************** -->
 <div id="update-payment-modal"
     class="flex justify-center items-center fixed top-0 right-0 w-screen min-h-screen overflow-y-auto bg-neutral-800/70 backdrop-blur-sm p-3 hidden md:p-5 lg:p-6 z-[25]">
     <div class="bg-neutral-50 h-max w-full md:w-96 flex flex-wrap gap-5 p-5 relative animate-popup rounded-lg">
@@ -289,15 +257,5 @@
             <i class="fa-solid fa-save"></i>
             <i class="fa-solid fa-spinner fa-spin hiddenplus"></i>
         </button>
-        <button
-            class="w-full bg-red-500 text-neutral-50 h-12 rounded-lg text-lg font-semibold flex gap-2 justify-center items-center"
-            id="btn-delete-payment"
-            (click)="deletePayment()">
-            <span>Eliminar</span>
-            <span class="hiddenplus">Eliminando...</span>
-            <i class="fa-solid fa-trash"></i>
-            <i class="fa-solid fa-spinner fa-spin hiddenplus"></i>
-        </button>
     </div>
 </div>
--->

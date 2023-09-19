@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+  styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent {
   payments: Payment[] = [];
@@ -17,18 +17,56 @@ export class PaymentComponent {
   paymentDetails: Payment = new Payment();
   players: Player[] = [];
   months: string[] = [];
-  loaderErrorMsg: string = "";
+  loaderErrorMsg: string = '';
 
-  constructor(private paymentService: PaymentService, private playerService: PlayersService) { }
+  constructor(
+    private paymentService: PaymentService,
+    private playerService: PlayersService
+  ) {}
 
   ngOnInit() {
     this.reloadPaymentsData();
-    this.playerService.getPlayers().subscribe((players: Player[]) => { this.players = players })
-    this.months = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+    this.playerService.getPlayers().subscribe((players: Player[]) => {
+      this.players = players;
+    });
+    this.months = [
+      'enero',
+      'febrero',
+      'marzo',
+      'abril',
+      'mayo',
+      'junio',
+      'julio',
+      'agosto',
+      'septiembre',
+      'octubre',
+      'noviembre',
+      'diciembre',
+    ];
+  }
+
+  transformDisableHideBtns(
+    transformBtn: any,
+    hideBtn: any,
+    disabledBtn: any = null,
+    transformBtnColor: string
+  ) {
+    transformBtn?.classList.toggle('pointer-events-none');
+    transformBtn?.children[0].classList.toggle('hiddenplus');
+    transformBtn?.children[1].classList.toggle('hiddenplus');
+    transformBtn?.children[2].classList.toggle('hiddenplus');
+    transformBtn?.children[3].classList.toggle('hiddenplus');
+    transformBtn?.classList.toggle(transformBtnColor);
+    hideBtn?.classList.toggle('hidden');
+    if (disabledBtn != null) {
+      disabledBtn?.classList.toggle('disabled');
+    }
   }
 
   getMonthStr(payment: Payment = this.updatedPayment) {
-    return this.months[parseInt(this.payments[this.payments.indexOf(payment)].month) - 1]
+    return this.months[
+      parseInt(this.payments[this.payments.indexOf(payment)].month) - 1
+    ];
   }
 
   toggleSaveModal() {
@@ -41,15 +79,7 @@ export class PaymentComponent {
     btnSave?.classList.toggle('pointer-events-none');
     this.paymentService.savePayment(this.newPayment).subscribe({
       next: () => {
-        btnSave?.children[0].classList.toggle('hiddenplus');
-        btnSave?.children[1].classList.toggle('hiddenplus');
-        btnSave?.children[2].classList.toggle('hiddenplus');
-        btnSave?.children[3].classList.toggle('hiddenplus');
-        btnSave?.classList.toggle('bg-green-600');
-        btnCancel?.classList.toggle('hidden');
-        if (btnSave) {
-          btnSave.children[0].innerHTML = 'Guardando...';
-        }
+        this.transformDisableHideBtns(btnSave, btnCancel, null, 'bg-green-600');
 
         setTimeout(() => {
           Swal.fire({
@@ -65,16 +95,13 @@ export class PaymentComponent {
 
           this.toggleSaveModal();
 
-          btnSave?.children[0].classList.toggle('hiddenplus');
-          btnSave?.children[1].classList.toggle('hiddenplus');
-          btnSave?.children[2].classList.toggle('hiddenplus');
-          btnSave?.children[3].classList.toggle('hiddenplus');
-          btnSave?.classList.toggle('bg-green-600');
+          this.transformDisableHideBtns(
+            btnSave,
+            btnCancel,
+            null,
+            'bg-green-600'
+          );
           btnSave?.classList.toggle('pointer-events-none');
-          btnCancel?.classList.toggle('hidden');
-          if (btnSave) {
-            btnSave.children[0].innerHTML = 'Guardar';
-          }
 
           this.newPayment = new Payment();
           this.reloadPaymentsData();
@@ -95,26 +122,19 @@ export class PaymentComponent {
     });
   }
 
-  toggleUpdateModal(payment: Payment = new Payment()) {
-    this.updatedPayment = payment;
+  toggleUpdateModal() {
     document.getElementById('update-payment-modal')?.classList.toggle('hidden');
   }
 
   updatePayment() {
     let btnUpdate = document.getElementById('btn-update-payment');
     let btnCancel = document.getElementById('btn-cancel-update-payment');
-    let btnDelete = document.getElementById('btn-delete-payment');
+
     btnUpdate?.classList.toggle('pointer-events-none');
+    this.transformDisableHideBtns(btnUpdate, btnCancel, null, 'bg-green-600');
+
     this.paymentService.updatePayment(this.updatedPayment).subscribe({
       next: () => {
-        btnUpdate?.children[0].classList.toggle('hiddenplus');
-        btnUpdate?.children[1].classList.toggle('hiddenplus');
-        btnUpdate?.children[2].classList.toggle('hiddenplus');
-        btnUpdate?.children[3].classList.toggle('hiddenplus');
-        btnCancel?.classList.toggle('hidden');
-        btnUpdate?.classList.toggle('bg-green-600');
-        btnDelete?.classList.toggle('disabled');
-
         setTimeout(() => {
           Swal.fire({
             title: `¡Los datos han sido actualizados!`,
@@ -126,14 +146,13 @@ export class PaymentComponent {
             timer: 2000,
           });
 
-          btnUpdate?.children[0].classList.toggle('hiddenplus');
-          btnUpdate?.children[1].classList.toggle('hiddenplus');
-          btnUpdate?.children[2].classList.toggle('hiddenplus');
-          btnUpdate?.children[3].classList.toggle('hiddenplus');
-          btnCancel?.classList.toggle('hidden');
+          this.transformDisableHideBtns(
+            btnUpdate,
+            btnCancel,
+            null,
+            'bg-green-600'
+          );
           btnUpdate?.classList.toggle('pointer-events-none');
-          btnUpdate?.classList.toggle('bg-green-600');
-          btnDelete?.classList.toggle('disabled');
         }, 2000);
       },
       error: () => {
@@ -152,19 +171,17 @@ export class PaymentComponent {
   }
 
   deletePayment() {
-    let btnUpdate = document.getElementById('btn-update-payment');
+    let btnEdit = document.getElementById('btn-edit-payment');
     let btnCancel = document.getElementById('btn-cancel-update-payment');
     let btnDelete = document.getElementById('btn-delete-payment');
+    let btnBack = document.getElementById('btn-details-back');
+
     btnDelete?.classList.toggle('pointer-events-none');
+    btnBack?.classList.toggle('disabled');
+    this.transformDisableHideBtns(btnDelete, btnCancel, btnEdit, 'bg-red-700');
+
     this.paymentService.deletePayment(this.updatedPayment.id).subscribe({
       next: () => {
-        btnDelete?.children[0].classList.toggle('hiddenplus');
-        btnDelete?.children[1].classList.toggle('hiddenplus');
-        btnDelete?.children[2].classList.toggle('hiddenplus');
-        btnDelete?.children[3].classList.toggle('hiddenplus');
-        btnCancel?.classList.toggle('hidden');
-        btnUpdate?.classList.toggle('disabled');
-
         setTimeout(() => {
           Swal.fire({
             title: `¡Se eliminó el pago!`,
@@ -176,12 +193,13 @@ export class PaymentComponent {
             timer: 2000,
           });
 
-          btnDelete?.children[0].classList.toggle('hiddenplus');
-          btnDelete?.children[1].classList.toggle('hiddenplus');
-          btnDelete?.children[2].classList.toggle('hiddenplus');
-          btnDelete?.children[3].classList.toggle('hiddenplus');
-          btnCancel?.classList.toggle('hidden');
-          btnUpdate?.classList.toggle('disabled');
+          this.transformDisableHideBtns(
+            btnDelete,
+            btnCancel,
+            btnEdit,
+            'bg-red-700'
+          );
+          btnBack?.classList.toggle('disabled');
           btnDelete?.classList.toggle('pointer-events-none');
 
           this.toggleDetails();
@@ -209,30 +227,28 @@ export class PaymentComponent {
     let aux = searchInput.value;
 
     if (aux.length < 1) {
-      aux = "empty";
+      aux = 'empty';
     }
 
-    this.paymentService
-      .searchBy(aux)
-      .subscribe((payments: Payment[]) => {
-        if (payments.length != 0) {
-          this.payments = payments;
-        } else {
-          Swal.fire({
-            title: 'No se han encontrado resultados',
-            icon: 'error',
-            toast: true,
-            position: 'top-end',
-            width: 'max-content',
-            background: '#dc2626',
-            timerProgressBar: true,
-            color: 'white',
-            iconColor: 'white',
-            timer: 1500,
-            showConfirmButton: false,
-          });
-        }
-      });
+    this.paymentService.searchBy(aux).subscribe((payments: Payment[]) => {
+      if (payments.length != 0) {
+        this.payments = payments;
+      } else {
+        Swal.fire({
+          title: 'No se han encontrado resultados',
+          icon: 'error',
+          toast: true,
+          position: 'top-end',
+          width: 'max-content',
+          background: '#dc2626',
+          timerProgressBar: true,
+          color: 'white',
+          iconColor: 'white',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    });
   }
 
   resetSearch() {
@@ -243,95 +259,124 @@ export class PaymentComponent {
     this.reloadPaymentsData();
   }
 
-  deleteAll() {
-
-  }
+  deleteAll() {}
 
   private reloadPaymentsData() {
-    let wrapper = document.getElementById("payment-wrapper");
-    let spinner = document.getElementById("payment-spinner");
-    let notLoadedWrapper = document.getElementsByTagName("app-not-loaded")[0];
+    let wrapper = document.getElementById('payment-wrapper');
+    let spinner = document.getElementById('payment-spinner');
+    let notLoadedWrapper = document.getElementsByTagName('app-not-loaded')[0];
     this.paymentService.getPayments().subscribe({
       next: (payments: Payment[]) => {
         if (payments.length < 1) {
-          this.loaderErrorMsg = "Parece que no existen pagos aún. ¡Es hora de formalizar un par de ellos!";
-          wrapper?.classList.add("hidden");
-          notLoadedWrapper?.classList.remove("hidden");
-          spinner?.classList.add("hidden");
-          document.getElementById("btn-reload")?.classList.add("hidden");
-          document.getElementById("btn-show_payment_modal")?.classList.remove("hidden");
+          this.loaderErrorMsg =
+            'Parece que no existen pagos aún. ¡Es hora de formalizar un par de ellos!';
+          wrapper?.classList.add('hidden');
+          notLoadedWrapper?.classList.remove('hidden');
+          spinner?.classList.add('hidden');
+          document.getElementById('btn-reload')?.classList.add('hidden');
+          document
+            .getElementById('btn-show_payment_modal')
+            ?.classList.remove('hidden');
         } else {
           this.payments = payments;
-          spinner?.classList.add("hidden");
-          wrapper?.classList.remove("hidden");
-          notLoadedWrapper?.classList.add("hidden");
+          spinner?.classList.add('hidden');
+          wrapper?.classList.remove('hidden');
+          notLoadedWrapper?.classList.add('hidden');
         }
       },
       error: () => {
-        this.loaderErrorMsg = "Parece que no se han podido cargar los datos, recarga la página y si no se soluciona contacte con un técnico.";
-        wrapper?.classList.add("hidden");
-        notLoadedWrapper?.classList.remove("hidden");
-        spinner?.classList.add("hidden");
-        document.getElementById("btn-reload")?.classList.remove("hidden");
-        document.getElementById("btn-show_payment_modal")?.classList.add("hidden");
-      }
+        this.loaderErrorMsg =
+          'Parece que no se han podido cargar los datos, recarga la página y si no se soluciona contacte con un técnico.';
+        wrapper?.classList.add('hidden');
+        notLoadedWrapper?.classList.remove('hidden');
+        spinner?.classList.add('hidden');
+        document.getElementById('btn-reload')?.classList.remove('hidden');
+        document
+          .getElementById('btn-show_payment_modal')
+          ?.classList.add('hidden');
+      },
     });
   }
 
   toggleDetails(payment: Payment = new Payment()) {
-    document.getElementById("payment-details")?.classList.toggle("hidden");
-    document.getElementById("payment-wrapper")?.classList.toggle("hidden");
+    document.getElementById('payment-details')?.classList.toggle('hidden');
+    document.getElementById('payment-wrapper')?.classList.toggle('hidden');
     this.updatedPayment = payment;
 
-    if (payment == new Payment()) {
+    if (parseInt(this.updatedPayment.month) < 10) {
+      this.updatedPayment.month = '0' + this.updatedPayment.month;
+    }
+
+    if (payment.id == '') {
       this.reloadPaymentsData();
     }
   }
 
   deletePlayerFromPayment(playerToDelete: Player) {
-    this.paymentService.deletePlayerFromPayment(playerToDelete.id, this.updatedPayment.id).subscribe({
-      next: (payment: Payment) => {
-        Swal.fire({
-          icon: "success",
-          title: "Furulo",
-        })
+    this.paymentService
+      .deletePlayerFromPayment(playerToDelete.id, this.updatedPayment.id)
+      .subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Jugador/a eliminado/a',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 1500,
+          });
 
-        this.updatedPayment.players = this.updatedPayment.players.filter(player => player != playerToDelete);
-        this.getNotPaidList();
-      },
-      error: () => {
-        Swal.fire({
-          icon: "error",
-          title: "No furulo",
-        })
-      }
-    })
+          this.updatedPayment.players = this.updatedPayment.players.filter(
+            (player) => player != playerToDelete
+          );
+          this.getNotPaidList();
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al añadir el jugador',
+          });
+        },
+      });
   }
 
   addPlayerToPayment(playerToAdd: Player) {
-    this.paymentService.addPlayerToPayment(playerToAdd, this.updatedPayment.id).subscribe({
-      next: (payment: Payment) => {
-        Swal.fire({
-          icon: "success",
-          title: "Furulo",
-        })
+    this.paymentService
+      .addPlayerToPayment(playerToAdd, this.updatedPayment.id)
+      .subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Jugador/a añadido/a',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 1500,
+          });
 
-        this.updatedPayment.players.push(playerToAdd);
-        this.getNotPaidList();
-      },
-      error: () => {
-        Swal.fire({
-          icon: "error",
-          title: "No furulo",
-        })
-      }
-    })
+          this.updatedPayment.players.push(playerToAdd);
+          this.getNotPaidList();
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'No furulo',
+          });
+        },
+      });
   }
 
   getNotPaidList() {
     let notPaidList: Player[] = [];
 
-    notPaidList = this.players.filter(player => !this.updatedPayment.players.some(excludePlayer => excludePlayer.id === player.id));
+    notPaidList = this.players.filter(
+      (player) =>
+        !this.updatedPayment.players.some(
+          (excludePlayer) => excludePlayer.id === player.id
+        )
+    );
 
     return notPaidList;
   }

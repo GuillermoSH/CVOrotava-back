@@ -10,6 +10,8 @@ import com.cvorotava.backend.entity.Payment;
 import com.cvorotava.backend.entity.Player;
 
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
+	@Query(value="SELECT p FROM Payment p ORDER BY p.year, p.month, p.concept")
+	List<Payment> findAll();
 	List<Payment> findByConcept(String concept);
 	
 	@Query(value="SELECT p FROM Payment p WHERE CONCAT_WS(' ', p.quantity, p.month, p.year, p.concept) LIKE %:search%")
