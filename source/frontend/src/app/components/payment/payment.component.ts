@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Payment } from 'src/app/models/payment.model';
-import { Player } from 'src/app/models/player.model';
 import { PaymentService } from 'src/app/services/payment.service';
 import { PlayersService } from 'src/app/services/players.service';
 import Swal from 'sweetalert2';
@@ -15,20 +15,15 @@ export class PaymentComponent {
   newPayment: Payment = new Payment();
   updatedPayment: Payment = new Payment();
   paymentDetails: Payment = new Payment();
-  players: Player[] = [];
   months: string[] = [];
   loaderErrorMsg: string = '';
 
   constructor(
     private paymentService: PaymentService,
-    private playerService: PlayersService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.reloadPaymentsData();
-    this.playerService.getPlayers().subscribe((players: Player[]) => {
-      this.players = players;
-    });
     this.months = [
       'enero',
       'febrero',
@@ -65,7 +60,7 @@ export class PaymentComponent {
 
   getMonthStr(payment: Payment = this.updatedPayment) {
     return this.months[
-      parseInt(this.payments[this.payments.indexOf(payment)].month) - 1
+      this.payments[this.payments.indexOf(payment)].month - 1
     ];
   }
 
@@ -122,106 +117,6 @@ export class PaymentComponent {
     });
   }
 
-  toggleUpdateModal() {
-    document.getElementById('update-payment-modal')?.classList.toggle('hidden');
-  }
-
-  updatePayment() {
-    let btnUpdate = document.getElementById('btn-update-payment');
-    let btnCancel = document.getElementById('btn-cancel-update-payment');
-
-    btnUpdate?.classList.toggle('pointer-events-none');
-    this.transformDisableHideBtns(btnUpdate, btnCancel, null, 'bg-green-600');
-
-    this.paymentService.updatePayment(this.updatedPayment).subscribe({
-      next: () => {
-        setTimeout(() => {
-          Swal.fire({
-            title: `¡Los datos han sido actualizados!`,
-            toast: true,
-            position: 'top-end',
-            width: 'max-content',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 2000,
-          });
-
-          this.transformDisableHideBtns(
-            btnUpdate,
-            btnCancel,
-            null,
-            'bg-green-600'
-          );
-          btnUpdate?.classList.toggle('pointer-events-none');
-        }, 2000);
-      },
-      error: () => {
-        Swal.fire({
-          title: 'Error al guardar',
-          icon: 'error',
-          text: 'Se ha producido un error al guardar los cambios. Revise que la información introducida es correcta',
-          showConfirmButton: true,
-          confirmButtonColor: '#34285a',
-          allowOutsideClick: false,
-          color: '#34285a',
-          iconColor: '#dc2626',
-        });
-      },
-    });
-  }
-
-  deletePayment() {
-    let btnEdit = document.getElementById('btn-edit-payment');
-    let btnCancel = document.getElementById('btn-cancel-update-payment');
-    let btnDelete = document.getElementById('btn-delete-payment');
-    let btnBack = document.getElementById('btn-details-back');
-
-    btnDelete?.classList.toggle('pointer-events-none');
-    btnBack?.classList.toggle('disabled');
-    this.transformDisableHideBtns(btnDelete, btnCancel, btnEdit, 'bg-red-700');
-
-    this.paymentService.deletePayment(this.updatedPayment.id).subscribe({
-      next: () => {
-        setTimeout(() => {
-          Swal.fire({
-            title: `¡Se eliminó el pago!`,
-            toast: true,
-            position: 'top-end',
-            width: 'max-content',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 2000,
-          });
-
-          this.transformDisableHideBtns(
-            btnDelete,
-            btnCancel,
-            btnEdit,
-            'bg-red-700'
-          );
-          btnBack?.classList.toggle('disabled');
-          btnDelete?.classList.toggle('pointer-events-none');
-
-          this.toggleDetails();
-
-          this.updatedPayment = new Payment();
-        }, 2000);
-      },
-      error: () => {
-        Swal.fire({
-          title: 'Error al eliminar',
-          icon: 'error',
-          text: 'Se ha producido un error al eliminar el pago. Parece que el pago ya no existe, pruebe a recargar la página. Consulte con el desarrollador si el problema persiste.',
-          showConfirmButton: true,
-          confirmButtonColor: '#34285a',
-          allowOutsideClick: false,
-          color: '#34285a',
-          iconColor: '#dc2626',
-        });
-      },
-    });
-  }
-
   searchPayments() {
     let searchInput = <HTMLInputElement>document.getElementById('search-input');
     let aux = searchInput.value;
@@ -259,7 +154,7 @@ export class PaymentComponent {
     this.reloadPaymentsData();
   }
 
-  deleteAll() {}
+  deleteAll() { }
 
   private reloadPaymentsData() {
     let wrapper = document.getElementById('payment-wrapper');
@@ -296,88 +191,5 @@ export class PaymentComponent {
           ?.classList.add('hidden');
       },
     });
-  }
-
-  toggleDetails(payment: Payment = new Payment()) {
-    document.getElementById('payment-details')?.classList.toggle('hidden');
-    document.getElementById('payment-wrapper')?.classList.toggle('hidden');
-    this.updatedPayment = payment;
-
-    if (parseInt(this.updatedPayment.month) < 10) {
-      this.updatedPayment.month = '0' + this.updatedPayment.month;
-    }
-
-    if (payment.id == '') {
-      this.reloadPaymentsData();
-    }
-  }
-
-  deletePlayerFromPayment(playerToDelete: Player) {
-    this.paymentService
-      .deletePlayerFromPayment(playerToDelete.id, this.updatedPayment.id)
-      .subscribe({
-        next: () => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Jugador/a eliminado/a',
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timerProgressBar: true,
-            timer: 1500,
-          });
-
-          this.updatedPayment.players = this.updatedPayment.players.filter(
-            (player) => player != playerToDelete
-          );
-          this.getNotPaidList();
-        },
-        error: () => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error al añadir el jugador',
-          });
-        },
-      });
-  }
-
-  addPlayerToPayment(playerToAdd: Player) {
-    this.paymentService
-      .addPlayerToPayment(playerToAdd, this.updatedPayment.id)
-      .subscribe({
-        next: () => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Jugador/a añadido/a',
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timerProgressBar: true,
-            timer: 1500,
-          });
-
-          this.updatedPayment.players.push(playerToAdd);
-          this.getNotPaidList();
-        },
-        error: () => {
-          Swal.fire({
-            icon: 'error',
-            title: 'No furulo',
-          });
-        },
-      });
-  }
-
-  getNotPaidList() {
-    let notPaidList: Player[] = [];
-
-    notPaidList = this.players.filter(
-      (player) =>
-        !this.updatedPayment.players.some(
-          (excludePlayer) => excludePlayer.id === player.id
-        )
-    );
-
-    return notPaidList;
   }
 }

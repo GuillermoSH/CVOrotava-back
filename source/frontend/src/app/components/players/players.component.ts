@@ -309,6 +309,13 @@ export class PlayersComponent {
           color: '#34285a',
           iconColor: '#dc2626',
         });
+
+        this.transformDisableHideBtns(
+          btnDelete,
+          btnCancel,
+          btnUpdate,
+          'bg-red-700'
+        );
       },
     });
   }

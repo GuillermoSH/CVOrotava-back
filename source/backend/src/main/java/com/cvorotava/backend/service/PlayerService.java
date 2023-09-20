@@ -4,18 +4,20 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.cvorotava.backend.entity.Player;
 import com.cvorotava.backend.repository.PlayerRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PlayerService {
 	@Autowired
 	private PlayerRepository playerrepository;
 
+	@Transactional
 	public Player save(Player entity) {
 		return playerrepository.save(entity);
 	}
@@ -51,6 +53,7 @@ public class PlayerService {
 		return playerrepository.searchLike(search);
 	}
 
+	@Transactional
 	public Boolean remove(Integer id) {
 		Optional<Player> currentUser = playerrepository.findById(id);
 		if (currentUser.isPresent()) {
@@ -66,5 +69,10 @@ public class PlayerService {
 	
 	public List<Player> findByCategory(String category) {
 		return playerrepository.findByCategory(category);
+	}
+	
+	@Transactional
+	public void deleteRelations(Integer id) {
+		playerrepository.deleteRelations(id);
 	}
 }

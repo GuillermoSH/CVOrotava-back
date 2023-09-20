@@ -17,7 +17,8 @@ import com.cvorotava.backend.entity.Player;
 import com.cvorotava.backend.service.PaymentService;
 import com.cvorotava.backend.service.PlayerService;
 
-@CrossOrigin(origins = {"http://192.168.1.27:4200/", "http://localhost:4200/", "https://zm220cwj-4200.euw.devtunnels.ms/", "https://c24djzb4-4200.uks1.devtunnels.ms/"})
+@CrossOrigin(origins = { "http://192.168.1.27:4200/", "http://localhost:4200/",
+		"https://zm220cwj-4200.euw.devtunnels.ms/", "https://c24djzb4-4200.uks1.devtunnels.ms/" })
 @RestController
 @RequestMapping("/api/v1/players")
 public class PlayerController {
@@ -28,12 +29,12 @@ public class PlayerController {
 	public List<Player> getPlayers() {
 		return playerservice.findAll();
 	}
-	
+
 	@GetMapping("/total")
 	public String[] getPlayersCount() {
 		return playerservice.countPlayers();
 	}
-	
+
 	@GetMapping("/orderedBy/{order}")
 	public List<Player> getPlayersOrderedBy(@PathVariable String order) {
 		return playerservice.findAllOrderedBy(order);
@@ -43,7 +44,7 @@ public class PlayerController {
 	public List<Player> getPlayersByCategory(@PathVariable String category) {
 		return playerservice.findByCategory(category);
 	}
-	
+
 	@GetMapping("/search/{search}")
 	public List<Player> searchPlayersBy(@PathVariable String search) {
 		if (search.equals("empty")) {
@@ -51,7 +52,7 @@ public class PlayerController {
 		}
 		return playerservice.searchLike(search);
 	}
-	
+
 	@GetMapping("/dni/{dni}")
 	public Player getPlayerByDni(@PathVariable String dni) {
 		return playerservice.findByDni(dni);
@@ -79,7 +80,7 @@ public class PlayerController {
 		response.put("player", newPlayer);
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.ACCEPTED);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<?> savePlayer(@RequestBody Player player) {
 		Player newPlayer;
@@ -109,6 +110,7 @@ public class PlayerController {
 		Player player = playerservice.findById(id);
 		HashMap<String, Object> response = new HashMap<>();
 		try {
+			playerservice.deleteRelations(player.getId());
 			playerservice.remove(player.getId());
 		} catch (DataAccessException e) {
 			response.put("message", "Error al eliminar el jugador de la base de datos");
@@ -119,7 +121,7 @@ public class PlayerController {
 		response.put("message", "¡El jugador fue eliminado con éxito!");
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping
 	public ResponseEntity<?> deleteAll() {
 		HashMap<String, Object> response = new HashMap<>();

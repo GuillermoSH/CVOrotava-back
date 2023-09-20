@@ -24,6 +24,8 @@ public class Player implements Serializable {
 	private String address;
 	private String birthday;
 	private String category;
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Payment> payments;
 
 	public Player() {
 	}
@@ -119,5 +121,13 @@ public class Player implements Serializable {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public List<Payment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
 	}
 }

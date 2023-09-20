@@ -9,19 +9,20 @@ import jakarta.persistence.*;
 @NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p")
 public class Payment implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Double quantity;
 	private Integer month;
 	private Integer year;
 	private String concept;
-	@ManyToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Player> players;
-	
-	public Payment() {}
-	
+
+	public Payment() {
+	}
+
 	public Payment(Integer id, Double quantity, Integer month, Integer year, String concept, List<Player> players) {
 		this.id = id;
 		this.quantity = quantity;
@@ -38,7 +39,7 @@ public class Payment implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public Double getQuantity() {
 		return quantity;
 	}
@@ -54,7 +55,7 @@ public class Payment implements Serializable {
 	public void setMonth(Integer month) {
 		this.month = month;
 	}
-	
+
 	public Integer getYear() {
 		return year;
 	}

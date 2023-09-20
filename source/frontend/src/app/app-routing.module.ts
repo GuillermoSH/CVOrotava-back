@@ -9,6 +9,7 @@ import { IndexComponent } from './components/index/index.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PlayersComponent } from './components/players/players.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { PaymentsDetailsComponent } from './components/payments-details/payments-details.component';
 
 const routes: Routes = [
   { path: "", component: IndexComponent, data: { title: "Web Oficial CVOrotava" } },
@@ -18,12 +19,13 @@ const routes: Routes = [
     path: "dashboard", component: DashboardComponent, children: [
       { path: "", component: HomeComponent, data: { title: "CVOrotava - Inicio" } },
       { path: "payments", component: PaymentComponent, data: { title: "CVOrotava - Registros" } },
+      { path: "payments/:id", component: PaymentsDetailsComponent, data: { title: "CVOrotava - Detalles pago" } },
       { path: "statistics", component: StatisticsComponent, data: { title: "CVOrotava - Estadisticas" } },
       { path: "profile", component: ProfileComponent, data: { title: "CVOrotava - Perfil" } },
       { path: "players", component: PlayersComponent, data: { title: "CVOrotava - Jugadores" } },
     ]
   },
-  { path: "**", redirectTo: "error..." }
+  //{ path: "**", redirectTo: "error..." }
 ];
 
 @NgModule({

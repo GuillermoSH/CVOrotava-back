@@ -39,6 +39,11 @@ public class PaymentController {
 		return paymentservice.findAll();
 	}
 	
+	@GetMapping("/{id}")
+	public Payment getPaymentById(@PathVariable Integer id) {
+		return paymentservice.findById(id);
+	}
+	
 	@GetMapping("/search/{search}")
 	public List<Payment> searchPaymentsBy(@PathVariable String search) {
 		if (search.equals("empty")) {

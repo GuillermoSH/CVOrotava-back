@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { NotLoadedComponent } from './components/not-loaded/not-loaded.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { PaymentsDetailsComponent } from './components/payments-details/payments-details.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PaymentComponent } from './components/payment/payment.component';
     PlayersComponent,
     DateFormatPipe,
     NotLoadedComponent,
-    PaymentComponent
+    PaymentComponent,
+    PaymentsDetailsComponent
   ],
   imports: [
     BrowserModule,
