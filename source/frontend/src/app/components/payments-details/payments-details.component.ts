@@ -210,6 +210,7 @@ export class PaymentsDetailsComponent {
           this.payment.players = this.payment.players.filter(
             (player) => player != playerToDelete
           );
+          this.payers = this.payment.players;
           this.notPayers = this.getNotPaidList();
           eventClicked.parentElement.classList.toggle("pointer-events-none");
           fa_trash.classList.toggle("hiddenplus");
@@ -250,6 +251,7 @@ export class PaymentsDetailsComponent {
           });
 
           this.payment.players.push(playerToAdd);
+          this.payers = this.payment.players;
           this.notPayers = this.getNotPaidList();
 
           eventClicked.parentElement.classList.toggle("pointer-events-none");

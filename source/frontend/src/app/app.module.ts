@@ -21,6 +21,8 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
 import { NotLoadedComponent } from './components/not-loaded/not-loaded.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { PaymentsDetailsComponent } from './components/payments-details/payments-details.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -40,13 +42,15 @@ import { PaymentsDetailsComponent } from './components/payments-details/payments
     DateFormatPipe,
     NotLoadedComponent,
     PaymentComponent,
-    PaymentsDetailsComponent
+    PaymentsDetailsComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
