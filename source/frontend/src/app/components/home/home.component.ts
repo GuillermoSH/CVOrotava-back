@@ -17,6 +17,9 @@ export class HomeComponent {
   };
   players: Player[] = [];
   payments: Payment[] = [];
+  paymentsData: any;
+  months: any = [];
+  options: any;
 
   constructor(
     private playersService: PlayersService,
@@ -24,10 +27,32 @@ export class HomeComponent {
   ) {}
 
   ngOnInit() {
+    this.months = [
+      'enero',
+      'febrero',
+      'marzo',
+      'abril',
+      'mayo',
+      'junio',
+      'julio',
+      'agosto',
+      'septiembre',
+      'octubre',
+      'noviembre',
+      'diciembre',
+    ];
+
+    this.options = {
+      responsive: false,
+      maintainAspectRatio: false
+    };
+
     this.playersService.getTotalNumPlayers().subscribe((total: string[]) => {
       this.totalNumPlayers.TFem = total[0];
       this.totalNumPlayers.TMas = total[1];
-      document.getElementById('players-count-squeleton')?.classList.toggle('hidden');
+      document
+        .getElementById('players-count-squeleton')
+        ?.classList.toggle('hidden');
       document.getElementById('players-count')?.classList.toggle('hidden');
     });
 
@@ -38,6 +63,21 @@ export class HomeComponent {
 
     this.paymentsService.getPayments().subscribe((payments: Payment[]) => {
       this.payments = payments;
+      let labels: any = [];
+      let data: any = [];
+      payments.forEach((payment)=> {
+          labels.push((payment.concept + " - " + this.months[payment.month - 1]).toUpperCase())
+          data.push(payment.players.length)
+      })
+      this.paymentsData = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Jugadores que han pagado por mes',
+            data: data,
+          },
+        ],
+      };
     });
   }
 }
