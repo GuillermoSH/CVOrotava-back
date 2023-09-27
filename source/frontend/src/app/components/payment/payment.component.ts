@@ -72,35 +72,33 @@ export class PaymentComponent {
     let btnSave = document.getElementById('btn-save-payment');
     let btnCancel = document.getElementById('btn-cancel-save-payment');
     btnSave?.classList.toggle('pointer-events-none');
+    this.transformDisableHideBtns(btnSave, btnCancel, null, 'bg-green-600');
+
     this.paymentService.savePayment(this.newPayment).subscribe({
       next: () => {
-        this.transformDisableHideBtns(btnSave, btnCancel, null, 'bg-green-600');
+        Swal.fire({
+          title: `¡Nuevo pago añadido!`,
+          toast: true,
+          position: 'top-end',
+          width: 'max-content',
+          icon: 'success',
+          confirmButtonColor: '#34285a',
+          showConfirmButton: false,
+          timer: 2000,
+        });
 
-        setTimeout(() => {
-          Swal.fire({
-            title: `¡Nuevo pago añadido!`,
-            toast: true,
-            position: 'top-end',
-            width: 'max-content',
-            icon: 'success',
-            confirmButtonColor: '#34285a',
-            showConfirmButton: false,
-            timer: 2000,
-          });
+        this.toggleSaveModal();
 
-          this.toggleSaveModal();
+        this.transformDisableHideBtns(
+          btnSave,
+          btnCancel,
+          null,
+          'bg-green-600'
+        );
+        btnSave?.classList.toggle('pointer-events-none');
 
-          this.transformDisableHideBtns(
-            btnSave,
-            btnCancel,
-            null,
-            'bg-green-600'
-          );
-          btnSave?.classList.toggle('pointer-events-none');
-
-          this.newPayment = new Payment();
-          this.reloadPaymentsData();
-        }, 2000);
+        this.newPayment = new Payment();
+        this.reloadPaymentsData();
       },
       error: () => {
         Swal.fire({

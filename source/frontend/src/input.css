@@ -10,6 +10,31 @@
     min-height: 100vh;
 }
 
+:root::-webkit-scrollbar {
+    width: 10px;
+
+}
+
+:root::-webkit-scrollbar-track {
+    @apply bg-neutral-300;
+}
+
+:root::-webkit-scrollbar-thumb {
+    @apply rounded-md;
+    @apply bg-main/50;
+}
+
+:root::-webkit-scrollbar-thumb:hover {
+    @apply bg-main;
+}
+
+body:has(div#update-player-modal:not(.hidden)),
+body:has(div#new-player-modal:not(.hidden)),
+body:has(div#update-payment-modal:not(.hidden)),
+body:has(div#new-payment-modal:not(.hidden)) {
+    overflow-y: hidden;
+}
+
 .hiddenplus {
     display: none !important;
 }

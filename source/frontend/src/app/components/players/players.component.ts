@@ -77,7 +77,7 @@ export class PlayersComponent {
           timer: 2000,
         });
 
-        this.dismissSaveModal();
+        this.toggleSaveModal();
 
         this.transformDisableHideBtns(btnSave, btnCancel, null, 'bg-blue-700');
 
@@ -111,15 +111,6 @@ export class PlayersComponent {
     document.getElementById('new-player-modal')?.classList.toggle('hidden');
   }
 
-  dismissSaveModal() {
-    this.toggleSaveModal();
-    this.newPlayer = new Player();
-  }
-
-  dismissUpdateModal() {
-    this.toggleUpdateModal();
-  }
-
   updatePlayer() {
     let btnUpdate = document.getElementById('btn-update-player');
     let btnCancel = document.getElementById('btn-cancel-update-player');
@@ -144,7 +135,7 @@ export class PlayersComponent {
           timer: 2000,
         });
 
-        this.dismissUpdateModal();
+        this.toggleUpdateModal();
 
         this.transformDisableHideBtns(
           btnUpdate,
@@ -285,7 +276,7 @@ export class PlayersComponent {
           timer: 2000,
         });
 
-        this.dismissUpdateModal();
+        this.toggleUpdateModal();
 
         this.transformDisableHideBtns(
           btnDelete,

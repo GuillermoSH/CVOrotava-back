@@ -3,6 +3,8 @@ import { Player } from 'src/app/models/player.model';
 import { PlayersService } from 'src/app/services/players.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { Payment } from 'src/app/models/payment.model';
+import { Chart } from 'chart.js';
+import { count } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -17,16 +19,19 @@ export class HomeComponent {
   };
   players: Player[] = [];
   payments: Payment[] = [];
-  paymentsData: any;
   months: any = [];
-  options: any;
+  notPayers: number = 0;
 
   constructor(
     private playersService: PlayersService,
     private paymentsService: PaymentService
-  ) {}
+  ) { }
 
   ngOnInit() {
+    let currentDate = new Date();
+    let actMonth = currentDate.getMonth() + 1;
+    let actYear = currentDate.getFullYear().toString();
+
     this.months = [
       'enero',
       'febrero',
@@ -41,11 +46,6 @@ export class HomeComponent {
       'noviembre',
       'diciembre',
     ];
-
-    this.options = {
-      responsive: false,
-      maintainAspectRatio: false
-    };
 
     this.playersService.getTotalNumPlayers().subscribe((total: string[]) => {
       this.totalNumPlayers.TFem = total[0];
@@ -63,21 +63,49 @@ export class HomeComponent {
 
     this.paymentsService.getPayments().subscribe((payments: Payment[]) => {
       this.payments = payments;
-      let labels: any = [];
-      let data: any = [];
-      payments.forEach((payment)=> {
-          labels.push((payment.concept + " - " + this.months[payment.month - 1]).toUpperCase())
-          data.push(payment.players.length)
-      })
-      this.paymentsData = {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Jugadores que han pagado por mes',
-            data: data,
+
+      this.createCharts(payments.filter((payment) => { return payment.month == actMonth }));
+    });
+  }
+
+  createCharts(payments: Payment[]) {
+    this.playersService.getPlayers().subscribe((players: Player[]) => {
+      const chartContainer = document.getElementById("paymentsCharts");
+      const chartCount = payments.length;
+
+      payments.forEach((payment) => {
+        const labels = [
+          `${payment.concept} - ${this.months[payment.month - 1]}`.toUpperCase(),
+          "MOROSOS",
+        ];
+
+        const data = [payment.players.length, players.length - payment.players.length];
+
+        const canvas = document.createElement("canvas");
+
+        chartContainer?.appendChild(canvas);
+
+        new Chart(canvas, {
+          type: "doughnut",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Jugadores',
+                data: data,
+                backgroundColor: ['#16a34a', '#052e16'],
+              }
+            ]
           },
-        ],
-      };
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+          }
+        });
+
+        chartContainer?.classList.add("grid-rows-" + chartCount, "md:grid-cols-" + chartCount)
+      });
     });
   }
 }
+

@@ -37,13 +37,13 @@
 
     </div>
     <div
-      class="h-36 md:h-48 shadow-gray-300 shadow-lg rounded-xl p-5 relative bg-gray-50 border-b-[6px] border-red-500 md:col-span-2 lg:col-span-1">
-      <h1 class="text-xl font-semibold text-red-500">Morosidad:</h1>
-
+      class="h-36 md:h-48 shadow-gray-300 shadow-lg rounded-xl p-5 relative bg-gray-50 border-b-[6px] border-red-500 md:col-span-2 lg:col-span-1 flex">
+      <h1 class="text-xl font-semibold text-red-500">Morosidad mensualidad:</h1>
+      <div id="late-payment-squeleton" class="text-2xl text-center absolute w-full self-center flex justify-center items-end"><div class="h-[60px] w-[74px] bg-gradient-to-tr from-gray-300 to-gray-200 animate-squeleton rounded-md"></div>&nbsp;<div class="h-8 w-28 bg-gradient-to-tr from-gray-300 to-gray-200 animate-squeleton rounded-md"></div></div>
+      <div id="late-payment-summary" class="text-2xl text-center hidden absolute w-full self-center" onload="getNotPayers()"><span class="text-6xl">{{notPayers}}</span> jugadores</div>
     </div>
   </div>
   <div
-    class="min-h-[400px] shadow-gray-300 shadow-lg rounded-xl p-5 relative bg-gray-50 border-b-[6px] border-green-500">
-    <p-chart width="100%" height="100%" type="bar" [data]="paymentsData" [options]="options"></p-chart>
+    class="min-h-[400px] w-full shadow-gray-300 shadow-lg rounded-xl p-5 relative bg-gray-50 border-b-[6px] border-green-500 grid grid-cols-1 md:grid-rows-1 justify-items-center content-center" id="paymentsCharts">
   </div>
 </div>
