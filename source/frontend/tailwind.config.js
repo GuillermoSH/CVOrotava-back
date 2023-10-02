@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       fontFamily: {
         "nunito": ['Nunito', 'sans-serif'],
+        "caveat": ['Caveat', 'cursive']
       },
       colors: {
         "main": "#34285a",

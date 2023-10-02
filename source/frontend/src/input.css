@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 * {
-    @apply font-nunito
+    @apply font-nunito;
+    scroll-behavior: smooth;
 }
 
 :root {
@@ -12,7 +13,6 @@
 
 :root::-webkit-scrollbar {
     width: 10px;
-
 }
 
 :root::-webkit-scrollbar-track {
@@ -20,7 +20,6 @@
 }
 
 :root::-webkit-scrollbar-thumb {
-    @apply rounded-md;
     @apply bg-main/50;
 }
 
