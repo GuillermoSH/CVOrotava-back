@@ -1,28 +1,29 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { TopbarComponent } from './components/topbar/topbar.component';
-import { BottombarComponent } from './components/bottombar/bottombar.component';
-import { MainComponent } from './components/main/main.component';
-import { LoginComponent } from './components/login/login.component';
-import { StatisticsComponent } from './components/statistics/statistics.component';
-import { HomeComponent } from './components/home/home.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { IndexComponent } from './components/index/index.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { PlayersComponent } from './components/players/players.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { DateFormatPipe } from './pipes/date-format.pipe';
+import { ChartModule } from 'primeng/chart';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BottombarComponent } from './components/bottombar/bottombar.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { EquipementsComponent } from './components/equipements/equipements.component';
+import { HomeComponent } from './components/home/home.component';
+import { IndexComponent } from './components/index/index.component';
+import { LoginComponent } from './components/login/login.component';
+import { MainComponent } from './components/main/main.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NotLoadedComponent } from './components/not-loaded/not-loaded.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { PaymentsDetailsComponent } from './components/payments-details/payments-details.component';
+import { PlayersComponent } from './components/players/players.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { ChartModule } from 'primeng/chart';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { TopbarComponent } from './components/topbar/topbar.component';
+import { DateFormatPipe } from './pipes/date-format.pipe';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ChartModule } from 'primeng/chart';
     NotLoadedComponent,
     PaymentComponent,
     PaymentsDetailsComponent,
-    SettingsComponent
+    SettingsComponent,
+    EquipementsComponent
   ],
   imports: [
     BrowserModule,

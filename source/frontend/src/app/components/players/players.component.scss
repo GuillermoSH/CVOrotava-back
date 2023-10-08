@@ -1,3 +1,7 @@
+input[type="text"]:focus~button[name="search"] {
+    @apply bg-blue-800;
+}
+
 .listed-player-cards {
 
     &>div {

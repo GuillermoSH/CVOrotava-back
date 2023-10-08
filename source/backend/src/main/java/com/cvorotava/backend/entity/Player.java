@@ -26,6 +26,8 @@ public class Player implements Serializable {
 	private String category;
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Payment> payments;
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Equipement> equipements;
 
 	public Player() {
 	}
@@ -129,5 +131,13 @@ public class Player implements Serializable {
 
 	public void setPayments(List<Payment> payments) {
 		this.payments = payments;
+	}
+	
+	public List<Equipement> getEquipements() {
+		return equipements;
+	}
+
+	public void setEquipements(List<Equipement> equipements) {
+		this.equipements = equipements;
 	}
 }
