@@ -22,7 +22,7 @@ const routes: Routes = [
       { path: "payments", component: PaymentComponent, data: { title: "CVOrotava - Registros" } },
       { path: "payments/:id", component: PaymentsDetailsComponent, data: { title: "CVOrotava - Detalles pago" } },
       { path: "equipements", component: EquipementsComponent, data: { title: "CVOrotava - Equipaciones" } },
-      { path: "profile", component: ProfileComponent, data: { title: "CVOrotava - Perfil" } },
+      //{ path: "profile", component: ProfileComponent, data: { title: "CVOrotava - Perfil" } },
       { path: "players", component: PlayersComponent, data: { title: "CVOrotava - Jugadores" } },
       { path: "settings", component: SettingsComponent, data: { title: "CVOrotava - Configuración" } },
     ]

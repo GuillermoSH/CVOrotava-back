@@ -8,5 +8,5 @@ import com.cvorotava.backend.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 	Optional<User> findById(Integer id);
-	User findByUsername(String username);
+	Optional<User> findByUsername(String username);
 }

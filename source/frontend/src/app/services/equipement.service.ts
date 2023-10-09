@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 export class EquipementService {
   //private url: string = 'http://192.168.1.27:9097/api/v1/equipements';
   //private url: string = 'http://localhost:9097/api/v1/equipements';
-  //private url: string = 'https://zm220cwj-9097.euw.devtunnels.ms/api/v1/equipements';
-  private url: string = 'https://c24djzb4-9097.uks1.devtunnels.ms/api/v1/equipements';
+  private url: string = 'https://zm220cwj-9097.euw.devtunnels.ms/api/v1/equipements';
+  // private url: string = 'https://c24djzb4-9097.uks1.devtunnels.ms/api/v1/equipements';
 
   constructor(private _http: HttpClient) { }
 

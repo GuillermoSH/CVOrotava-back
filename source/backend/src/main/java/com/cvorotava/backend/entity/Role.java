@@ -17,7 +17,6 @@ public class Role implements Serializable {
 	public Role() {}
 	
 	public Role(Integer id, String role) {
-		super();
 		this.id = id;
 		this.role = role;
 	}

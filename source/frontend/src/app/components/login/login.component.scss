@@ -1,5 +1,5 @@
-input[name="input"]:valid,
-input[name="input"]:focus {
+.input:valid,
+.input:focus {
     @apply outline-blue-500;
     @apply outline-2;
     @apply outline;

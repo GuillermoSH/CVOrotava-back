@@ -10,6 +10,6 @@ export class NotFoundComponent {
   constructor(private router: Router) {}
 
   backToPage() {
-    this.router.navigate(['/dashboard']);
+    history.back();
   }
 }

@@ -18,8 +18,8 @@ public class UserService {
 		return userrepository.save(entity);
 	}
 
-	public User findById(Integer id) {
-		return userrepository.findById(id).get();
+	public Optional<User> findByUsername(String username) {
+		return userrepository.findByUsername(username);
 	}
 
 	public List<User> findAll() {

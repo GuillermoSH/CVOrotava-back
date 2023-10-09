@@ -13,9 +13,11 @@
       <input
         required
         type="text"
-        name="input"
+        [(ngModel)]="user.username"
+        name="username"
+        #username="ngModel"
         autocomplete="off"
-        class="h-full w-full rounded-lg px-3 bg-transparent"
+        class="h-full w-full rounded-lg px-3 bg-transparent input"
       />
       <label
         class="absolute left-0 self-center ms-3 pointer-events-none duration-200 font-semibold"
@@ -26,16 +28,18 @@
       <input
         required
         type="text"
-        name="input"
+        [(ngModel)]="user.password"
+        name="password"
+        #password="ngModel"
         autocomplete="off"
-        class="h-full w-full rounded-lg px-3 bg-transparent"
+        class="h-full w-full rounded-lg px-3 bg-transparent input"
       />
       <label
         class="absolute left-0 self-center ms-3 pointer-events-none duration-200 font-semibold"
         >Contraseña</label
       >
     </div>
-    <div class="font-bold text-sm md:text-base">
+    <!-- <div class="font-bold text-sm md:text-base">
       ¿Has olvidado la contraseña?
       <a
         class="hover:text-blue-500 duration-200 hover:underline"
@@ -43,7 +47,7 @@
       >
         Recuérdamela
       </a>
-    </div>
+    </div> -->
     <button
       class="bg-blue-500 text-neutral-50 px-7 py-2 rounded-md [&>*:first-child]:hover:rotate-180 text-xl font-semibold hover:scale-105 duration-200"
       type="submit"
