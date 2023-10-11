@@ -24,6 +24,7 @@ export class TopbarComponent {
   }
 
   logout() {
+    window.localStorage.removeItem("user_log");
     this.router.navigate(['/login']);
   }
 }

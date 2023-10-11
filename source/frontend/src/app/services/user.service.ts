@@ -18,7 +18,7 @@ export class UserService {
     return this._http.get<User>(this.url + "/" + username);
   }
 
-  validateLogin(user: User): Observable<User> {
+  validateLogin(user: User): Observable<any> {
     return this._http.post<User>(this.url + "/login", user);
   }
 }

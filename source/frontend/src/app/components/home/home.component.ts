@@ -72,6 +72,7 @@ export class HomeComponent {
     this.playersService.getPlayers().subscribe((players: Player[]) => {
       const chartContainer = document.getElementById("paymentsCharts");
       const chartCount = payments.length;
+      let i = 1;
 
       payments.forEach((payment) => {
         const labels = [
@@ -82,8 +83,7 @@ export class HomeComponent {
         const data = [payment.players.length, players.length - payment.players.length];
 
         const canvas = document.createElement("canvas");
-
-        chartContainer?.appendChild(canvas);
+        const div = document.createElement("div");
 
         new Chart(canvas, {
           type: "doughnut",
@@ -99,11 +99,16 @@ export class HomeComponent {
           },
           options: {
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
           }
         });
 
-        chartContainer?.classList.add("grid-rows-" + chartCount, "md:grid-cols-" + chartCount)
+        chartContainer?.classList.add("grid-rows-" + chartCount, "md:grid-cols-" + chartCount);
+        div.classList.add("h-full", "w-full");
+
+        div.appendChild(canvas);
+        chartContainer?.appendChild(div);
+        i++;
       });
     });
   }

@@ -1,0 +1,15 @@
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    @apply bg-neutral-300;
+}
+
+*::-webkit-scrollbar-thumb {
+    @apply bg-green-500/50;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    @apply bg-green-500;
+}

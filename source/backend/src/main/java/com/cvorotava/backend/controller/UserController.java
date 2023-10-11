@@ -44,14 +44,16 @@ public class UserController {
 
 		if (login_user.isPresent()) {
 			if (login_user.get().getPassword().equals(user.getPassword())) {
+				response.put("user_log", login_user);
 				response.put("message", "Inicio de sesión correcto");
 				return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 			} else {
 				response.put("message", "La contraseña no coincide con el usuario.");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		} else {			
 			response.put("message", "El usuario no existe en la base de datos.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

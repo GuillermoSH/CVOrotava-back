@@ -71,8 +71,33 @@ export class PaymentComponent {
   saveNewPayment() {
     let btnSave = document.getElementById('btn-save-payment');
     let btnCancel = document.getElementById('btn-cancel-save-payment');
-    btnSave?.classList.toggle('pointer-events-none');
     this.transformDisableHideBtns(btnSave, btnCancel, null, 'bg-green-600');
+
+    if (this.newPayment.id === "" ||
+      this.newPayment.quantity === "" ||
+      this.newPayment.year === "" ||
+      this.newPayment.concept === "" ||
+      this.newPayment.players.length === 0) {
+      Swal.fire({
+        title: 'Todos los campos deben ser rellenados.',
+        icon: 'error',
+        showConfirmButton: false,
+        toast: true,
+        timer: 1500,
+        timerProgressBar: true,
+        position: "top-end",
+        color: '#dc2626',
+        iconColor: '#dc2626',
+      }).then(() => {
+        this.transformDisableHideBtns(
+          btnSave,
+          btnCancel,
+          null,
+          'bg-green-600'
+        );
+      })
+      return;
+    }
 
     this.paymentService.savePayment(this.newPayment).subscribe({
       next: () => {
@@ -95,7 +120,6 @@ export class PaymentComponent {
           null,
           'bg-green-600'
         );
-        btnSave?.classList.toggle('pointer-events-none');
 
         this.newPayment = new Payment();
         this.reloadPaymentsData();

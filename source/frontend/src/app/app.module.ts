@@ -24,6 +24,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { DateFormatPipe } from './pipes/date-format.pipe';
+import { EquipementsDetailsComponent } from './components/equipements-details/equipements-details.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     PaymentComponent,
     PaymentsDetailsComponent,
     SettingsComponent,
-    EquipementsComponent
+    EquipementsComponent,
+    EquipementsDetailsComponent,
   ],
   imports: [
     BrowserModule,
