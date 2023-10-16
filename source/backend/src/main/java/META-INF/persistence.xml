@@ -6,5 +6,6 @@
 		<class>com.cvorotava.backend.entity.Role</class>
 		<class>com.cvorotava.backend.entity.Payment</class>
 		<class>com.cvorotava.backend.entity.Equipement</class>
+		<class>com.cvorotava.backend.entity.Config</class>
 	</persistence-unit>
 </persistence>
