@@ -1,0 +1,15 @@
+package com.cvorotava.backend.error.pojo;
+
+public enum ErrorCodeEnum {
+    ERR_MESSAGE_NOTREADABLE,
+    ERR_DEFAULT_CODE,
+    ERR_VALIDATION_CODE,
+    ERR_INTEGRITY_CODE,
+    ERR_DATA_CODE,
+    ERR_SERVICE_CODE,
+    ERR_NO_DATA_CODE,
+    ERR_NOT_FOUND_CODE,
+    ERR_INT_CONSTRAINT_CODE,
+
+    ERROR_INT_SERVER_CODE,
+}
