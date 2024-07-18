@@ -1,78 +1,119 @@
 package com.cvorotava.backend.service;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.cvorotava.backend.entity.Player;
+import com.cvorotava.backend.entity.User;
+import com.cvorotava.backend.error.exception.InternalServerException;
+import com.cvorotava.backend.error.exception.NoContentException;
+import com.cvorotava.backend.error.exception.NotFoundException;
+import com.cvorotava.backend.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.cvorotava.backend.entity.Player;
-import com.cvorotava.backend.repository.PlayerRepository;
-
-import jakarta.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class PlayerService {
-	@Autowired
-	private PlayerRepository playerrepository;
+public class PlayerService implements IPlayerService {
+    @Autowired
+    private PlayerRepository playerRepository;
 
-	@Transactional
-	public Player save(Player entity) {
-		return playerrepository.save(entity);
-	}
-	
+    @Override
+    @Transactional(readOnly = true)
+    public List<Player> findAll() {
+        return getUsersOrThrowNoContent(playerRepository.findAll(), "en la BBDD aun");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Player findById(Integer id) {
+        return getUserOrThrowNotFound(playerRepository.findById(id), "con ese id");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Player> findByCategory(String category) {
+        return getUsersOrThrowNoContent(playerRepository.findByCategory(category), "con esa categoria");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Player findByDni(String dni) {
+        return getUserOrThrowNotFound(playerRepository.findByDni(dni), "con ese DNI");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Player> searchLike(String search) {
+        return getUsersOrThrowNoContent(playerRepository.searchLike(search), "que contengan lo que buscas");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Player> findAllOrderedBy(String order) {
+        if (playerRepository.findAll().isEmpty()) {
+            throw new NoContentException("No existen jugadores en la BBDD aun");
+        }
+        Sort sorter;
+        switch (order) {
+            case "surnames":
+                sorter = Sort.by("surname1", "surname2", "name");
+                break;
+            case "name":
+                sorter = Sort.by("name", "surname1", "surname");
+                break;
+            default:
+                sorter = Sort.by(order);
+                break;
+        }
+        return playerRepository.findAllOrderedBy(sorter);
+    }
+
+	@Override
+	@Transactional(readOnly = true)
 	public String[] countPlayers() {
-		String result[] = {playerrepository.countFemPlayers(), playerrepository.countMasPlayers()};
-		return result;
+        return new String[]{playerRepository.countFemPlayers(), playerRepository.countMasPlayers()};
 	}
 
-	public Player findById(Integer id) {
-		return playerrepository.findById(id).get();
-	}
-	
-	public Player findByDni(String dni) {
-		return playerrepository.findByDni(dni).get();
-	}
+    @Override
+    @Transactional
+    public void delete(Integer id) {
+        try {
+            playerRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new InternalServerException("No se ha podido borrar el jugador de la base de datos");
+        }
+    }
 
-	public List<Player> findAll() {
-		return playerrepository.findAll();
-	}
-	
-	public List<Player> findAllOrderedBy(String order) {
-		if (order.equals("surnames")) {
-			return playerrepository.findAllOrderedBy(Sort.by("surname1", "surname2", "name"));
-		} else if(order.equals("name")) {
-			return playerrepository.findAllOrderedBy(Sort.by("name", "surname1", "surname2"));
-		} else {
-			return playerrepository.findAllOrderedBy(Sort.by(order));
+	@Override
+	@Transactional
+	public void deleteAll() {
+		try {
+			playerRepository.deleteAll();
+		} catch (Exception e) {
+			throw new InternalServerException("No se han podido borrar todos los jugadores de la base de datos");
 		}
 	}
-	
-	public List<Player> searchLike(String search) {
-		return playerrepository.searchLike(search);
-	}
 
-	@Transactional
-	public Boolean remove(Integer id) {
-		Optional<Player> currentUser = playerrepository.findById(id);
-		if (currentUser.isPresent()) {
-			playerrepository.deleteById(id);
-			return true;
-		}
-		return false;
-	}
-	
-	public void removeAll() {
-		playerrepository.deleteAll();
-	}
-	
-	public List<Player> findByCategory(String category) {
-		return playerrepository.findByCategory(category);
-	}
-	
-	@Transactional
-	public void deleteRelations(Integer id) {
-		playerrepository.deleteRelations(id);
-	}
+    @Override
+    @Transactional
+    public Player save(Player entity) {
+        try {
+            return playerRepository.save(entity);
+        } catch (Exception e) {
+            throw new InternalServerException("No se ha podido insertar el jugador en la base de datos");
+        }
+    }
+
+    private Player getUserOrThrowNotFound(Optional<Player> player, String message) {
+        return player.orElseThrow(() -> new NotFoundException("No existe el jugador " + message));
+    }
+
+    private List<Player> getUsersOrThrowNoContent(List<Player> players, String message) {
+        if (players.isEmpty()) {
+            throw new NoContentException("No existen jugadores " + message);
+        }
+        return players;
+    }
 }

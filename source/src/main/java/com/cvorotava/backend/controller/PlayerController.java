@@ -17,8 +17,7 @@ import com.cvorotava.backend.entity.Player;
 import com.cvorotava.backend.service.PaymentService;
 import com.cvorotava.backend.service.PlayerService;
 
-@CrossOrigin(origins = { "http://192.168.1.27:4200/", "http://localhost:4200/",
-		"https://zm220cwj-4200.euw.devtunnels.ms/", "https://c24djzb4-4200.uks1.devtunnels.ms/" })
+@CrossOrigin(origins = { "http://localhost:4200/" })
 @RestController
 @RequestMapping("/api/v1/players")
 public class PlayerController {
@@ -26,113 +25,55 @@ public class PlayerController {
 	private PlayerService playerservice;
 
 	@GetMapping
-	public List<Player> getPlayers() {
-		return playerservice.findAll();
+	public ResponseEntity<List<Player>> getPlayers() {
+		return ResponseEntity.ok(playerservice.findAll());
 	}
 
 	@GetMapping("/total")
-	public String[] getPlayersCount() {
-		return playerservice.countPlayers();
+	public ResponseEntity<String[]> getPlayersCount() {
+		return ResponseEntity.ok(playerservice.countPlayers());
 	}
 
 	@GetMapping("/orderedBy/{order}")
-	public List<Player> getPlayersOrderedBy(@PathVariable String order) {
-		return playerservice.findAllOrderedBy(order);
+	public ResponseEntity<List<Player>> getPlayersOrderedBy(@PathVariable String order) {
+		return ResponseEntity.ok(playerservice.findAllOrderedBy(order));
 	}
 
 	@GetMapping("/category/{category}")
-	public List<Player> getPlayersByCategory(@PathVariable String category) {
-		return playerservice.findByCategory(category);
+	public ResponseEntity<List<Player>> getPlayersByCategory(@PathVariable String category) {
+		return ResponseEntity.ok(playerservice.findByCategory(category));
 	}
 
 	@GetMapping("/search/{search}")
-	public List<Player> searchPlayersBy(@PathVariable String search) {
+	public ResponseEntity<List<Player>> searchPlayersBy(@PathVariable String search) {
 		if (search.equals("empty")) {
-			return playerservice.findAll();
+			return getPlayers();
 		}
-		return playerservice.searchLike(search);
+		return ResponseEntity.ok(playerservice.searchLike(search));
 	}
 
 	@GetMapping("/dni/{dni}")
-	public Player getPlayerByDni(@PathVariable String dni) {
-		return playerservice.findByDni(dni);
+	public ResponseEntity<Player> getPlayerByDni(@PathVariable String dni) {
+		return ResponseEntity.ok(playerservice.findByDni(dni));
 	}
 
 	@GetMapping("/{id}")
-	public Player getPlayerById(@PathVariable Integer id) {
-		return playerservice.findById(id);
-	}
-
-	@PutMapping
-	public ResponseEntity<?> updatePlayer(@RequestBody Player player) {
-		Player newPlayer;
-		HashMap<String, Object> response = new HashMap<>();
-
-		try {
-			newPlayer = playerservice.save(player);
-		} catch (DataAccessException e) {
-			response.put("message", "Error al realizar el insert en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-		response.put("message", "¡Se han cambiado los datos con éxito!");
-		response.put("player", newPlayer);
-		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.ACCEPTED);
+	public ResponseEntity<Player> getPlayerById(@PathVariable Integer id) {
+		return ResponseEntity.ok(playerservice.findById(id));
 	}
 
 	@PostMapping
-	public ResponseEntity<?> savePlayer(@RequestBody Player player) {
-		Player newPlayer;
-		HashMap<String, Object> response = new HashMap<>();
-
-		try {
-			for (Player _player : this.getPlayers()) {
-				if (_player.getDni().equals(player.getDni())) {
-					response.put("message", "Error al realizar el guardado. El jugador ya existe");
-					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-				}
-			}
-			newPlayer = playerservice.save(player);
-		} catch (DataAccessException e) {
-			response.put("message", "Error al realizar el insert en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-		response.put("message", "¡El jugador ha sido añadido con éxito!");
-		response.put("player", newPlayer);
-		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.CREATED);
+	public ResponseEntity<Player> save(@RequestBody Player player) {
+		return ResponseEntity.ok(playerservice.save(player));
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deletePlayer(@PathVariable Integer id) {
-		Player player = playerservice.findById(id);
-		HashMap<String, Object> response = new HashMap<>();
-		try {
-			playerservice.deleteRelations(player.getId());
-			playerservice.remove(player.getId());
-		} catch (DataAccessException e) {
-			response.put("message", "Error al eliminar el jugador de la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-		response.put("message", "¡El jugador fue eliminado con éxito!");
-		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
+	public void delete(@PathVariable Integer id) {
+		playerservice.delete(id);
 	}
 
 	@DeleteMapping
-	public ResponseEntity<?> deleteAll() {
-		HashMap<String, Object> response = new HashMap<>();
-		try {
-			playerservice.removeAll();
-		} catch (DataAccessException e) {
-			response.put("message", "Error al eliminar los jugadores de la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		response.put("message", "¡La lista de jugadores fue eliminada con éxito!");
-		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
+	public void deleteAll() {
+		playerservice.deleteAll();
 	}
 }
