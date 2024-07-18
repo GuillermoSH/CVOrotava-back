@@ -1,0 +1,23 @@
+name: Close issues on specific branch
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+      
+      - name: Close issues
+        run: |
+          issues=$(git log -1 --pretty=%B | grep -oP '(?<=#)\d+')
+          for issue in $issues; do
+            curl -s -X PATCH -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/repos/${{ github.repository }}/issues/$issue \
+              -d '{"state": "closed"}'
+          done
