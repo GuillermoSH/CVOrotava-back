@@ -39,8 +39,8 @@ public class PaymentService implements IPaymentService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Payment findByConcept(String concept) {
-		return getPaymentOrThrowNotFound(paymentrepository.findByConcept(concept), "con ese concepto");
+	public List<Payment> findByConcept(String concept) {
+		return getPaymentOrThrowNoContent(paymentrepository.findByConcept(concept), "con ese concepto");
 	}
 
 	@Override

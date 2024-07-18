@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = {"http://localhost:4200/"})
 @RestController
-@RequestMapping("/api/v1/config")
+@RequestMapping("/api/v1/configurations")
 public class ConfigController {
     @Autowired
     private ConfigService configservice;
@@ -18,13 +18,13 @@ public class ConfigController {
         return ResponseEntity.ok(configservice.findAll().get(0));
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<Config> save(@RequestBody Config configuration) {
         return ResponseEntity.ok(configservice.save(configuration));
     }
 
     @DeleteMapping()
-    public void deleteConfiguration() {
+    public void delete() {
         configservice.delete();
     }
 }

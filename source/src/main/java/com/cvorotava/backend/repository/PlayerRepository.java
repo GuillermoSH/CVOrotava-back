@@ -26,7 +26,5 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
 	@Query(value="SELECT p FROM Player p WHERE CONCAT_WS(' ', p.dni, p.name, p.surname1, p.surname2, p.telephone, p.email, p.address, p.birthday, p.category) LIKE %:search%")
 	List<Player> searchLike(@Param("search") String search);
 
-	void delete(Integer id);
-
 	void deleteAll();
 }

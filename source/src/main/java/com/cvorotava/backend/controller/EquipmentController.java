@@ -25,27 +25,27 @@ import com.cvorotava.backend.service.PlayerService;
 
 @CrossOrigin(origins = {"http://localhost:4200/"})
 @RestController
-@RequestMapping("/api/v1/equipements")
+@RequestMapping("/api/v1/equipments")
 public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
     @GetMapping
-    public ResponseEntity<List<Equipment>> getEquipements() {
+    public ResponseEntity<List<Equipment>> getEquipments() {
         return ResponseEntity.ok(equipmentService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Equipment> getEquipementById(@PathVariable Integer id) {
+    public ResponseEntity<Equipment> getEquipmentById(@PathVariable Integer id) {
         return ResponseEntity.ok(equipmentService.findById(id));
     }
 
     @GetMapping("/search/{search}")
-    public ResponseEntity<List<Equipment>> searchEquipementsBy(@PathVariable String search) {
+    public ResponseEntity<List<Equipment>> searchEquipmentsBy(@PathVariable String search) {
         return ResponseEntity.ok(equipmentService.searchLike(search));
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<Equipment> save(@RequestBody Equipment equipment) {
         return ResponseEntity.ok(equipmentService.save(equipment));
     }

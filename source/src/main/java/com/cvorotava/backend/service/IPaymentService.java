@@ -11,7 +11,7 @@ public interface IPaymentService {
 
     Payment findById(Integer id);
 
-    Payment findByConcept(String concept);
+    List<Payment> findByConcept(String concept);
 
     List<Payment> searchLike(String search);
 

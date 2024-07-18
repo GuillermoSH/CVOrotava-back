@@ -61,7 +61,7 @@ public class PlayerService implements IPlayerService {
                 sorter = Sort.by("surname1", "surname2", "name");
                 break;
             case "name":
-                sorter = Sort.by("name", "surname1", "surname");
+                sorter = Sort.by("name", "surname1", "surname2");
                 break;
             default:
                 sorter = Sort.by(order);

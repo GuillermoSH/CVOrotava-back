@@ -34,7 +34,7 @@ public class PaymentController {
 	}
 
 	@GetMapping("/concept/{concept}")
-	public ResponseEntity<Payment> getPaymentByConcept(@PathVariable String concept) {
+	public ResponseEntity<List<Payment>> getPaymentByConcept(@PathVariable String concept) {
 		return ResponseEntity.ok(paymentservice.findByConcept(concept));
 	}
 
@@ -43,7 +43,7 @@ public class PaymentController {
 		return ResponseEntity.ok(paymentservice.searchLike(search));
 	}
 
-	@PostMapping
+	@PostMapping("/save")
 	public ResponseEntity<Payment> save(@RequestBody Payment equipment) {
 		return ResponseEntity.ok(paymentservice.save(equipment));
 	}
