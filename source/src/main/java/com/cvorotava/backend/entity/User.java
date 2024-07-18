@@ -23,4 +23,6 @@ public class User implements Serializable {
 	private Integer id;
 	private String username;
 	private String password;
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Role> roles;
 }

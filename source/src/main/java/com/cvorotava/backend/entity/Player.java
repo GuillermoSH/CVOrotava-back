@@ -34,4 +34,6 @@ public class Player implements Serializable {
 	private String category;
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Payment> payments;
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Equipment> equipments;
 }
