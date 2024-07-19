@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.cvorotava.backend.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-	Optional<User> findById(Integer id);
 	Optional<User> findByUsername(String username);
 }
