@@ -10,12 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PlayerService implements IPlayerService {
+    private static String UPLOADED_FOLDER = "src/main/resources/static/images/";
     @Autowired
     private PlayerRepository playerRepository;
 
@@ -103,6 +109,23 @@ public class PlayerService implements IPlayerService {
             return playerRepository.save(entity);
         } catch (Exception e) {
             throw new InternalServerException("No se ha podido insertar el jugador en la base de datos");
+        }
+    }
+
+    @Override
+    @Transactional
+    public Player uploadImage(Integer id, MultipartFile file) {
+        Player player = playerRepository.findById(id).orElseThrow(() -> new NotFoundException("El jugador proporcionado no existe"));
+        try {
+            if (!file.isEmpty()) {
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+                Files.write(path, bytes);
+                player.setImage(file.getOriginalFilename());
+            }
+            return playerRepository.save(player);
+        } catch (Exception e) {
+            throw new InternalServerException(e.getMessage());
         }
     }
 

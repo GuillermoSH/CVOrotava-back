@@ -5,7 +5,9 @@ import com.cvorotava.backend.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200/"})
@@ -56,6 +58,11 @@ public class PlayerController {
     @PostMapping("/save")
     public ResponseEntity<Player> save(@RequestBody Player player) {
         return ResponseEntity.ok(playerservice.save(player));
+    }
+
+    @PostMapping("/uploadImage")
+    public ResponseEntity<Player> uploadImage(@RequestParam("id") Integer id, @RequestParam("image") MultipartFile image) {
+        return ResponseEntity.ok(playerservice.uploadImage(id, image));
     }
 
     @DeleteMapping("/{id}")

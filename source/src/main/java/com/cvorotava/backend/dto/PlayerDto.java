@@ -19,4 +19,5 @@ public class PlayerDto {
     private String address;
     private String birthday;
     private String category;
+    private String image;
 }
