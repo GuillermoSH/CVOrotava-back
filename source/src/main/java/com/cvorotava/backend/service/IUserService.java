@@ -1,5 +1,6 @@
 package com.cvorotava.backend.service;
 
+import com.cvorotava.backend.dto.UserDto;
 import com.cvorotava.backend.entity.User;
 import org.springframework.stereotype.Service;
 
@@ -7,13 +8,13 @@ import java.util.List;
 
 @Service
 public interface IUserService {
-    List<User> findAll();
+    List<UserDto> findAll();
 
-    User findById(Integer id);
+    UserDto findById(Integer id);
 
-    User findByUsername(String username);
+    UserDto findByUsername(String username);
 
-    User save(User user);
+    UserDto save(User user);
 
-    void delete(Integer id);
+    void delete(UserDto userDto);
 }

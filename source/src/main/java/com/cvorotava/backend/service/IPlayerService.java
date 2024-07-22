@@ -1,5 +1,6 @@
 package com.cvorotava.backend.service;
 
+import com.cvorotava.backend.dto.PlayerDto;
 import com.cvorotava.backend.entity.Player;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,17 +10,17 @@ import java.util.List;
 
 @Service
 public interface IPlayerService {
-    List<Player> findAll();
+    List<PlayerDto> findAll();
 
-    Player findById(Integer id);
+    PlayerDto findById(Integer id);
 
-    List<Player> findByCategory(String category);
+    List<PlayerDto> findByCategory(String category);
 
-    Player findByDni(String dni);
+    PlayerDto findByDni(String dni);
 
-    List<Player> searchLike(String search);
+    List<PlayerDto> searchLike(String search);
 
-    List<Player> findAllOrderedBy(String order);
+    List<PlayerDto> findAllOrderedBy(String order);
 
     String[] countPlayers();
 
@@ -27,7 +28,7 @@ public interface IPlayerService {
 
     void deleteAll();
 
-    Player save(Player entity);
+    PlayerDto save(Player entity);
 
-    Player uploadImage(Integer id, MultipartFile file) throws IOException;
+    PlayerDto uploadImage(Integer id, MultipartFile file) throws IOException;
 }
