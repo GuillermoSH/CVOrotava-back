@@ -1,0 +1,39 @@
+name: Close Frontend Issues
+
+on:
+  push:
+    branches:
+      - main # Puedes especificar la rama que prefieras
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Close issues in frontend repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: |
+          # Obtener los mensajes de commit
+          commits=$(git log -1 --pretty=format:%B)
+
+          # Extraer los números de los issues
+          issue_numbers=$(echo "$commits" | grep -oE "#[0-9]+" | tr -d '#')
+
+          # Cerrar cada issue en el repositorio frontend
+          for issue_number in $issue_numbers; do
+            curl -X POST \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/repos/GuillermoSH/CVOrotava-front/issues/$issue_number/comments \
+              -d '{"body": "Cerrado desde commit en el repositorio backend"}'
+
+            curl -X PATCH \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/repos/GuillermoSH/CVOrotava-front/issues/$issue_number \
+              -d '{"state": "closed"}'
+          done
