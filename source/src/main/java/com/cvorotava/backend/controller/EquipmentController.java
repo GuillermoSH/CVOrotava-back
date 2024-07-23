@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.cvorotava.backend.dto.EquipmentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -31,27 +32,27 @@ public class EquipmentController {
     private EquipmentService equipmentService;
 
     @GetMapping
-    public ResponseEntity<List<Equipment>> getEquipments() {
+    public ResponseEntity<List<EquipmentDto>> getEquipments() {
         return ResponseEntity.ok(equipmentService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Equipment> getEquipmentById(@PathVariable Integer id) {
+    public ResponseEntity<EquipmentDto> getEquipmentById(@PathVariable Integer id) {
         return ResponseEntity.ok(equipmentService.findById(id));
     }
 
     @GetMapping("/search/{search}")
-    public ResponseEntity<List<Equipment>> searchEquipmentsBy(@PathVariable String search) {
+    public ResponseEntity<List<EquipmentDto>> searchEquipmentsBy(@PathVariable String search) {
         return ResponseEntity.ok(equipmentService.searchLike(search));
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Equipment> save(@RequestBody Equipment equipment) {
+    public ResponseEntity<EquipmentDto> save(@RequestBody Equipment equipment) {
         return ResponseEntity.ok(equipmentService.save(equipment));
     }
 
     @DeleteMapping("/{equipment_id}/delete/player/{player_id}")
-    public ResponseEntity<Equipment> dropPlayerFromEquipment(@PathVariable Integer equipment_id, @PathVariable Integer player_id) {
+    public ResponseEntity<EquipmentDto> dropPlayerFromEquipment(@PathVariable Integer equipment_id, @PathVariable Integer player_id) {
         return ResponseEntity.ok(equipmentService.dropPlayerFromEquipment(equipment_id, player_id));
     }
 

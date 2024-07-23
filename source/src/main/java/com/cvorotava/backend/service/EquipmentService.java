@@ -1,61 +1,66 @@
 package com.cvorotava.backend.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import com.cvorotava.backend.entity.Config;
+import com.cvorotava.backend.dto.EquipmentDto;
+import com.cvorotava.backend.entity.Equipment;
 import com.cvorotava.backend.entity.Player;
 import com.cvorotava.backend.error.exception.InternalServerException;
 import com.cvorotava.backend.error.exception.NoContentException;
 import com.cvorotava.backend.error.exception.NotFoundException;
+import com.cvorotava.backend.mapper.IEquipmentMapper;
+import com.cvorotava.backend.repository.EquipmentRepository;
 import com.cvorotava.backend.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cvorotava.backend.entity.Equipment;
-import com.cvorotava.backend.repository.EquipmentRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EquipmentService implements IEquipmentService {
-    @Autowired
-    private EquipmentRepository equipementrepository;
+    private final IEquipmentMapper equipmentMapper;
+    private final EquipmentRepository equipmentRepository;
+    private final PlayerRepository playerRepository;
 
     @Autowired
-    private PlayerRepository playerrepository;
-
-    @Override
-    public List<Equipment> findAll() {
-        return getUsersOrThrowNoContent(equipementrepository.findAll(), "en la BBDD aun");
+    public EquipmentService(EquipmentRepository equipmentRepository, IEquipmentMapper equipmentMapper, PlayerRepository playerRepository) {
+        this.equipmentMapper = equipmentMapper;
+        this.equipmentRepository = equipmentRepository;
+        this.playerRepository = playerRepository;
     }
 
     @Override
-    public Equipment findById(Integer id) {
-        return getUserOrThrowNotFound(equipementrepository.findById(id), "con ese id");
+    public List<EquipmentDto> findAll() {
+        return getUsersOrThrowNoContent(equipmentRepository.findAll(), "en la BBDD aun");
     }
 
     @Override
-    public List<Equipment> searchLike(String search) {
-        return getUsersOrThrowNoContent(equipementrepository.searchLike(search), "que contengan lo que buscas");
+    public EquipmentDto findById(Integer id) {
+        return getUserOrThrowNotFound(equipmentRepository.findById(id), "con ese id");
     }
 
     @Override
-    public Equipment save(Equipment entity) {
+    public List<EquipmentDto> searchLike(String search) {
+        return getUsersOrThrowNoContent(equipmentRepository.searchLike(search), "que contengan lo que buscas");
+    }
+
+    @Override
+    public EquipmentDto save(Equipment entity) {
         try {
-            return equipementrepository.save(entity);
+            return equipmentMapper.equipmentToDTO(equipmentRepository.save(entity));
         } catch (Exception e) {
             throw new InternalServerException("No se pudo guardar la equipacion en la BBDD");
         }
     }
 
     @Override
-    public Equipment dropPlayerFromEquipment(Integer equipment_id, Integer player_id) {
+    public EquipmentDto dropPlayerFromEquipment(Integer equipment_id, Integer player_id) {
         try {
-            Equipment entity = findById(equipment_id);
-            Player playerToDrop = playerrepository.findById(player_id).get();
+            Equipment entity = equipmentRepository.findById(equipment_id).orElseThrow(() -> new NotFoundException("No existe un equipaje con ese id"));
+            Player playerToDrop = playerRepository.findById(player_id).orElseThrow(() -> new NotFoundException("No existe el jugador con ese id"));
             List<Player> players = entity.getPlayers();
             players.remove(playerToDrop);
             entity.setPlayers(players);
-            return equipementrepository.save(entity);
+            return equipmentMapper.equipmentToDTO(equipmentRepository.save(entity));
         } catch (Exception e) {
             throw new InternalServerException("No se pudo guardar la equipacion en la BBDD");
         }
@@ -64,20 +69,20 @@ public class EquipmentService implements IEquipmentService {
     @Override
     public void delete(Integer id) {
         try {
-            equipementrepository.deleteById(id);
+            equipmentRepository.deleteById(id);
         } catch (Exception e) {
             throw new InternalServerException("No se pudo borrar la equipacion de la BBDD");
         }
     }
 
-    private Equipment getUserOrThrowNotFound(Optional<Equipment> equipment, String message) {
-        return equipment.orElseThrow(() -> new NotFoundException("No existe la equipacion " + message));
+    private EquipmentDto getUserOrThrowNotFound(Optional<Equipment> equipment, String message) {
+        return equipmentMapper.equipmentToDTO(equipment.orElseThrow(() -> new NotFoundException("No existe la equipacion " + message)));
     }
 
-    private List<Equipment> getUsersOrThrowNoContent(List<Equipment> equipments, String message) {
+    private List<EquipmentDto> getUsersOrThrowNoContent(List<Equipment> equipments, String message) {
         if (equipments.isEmpty()) {
             throw new NoContentException("No existen equipaciones " + message);
         }
-        return equipments;
+        return equipmentMapper.equipmentListToDTOList(equipments);
     }
 }

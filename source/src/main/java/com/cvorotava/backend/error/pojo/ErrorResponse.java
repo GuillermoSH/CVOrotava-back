@@ -35,6 +35,6 @@ public class ErrorResponse {
         this.status = status;
         this.message = message;
         this.errorCode = errorCode;
-        this.debugMessage = ex.getMessage();
+        this.debugMessage = ex.getCause().getMessage();
     }
 }

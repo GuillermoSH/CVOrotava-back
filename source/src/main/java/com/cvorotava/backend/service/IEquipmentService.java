@@ -1,5 +1,6 @@
 package com.cvorotava.backend.service;
 
+import com.cvorotava.backend.dto.EquipmentDto;
 import com.cvorotava.backend.entity.Equipment;
 import org.springframework.stereotype.Service;
 
@@ -7,15 +8,15 @@ import java.util.List;
 
 @Service
 public interface IEquipmentService {
-    List<Equipment> findAll();
+    List<EquipmentDto> findAll();
 
-    Equipment findById(Integer id);
+    EquipmentDto findById(Integer id);
 
-    List<Equipment> searchLike(String search);
+    List<EquipmentDto> searchLike(String search);
 
-    Equipment save(Equipment entity);
+    EquipmentDto save(Equipment entity);
 
-    Equipment dropPlayerFromEquipment(Integer equipment_id, Integer player_id);
+    EquipmentDto dropPlayerFromEquipment(Integer equipment_id, Integer player_id);
 
     void delete(Integer id);
 }

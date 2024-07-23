@@ -3,9 +3,11 @@ package com.cvorotava.backend.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.cvorotava.backend.dto.UserDto;
 import com.cvorotava.backend.error.exception.InternalServerException;
 import com.cvorotava.backend.error.exception.NoContentException;
 import com.cvorotava.backend.error.exception.NotFoundException;
+import com.cvorotava.backend.mapper.IUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,32 +17,38 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService implements IUserService {
+	private final UserRepository userrepository;
+	private final IUserMapper userMapper;
+
 	@Autowired
-	private UserRepository userrepository;
+	public UserService (UserRepository userRepository, IUserMapper userMapper) {
+		this.userrepository = userRepository;
+		this.userMapper = userMapper;
+	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<User> findAll() {
+	public List<UserDto> findAll() {
 		return getUsersOrThrowNoContent(userrepository.findAll(), "en la BBDD aun");
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public User findById(Integer id) {
+	public UserDto findById(Integer id) {
 		return getUserOrThrowNotFound(userrepository.findById(id), "con ese id");
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public User findByUsername(String username) {
+	public UserDto findByUsername(String username) {
 		return getUserOrThrowNotFound(userrepository.findByUsername(username), "con ese nombre de usuario");
 	}
 
 	@Override
 	@Transactional
-	public void delete(Integer id) {
+	public void delete(UserDto dto) {
 		try {
-			userrepository.deleteById(id);
+			userrepository.deleteById(userMapper.userDTOToEntity(dto).getId());
 		} catch (Exception e) {
 			throw new InternalServerException("No se ha podido borrar el user de la base de datos");
 		}
@@ -48,22 +56,22 @@ public class UserService implements IUserService {
 
 	@Override
 	@Transactional
-	public User save(User entity) {
+	public UserDto save(User user) {
 		try {
-			return userrepository.save(entity);
+			return userMapper.userToDTO(userrepository.save(user));
 		} catch (Exception e) {
-			throw new InternalServerException("No se ha podido insertar el user en la base de datos");
+			throw new InternalServerException("No se ha podido insertar el user en la base de datos", e);
 		}
 	}
 
-	private User getUserOrThrowNotFound(Optional<User> user, String message) {
-		return user.orElseThrow(() -> new NotFoundException("No existe el usuario " + message));
+	private UserDto getUserOrThrowNotFound(Optional<User> user, String message) {
+		return userMapper.userToDTO(user.orElseThrow(() -> new NotFoundException("No existe el usuario " + message)));
 	}
 
-	private List<User> getUsersOrThrowNoContent(List<User> users, String message) {
+	private List<UserDto> getUsersOrThrowNoContent(List<User> users, String message) {
 		if (users.isEmpty()) {
 			throw new NoContentException("No existen usuarios " + message);
 		}
-		return users;
+		return userMapper.usersListToDTOList(users);
 	}
 }

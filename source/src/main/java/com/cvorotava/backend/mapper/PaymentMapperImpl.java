@@ -27,6 +27,7 @@ public class PaymentMapperImpl implements IPaymentMapper {
         }
 
         return PaymentDto.builder()
+                .id(payment.getId())
                 .quantity(payment.getQuantity())
                 .month(payment.getMonth())
                 .year(payment.getYear())

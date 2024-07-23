@@ -37,6 +37,7 @@ public class PlayerMapperImpl implements IPlayerMapper {
                 .address(player.getAddress())
                 .birthday(player.getBirthday())
                 .category(player.getCategory())
+                .image(player.getImage())
                 .build();
     }
 
@@ -59,6 +60,7 @@ public class PlayerMapperImpl implements IPlayerMapper {
                 .address(playerDTO.getAddress())
                 .birthday(playerDTO.getBirthday())
                 .category(playerDTO.getCategory())
+                .image(playerDTO.getImage())
                 .build();
     }
 
