@@ -1,5 +1,6 @@
 package com.cvorotava.backend.service;
 
+import com.cvorotava.backend.dto.PaymentDto;
 import com.cvorotava.backend.entity.Payment;
 import org.springframework.stereotype.Service;
 
@@ -7,17 +8,17 @@ import java.util.List;
 
 @Service
 public interface IPaymentService {
-    List<Payment> findAll();
+    List<PaymentDto> findAll();
 
-    Payment findById(Integer id);
+    PaymentDto findById(Integer id);
 
-    List<Payment> findByConcept(String concept);
+    List<PaymentDto> findByConcept(String concept);
 
-    List<Payment> searchLike(String search);
+    List<PaymentDto> searchLike(String search);
 
-    Payment save(Payment entity);
+    PaymentDto save(Payment entity);
 
-    Payment dropPlayerFromPayment(Integer payment_id, Integer player_id);
+    PaymentDto dropPlayerFromPayment(Integer payment_id, Integer player_id);
 
     void delete(Integer id);
 }

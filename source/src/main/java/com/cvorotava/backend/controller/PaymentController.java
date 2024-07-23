@@ -2,6 +2,7 @@ package com.cvorotava.backend.controller;
 
 import java.util.List;
 
+import com.cvorotava.backend.dto.PaymentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,32 +25,32 @@ public class PaymentController {
 	private PaymentService paymentservice;
 
 	@GetMapping
-	public ResponseEntity<List<Payment>> getPayments() {
+	public ResponseEntity<List<PaymentDto>> getPayments() {
 		return ResponseEntity.ok(paymentservice.findAll());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Payment> getPaymentById(@PathVariable Integer id) {
+	public ResponseEntity<PaymentDto> getPaymentById(@PathVariable Integer id) {
 		return ResponseEntity.ok(paymentservice.findById(id));
 	}
 
 	@GetMapping("/concept/{concept}")
-	public ResponseEntity<List<Payment>> getPaymentByConcept(@PathVariable String concept) {
+	public ResponseEntity<List<PaymentDto>> getPaymentByConcept(@PathVariable String concept) {
 		return ResponseEntity.ok(paymentservice.findByConcept(concept));
 	}
 
 	@GetMapping("/search/{search}")
-	public ResponseEntity<List<Payment>> searchPaymentsBy(@PathVariable String search) {
+	public ResponseEntity<List<PaymentDto>> searchPaymentsBy(@PathVariable String search) {
 		return ResponseEntity.ok(paymentservice.searchLike(search));
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<Payment> save(@RequestBody Payment equipment) {
+	public ResponseEntity<PaymentDto> save(@RequestBody Payment equipment) {
 		return ResponseEntity.ok(paymentservice.save(equipment));
 	}
 
 	@DeleteMapping("/{payment_id}/delete/player/{player_id}")
-	public ResponseEntity<Payment> dropPlayerFromPayment(@PathVariable Integer payment_id, @PathVariable Integer player_id) {
+	public ResponseEntity<PaymentDto> dropPlayerFromPayment(@PathVariable Integer payment_id, @PathVariable Integer player_id) {
 		return ResponseEntity.ok(paymentservice.dropPlayerFromPayment(payment_id, player_id));
 	}
 
