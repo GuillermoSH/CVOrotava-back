@@ -38,8 +38,8 @@ public class UserController {
 		return ResponseEntity.ok(userservice.save(user));
 	}
 
-	@DeleteMapping("/{userDto}")
-	public void delete(@PathVariable UserDto userDto) {
+	@DeleteMapping("/delete")
+	public void delete(@RequestBody UserDto userDto) {
 		userservice.delete(userDto);
 	}
 }

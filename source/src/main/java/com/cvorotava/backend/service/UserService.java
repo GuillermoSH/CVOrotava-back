@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.cvorotava.backend.dto.UserDto;
+import com.cvorotava.backend.error.exception.DeleteOperationException;
 import com.cvorotava.backend.error.exception.InternalServerException;
 import com.cvorotava.backend.error.exception.NoContentException;
 import com.cvorotava.backend.error.exception.NotFoundException;
@@ -48,9 +49,9 @@ public class UserService implements IUserService {
 	@Transactional
 	public void delete(UserDto dto) {
 		try {
-			userrepository.deleteById(userMapper.userDTOToEntity(dto).getId());
+			userrepository.delete(userMapper.userDTOToEntity(dto));
 		} catch (Exception e) {
-			throw new InternalServerException("No se ha podido borrar el user de la base de datos");
+			throw new DeleteOperationException(e.getMessage());
 		}
 	}
 

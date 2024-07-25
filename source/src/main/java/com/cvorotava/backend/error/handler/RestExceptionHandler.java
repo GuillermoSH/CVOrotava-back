@@ -1,5 +1,6 @@
 package com.cvorotava.backend.error.handler;
 
+import com.cvorotava.backend.error.exception.DeleteOperationException;
 import com.cvorotava.backend.error.exception.InternalServerException;
 import com.cvorotava.backend.error.exception.NoContentException;
 import com.cvorotava.backend.error.exception.NotFoundException;
@@ -39,6 +40,13 @@ public class RestExceptionHandler {
     protected ResponseEntity<Object> handleInternalServerException(RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "Something went wrong with the request";
         ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, bodyOfResponse, ErrorCodeEnum.ERR_INT_SERVER_CODE, ex);
+        return buildResponseEntity(error);
+    }
+
+    @ExceptionHandler(value = { DeleteOperationException.class })
+    protected ResponseEntity<Object> handleDeleteOperationException(RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = "The delete operation because the entities weren't found";
+        ErrorResponse error = new ErrorResponse(HttpStatus.NOT_FOUND, bodyOfResponse, ErrorCodeEnum.ERR_INT_SERVER_CODE, ex);
         return buildResponseEntity(error);
     }
 
