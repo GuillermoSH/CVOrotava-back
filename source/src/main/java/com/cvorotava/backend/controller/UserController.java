@@ -3,6 +3,7 @@ package com.cvorotava.backend.controller;
 import java.util.List;
 
 import com.cvorotava.backend.dto.UserDto;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class UserController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<UserDto> save(@RequestBody User user) {
+	public ResponseEntity<UserDto> save(@Valid @RequestBody User user) {
 		return ResponseEntity.ok(userservice.save(user));
 	}
 

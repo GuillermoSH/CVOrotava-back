@@ -3,6 +3,7 @@ package com.cvorotava.backend.controller;
 import java.util.List;
 
 import com.cvorotava.backend.dto.PaymentDto;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -45,7 +46,7 @@ public class PaymentController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<PaymentDto> save(@RequestBody Payment equipment) {
+	public ResponseEntity<PaymentDto> save(@Valid @RequestBody Payment equipment) {
 		return ResponseEntity.ok(paymentservice.save(equipment));
 	}
 

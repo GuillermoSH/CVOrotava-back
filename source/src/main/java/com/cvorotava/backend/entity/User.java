@@ -1,14 +1,15 @@
 package com.cvorotava.backend.entity;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.List;
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,14 +18,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name = "user")
 public class User implements Serializable {
-	@Serial
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
-	private String username;
-	private String password;
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private List<Role> roles;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @NotBlank(message = "Username must be fulfilled")
+    @Column(unique = true)
+    private String username;
+
+    @NotBlank(message = "Password must be fulfilled")
+    private String password;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Role> roles;
 }

@@ -3,6 +3,7 @@ package com.cvorotava.backend.controller;
 import com.cvorotava.backend.dto.PlayerDto;
 import com.cvorotava.backend.entity.Player;
 import com.cvorotava.backend.service.PlayerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +58,7 @@ public class PlayerController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<PlayerDto> save(@RequestBody Player player) {
+    public ResponseEntity<PlayerDto> save(@Valid @RequestBody Player player) {
         return ResponseEntity.ok(playerservice.save(player));
     }
 

@@ -11,5 +11,7 @@ public enum ErrorCodeEnum {
     ERR_NOT_FOUND_CODE,
     ERR_INT_CONSTRAINT_CODE,
 
-    ERROR_INT_SERVER_CODE,
+    ERR_INT_SERVER_CODE,
+
+    ERR_BAD_REQUEST,
 }

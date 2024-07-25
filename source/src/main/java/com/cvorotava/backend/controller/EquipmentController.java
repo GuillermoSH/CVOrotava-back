@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cvorotava.backend.dto.EquipmentDto;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,7 @@ public class EquipmentController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<EquipmentDto> save(@RequestBody Equipment equipment) {
+    public ResponseEntity<EquipmentDto> save(@Valid @RequestBody Equipment equipment) {
         return ResponseEntity.ok(equipmentService.save(equipment));
     }
 

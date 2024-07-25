@@ -14,7 +14,7 @@ public class PlayerDto {
     private String name;
     private String surname1;
     private String surname2;
-    private Integer telephone;
+    private String telephone;
     private String email;
     private String address;
     private String birthday;

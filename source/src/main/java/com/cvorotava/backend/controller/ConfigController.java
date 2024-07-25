@@ -2,6 +2,7 @@ package com.cvorotava.backend.controller;
 
 import com.cvorotava.backend.entity.Config;
 import com.cvorotava.backend.service.ConfigService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class ConfigController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Config> save(@RequestBody Config configuration) {
+    public ResponseEntity<Config> save(@Valid @RequestBody Config configuration) {
         return ResponseEntity.ok(configservice.save(configuration));
     }
 

@@ -9,10 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import java.net.BindException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 @Order
@@ -36,12 +38,19 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = { InternalServerException.class })
     protected ResponseEntity<Object> handleInternalServerException(RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "Something went wrong with the request";
-        ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, bodyOfResponse, ErrorCodeEnum.ERROR_INT_SERVER_CODE, ex);
+        ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, bodyOfResponse, ErrorCodeEnum.ERR_INT_SERVER_CODE, ex);
+        return buildResponseEntity(error);
+    }
+
+    @ExceptionHandler(value = { MethodArgumentNotValidException.class })
+    protected ResponseEntity<Object> handleInvalidArgumentException(Exception ex, WebRequest request) {
+        String bodyOfResponse = "Some of the fields aren't valid";
+        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST, bodyOfResponse, ErrorCodeEnum.ERR_BAD_REQUEST, ex);
         return buildResponseEntity(error);
     }
 
     @ExceptionHandler(value = { SQLIntegrityConstraintViolationException.class })
-    protected ResponseEntity<Object> handleUniqueConstraintException(RuntimeException ex, WebRequest request) {
+    protected ResponseEntity<Object> handleUniqueConstraintException(Exception ex, WebRequest request) {
         String bodyOfResponse = "Constraint violation on the insertion to the data base";
         ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, bodyOfResponse, ErrorCodeEnum.ERR_INT_CONSTRAINT_CODE, ex);
         return buildResponseEntity(error);

@@ -35,6 +35,10 @@ public class ErrorResponse {
         this.status = status;
         this.message = message;
         this.errorCode = errorCode;
-        this.debugMessage = ex.getCause().getMessage();
+        if (!ex.getMessage().isEmpty()) {
+            this.debugMessage = "No further description";
+        } else {
+            this.debugMessage = ex.getCause().getMessage();
+        }
     }
 }
