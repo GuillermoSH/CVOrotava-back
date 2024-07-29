@@ -2,6 +2,7 @@ package com.cvorotava.backend.service;
 
 import com.cvorotava.backend.dto.PlayerDto;
 import com.cvorotava.backend.entity.Player;
+import com.cvorotava.backend.error.exception.DeleteOperationException;
 import com.cvorotava.backend.error.exception.InternalServerException;
 import com.cvorotava.backend.error.exception.NoContentException;
 import com.cvorotava.backend.error.exception.NotFoundException;
@@ -83,11 +84,11 @@ public class PlayerService implements IPlayerService {
 
     @Override
     @Transactional
-    public void delete(Integer id) {
+    public void delete(PlayerDto playerDto) {
         try {
-            playerRepository.deleteById(id);
+            playerRepository.delete(playerMapper.playerDTOToEntity(playerDto));
         } catch (Exception e) {
-            throw new InternalServerException("No se ha podido borrar el jugador de la base de datos");
+            throw new DeleteOperationException("No se ha podido borrar el jugador de la base de datos", e);
         }
     }
 
@@ -97,7 +98,7 @@ public class PlayerService implements IPlayerService {
         try {
             playerRepository.deleteAll();
         } catch (Exception e) {
-            throw new InternalServerException("No se han podido borrar todos los jugadores de la base de datos");
+            throw new DeleteOperationException("No se han podido borrar todos los jugadores de la base de datos", e);
         }
     }
 
@@ -107,7 +108,7 @@ public class PlayerService implements IPlayerService {
         try {
             return playerMapper.playerToDTO(playerRepository.save(entity));
         } catch (Exception e) {
-            throw new InternalServerException("No se ha podido insertar el jugador en la base de datos");
+            throw new InternalServerException("No se ha podido insertar el jugador en la base de datos", e);
         }
     }
 
@@ -124,7 +125,7 @@ public class PlayerService implements IPlayerService {
             }
             return playerMapper.playerToDTO(playerRepository.save(player));
         } catch (Exception e) {
-            throw new InternalServerException(e.getMessage());
+            throw new InternalServerException("La imagen no pudo ser guardada", e);
         }
     }
 

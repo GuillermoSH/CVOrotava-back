@@ -20,5 +20,5 @@ public interface IPaymentService {
 
     PaymentDto dropPlayerFromPayment(Integer payment_id, Integer player_id);
 
-    void delete(Integer id);
+    void delete(PaymentDto paymentDto);
 }

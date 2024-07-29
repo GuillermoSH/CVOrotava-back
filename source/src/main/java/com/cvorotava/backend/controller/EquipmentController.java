@@ -57,8 +57,8 @@ public class EquipmentController {
         return ResponseEntity.ok(equipmentService.dropPlayerFromEquipment(equipment_id, player_id));
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        equipmentService.delete(id);
+    @DeleteMapping("/delete")
+    public void delete(@RequestBody EquipmentDto equipmentDto) {
+        equipmentService.delete(equipmentDto);
     }
 }

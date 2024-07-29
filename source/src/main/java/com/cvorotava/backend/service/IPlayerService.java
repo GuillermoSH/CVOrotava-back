@@ -23,7 +23,7 @@ public interface IPlayerService {
 
     String[] countPlayers();
 
-    void delete(Integer id);
+    void delete(PlayerDto playerDto);
 
     void deleteAll();
 

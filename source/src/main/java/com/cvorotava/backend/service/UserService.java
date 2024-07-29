@@ -51,7 +51,7 @@ public class UserService implements IUserService {
 		try {
 			userrepository.delete(userMapper.userDTOToEntity(dto));
 		} catch (Exception e) {
-			throw new DeleteOperationException(e.getMessage());
+			throw new DeleteOperationException("No se ha podido borrar el usuario", e);
 		}
 	}
 

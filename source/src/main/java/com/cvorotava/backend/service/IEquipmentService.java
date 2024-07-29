@@ -18,5 +18,5 @@ public interface IEquipmentService {
 
     EquipmentDto dropPlayerFromEquipment(Integer equipment_id, Integer player_id);
 
-    void delete(Integer id);
+    void delete(EquipmentDto equipmentDto);
 }

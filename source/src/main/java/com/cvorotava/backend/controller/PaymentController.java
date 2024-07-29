@@ -55,8 +55,8 @@ public class PaymentController {
 		return ResponseEntity.ok(paymentservice.dropPlayerFromPayment(payment_id, player_id));
 	}
 
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Integer id) {
-		paymentservice.delete(id);
+	@DeleteMapping("/delete")
+	public void delete(@RequestBody PaymentDto paymentDto) {
+		paymentservice.delete(paymentDto);
 	}
 }

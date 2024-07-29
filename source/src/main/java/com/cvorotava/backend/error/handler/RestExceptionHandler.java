@@ -45,8 +45,8 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(value = { DeleteOperationException.class })
     protected ResponseEntity<Object> handleDeleteOperationException(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "The delete operation because the entities weren't found";
-        ErrorResponse error = new ErrorResponse(HttpStatus.NOT_FOUND, bodyOfResponse, ErrorCodeEnum.ERR_INT_SERVER_CODE, ex);
+        String bodyOfResponse = "The delete operation failed because the entities weren't found or something went wrong with the server";
+        ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, bodyOfResponse, ErrorCodeEnum.ERR_INT_SERVER_CODE, ex);
         return buildResponseEntity(error);
     }
 

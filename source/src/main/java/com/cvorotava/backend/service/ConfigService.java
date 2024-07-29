@@ -1,7 +1,7 @@
 package com.cvorotava.backend.service;
 
 import com.cvorotava.backend.entity.Config;
-import com.cvorotava.backend.entity.Player;
+import com.cvorotava.backend.error.exception.DeleteOperationException;
 import com.cvorotava.backend.error.exception.InternalServerException;
 import com.cvorotava.backend.error.exception.NoContentException;
 import com.cvorotava.backend.error.exception.NotFoundException;
@@ -14,29 +14,33 @@ import java.util.Optional;
 
 @Service
 public class ConfigService implements IConfigService {
+    private final ConfigRepository configRepository;
+
     @Autowired
-    private ConfigRepository configurationrepository;
+    public ConfigService(ConfigRepository configRepository) {
+        this.configRepository = configRepository;
+    }
 
     @Override
     public List<Config> findAll() {
-        return getUsersOrThrowNoContent(configurationrepository.findAll(), "en la BBDD aun");
+        return getUsersOrThrowNoContent(configRepository.findAll(), "en la BBDD aun");
     }
 
     @Override
     public void delete() {
         try {
-            configurationrepository.delete(findAll().get(0));
+            configRepository.delete(findAll().get(0));
         } catch (Exception e) {
-            throw new NotFoundException("No hay ninguna configuracion que borrar");
+            throw new DeleteOperationException("No hay ninguna configuracion que borrar", e);
         }
     }
 
     @Override
     public Config save(Config entity) {
         try {
-            return configurationrepository.save(entity);
+            return configRepository.save(entity);
         } catch (Exception e) {
-            throw new InternalServerException("No se ha podido guardar la configuracion");
+            throw new InternalServerException("No se ha podido guardar la configuracion", e);
         }
     }
 

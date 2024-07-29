@@ -12,7 +12,7 @@ import java.util.List;
 public class ErrorResponse {
     private HttpStatus status;
     private ErrorCodeEnum errorCode;
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm:ss", timezone = "Europe/London")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss", timezone = "Europe/London")
     private Instant timestamp;
     private String message;
     @JsonIgnore
@@ -35,10 +35,6 @@ public class ErrorResponse {
         this.status = status;
         this.message = message;
         this.errorCode = errorCode;
-        if (!ex.getMessage().isEmpty()) {
-            this.debugMessage = "No further description";
-        } else {
-            this.debugMessage = ex.getCause().getMessage();
-        }
+        this.debugMessage = ex.getCause().getMessage();
     }
 }

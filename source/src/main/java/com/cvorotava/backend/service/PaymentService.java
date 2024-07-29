@@ -3,6 +3,7 @@ package com.cvorotava.backend.service;
 import com.cvorotava.backend.dto.PaymentDto;
 import com.cvorotava.backend.entity.Payment;
 import com.cvorotava.backend.entity.Player;
+import com.cvorotava.backend.error.exception.DeleteOperationException;
 import com.cvorotava.backend.error.exception.InternalServerException;
 import com.cvorotava.backend.error.exception.NoContentException;
 import com.cvorotava.backend.error.exception.NotFoundException;
@@ -59,7 +60,7 @@ public class PaymentService implements IPaymentService {
         try {
             return paymentMapper.paymentToDTO(paymentRepository.save(entity));
         } catch (Exception e) {
-            throw new InternalServerException("No se pudo guardar el pago en la BBDD");
+            throw new InternalServerException("No se pudo guardar el pago en la BBDD", e);
         }
     }
 
@@ -74,17 +75,17 @@ public class PaymentService implements IPaymentService {
             entity.setPlayers(players);
             return paymentMapper.paymentToDTO(paymentRepository.save(entity));
         } catch (Exception e) {
-            throw new InternalServerException("No se pudo guardar el pago en la BBDD");
+            throw new DeleteOperationException("No se pudo guardar el pago en la BBDD", e);
         }
     }
 
     @Override
     @Transactional
-    public void delete(Integer id) {
+    public void delete(PaymentDto paymentDto) {
         try {
-            paymentRepository.deleteById(id);
+            paymentRepository.delete(paymentMapper.paymentDTOToEntity(paymentDto));
         } catch (Exception e) {
-            throw new InternalServerException("No se pudo borrar el pago de la BBDD");
+            throw new DeleteOperationException("No se pudo borrar el pago de la BBDD", e);
         }
     }
 

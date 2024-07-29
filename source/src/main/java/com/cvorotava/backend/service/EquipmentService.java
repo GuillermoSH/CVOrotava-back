@@ -3,6 +3,7 @@ package com.cvorotava.backend.service;
 import com.cvorotava.backend.dto.EquipmentDto;
 import com.cvorotava.backend.entity.Equipment;
 import com.cvorotava.backend.entity.Player;
+import com.cvorotava.backend.error.exception.DeleteOperationException;
 import com.cvorotava.backend.error.exception.InternalServerException;
 import com.cvorotava.backend.error.exception.NoContentException;
 import com.cvorotava.backend.error.exception.NotFoundException;
@@ -48,7 +49,7 @@ public class EquipmentService implements IEquipmentService {
         try {
             return equipmentMapper.equipmentToDTO(equipmentRepository.save(entity));
         } catch (Exception e) {
-            throw new InternalServerException("No se pudo guardar la equipacion en la BBDD");
+            throw new InternalServerException("No se pudo guardar la equipacion en la BBDD", e);
         }
     }
 
@@ -62,16 +63,16 @@ public class EquipmentService implements IEquipmentService {
             entity.setPlayers(players);
             return equipmentMapper.equipmentToDTO(equipmentRepository.save(entity));
         } catch (Exception e) {
-            throw new InternalServerException("No se pudo guardar la equipacion en la BBDD");
+            throw new DeleteOperationException("No se pudo guardar la equipacion en la BBDD", e);
         }
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(EquipmentDto equipmentDto) {
         try {
-            equipmentRepository.deleteById(id);
+            equipmentRepository.delete(equipmentMapper.equipmentDTOToEntity(equipmentDto));
         } catch (Exception e) {
-            throw new InternalServerException("No se pudo borrar la equipacion de la BBDD");
+            throw new DeleteOperationException("No se pudo borrar la equipacion de la BBDD", e);
         }
     }
 
