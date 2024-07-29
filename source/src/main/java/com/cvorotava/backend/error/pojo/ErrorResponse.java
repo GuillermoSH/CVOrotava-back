@@ -35,6 +35,6 @@ public class ErrorResponse {
         this.status = status;
         this.message = message;
         this.errorCode = errorCode;
-        this.debugMessage = ex.getCause().getMessage();
+        this.debugMessage = (ex.getCause() == null) ? "No further description" : ex.getCause().getMessage();
     }
 }

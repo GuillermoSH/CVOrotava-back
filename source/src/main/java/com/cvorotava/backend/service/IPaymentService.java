@@ -16,6 +16,8 @@ public interface IPaymentService {
 
     List<PaymentDto> searchLike(String search);
 
+    List<PaymentDto> findBySeason(String season);
+
     PaymentDto save(Payment entity);
 
     PaymentDto dropPlayerFromPayment(Integer payment_id, Integer player_id);

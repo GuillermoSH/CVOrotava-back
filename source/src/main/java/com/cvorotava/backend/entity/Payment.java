@@ -2,6 +2,7 @@ package com.cvorotava.backend.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,13 +26,13 @@ public class Payment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Quantity must be fulfilled")
+    @NotNull(message = "Quantity must be fulfilled")
     private Double quantity;
 
-    @NotBlank(message = "Month must be fulfilled")
+    @NotNull(message = "Month must be fulfilled")
     private Integer month;
 
-    @NotBlank(message = "Year must be fulfilled")
+    @NotNull(message = "Year must be fulfilled")
     private Integer year;
 
     @NotBlank(message = "Concept must be fulfilled")

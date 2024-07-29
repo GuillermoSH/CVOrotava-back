@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,14 @@ public class PaymentService implements IPaymentService {
     @Transactional(readOnly = true)
     public PaymentDto findById(Integer id) {
         return getPaymentOrThrowNotFound(paymentRepository.findById(id), "con ese id");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PaymentDto> findBySeason(String season) {
+        int firstYear = Integer.parseInt(("20" + season.split("-")[0].replace("Temp", "")));
+        System.out.println("\n\n" + firstYear + "\n\n");
+        return getPaymentOrThrowNoContent(paymentRepository.findBySeason(firstYear, (firstYear + 1)), "en esa temporada");
     }
 
     @Override

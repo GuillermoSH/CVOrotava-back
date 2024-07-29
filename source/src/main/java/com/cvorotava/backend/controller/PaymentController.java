@@ -45,6 +45,11 @@ public class PaymentController {
 		return ResponseEntity.ok(paymentservice.searchLike(search));
 	}
 
+	@GetMapping("/season/{season}")
+	public ResponseEntity<List<PaymentDto>> getPaymentsBySeason(@PathVariable String season) {
+		return ResponseEntity.ok(paymentservice.findBySeason(season));
+	}
+
 	@PostMapping("/save")
 	public ResponseEntity<PaymentDto> save(@Valid @RequestBody Payment equipment) {
 		return ResponseEntity.ok(paymentservice.save(equipment));
