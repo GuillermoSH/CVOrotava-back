@@ -50,14 +50,19 @@ public class PaymentController {
 		return ResponseEntity.ok(paymentservice.findBySeason(season));
 	}
 
+	@GetMapping("/seasons")
+	public ResponseEntity<List<String>> getAvailableSeason() {
+		return ResponseEntity.ok(paymentservice.findAvailableSeasons());
+	}
+
 	@PostMapping("/save")
 	public ResponseEntity<PaymentDto> save(@Valid @RequestBody Payment equipment) {
 		return ResponseEntity.ok(paymentservice.save(equipment));
 	}
 
-	@DeleteMapping("/{payment_id}/delete/player/{player_id}")
-	public ResponseEntity<PaymentDto> dropPlayerFromPayment(@PathVariable Integer payment_id, @PathVariable Integer player_id) {
-		return ResponseEntity.ok(paymentservice.dropPlayerFromPayment(payment_id, player_id));
+	@DeleteMapping("/{paymentId}/delete/player/{playerId}")
+	public ResponseEntity<PaymentDto> dropPlayerFromPayment(@PathVariable Integer paymentId, @PathVariable Integer playerId) {
+		return ResponseEntity.ok(paymentservice.dropPlayerFromPayment(paymentId, playerId));
 	}
 
 	@DeleteMapping("/delete")

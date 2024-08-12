@@ -46,9 +46,15 @@ public class PaymentService implements IPaymentService {
     @Override
     @Transactional(readOnly = true)
     public List<PaymentDto> findBySeason(String season) {
-        int firstYear = Integer.parseInt(("20" + season.split("-")[0].replace("Temp", "")));
-        System.out.println("\n\n" + firstYear + "\n\n");
-        return getPaymentOrThrowNoContent(paymentRepository.findBySeason(firstYear, (firstYear + 1)), "en esa temporada");
+        int firstYear = Integer.parseInt(season.split("-")[0]);
+        int secondYear = Integer.parseInt(season.split("-")[1]);
+        return getPaymentOrThrowNoContent(paymentRepository.findBySeason(firstYear, secondYear), "en esa temporada");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<String> findAvailableSeasons() {
+        return paymentRepository.findAvailableSeasons();
     }
 
     @Override
@@ -75,10 +81,10 @@ public class PaymentService implements IPaymentService {
 
     @Override
     @Transactional
-    public PaymentDto dropPlayerFromPayment(Integer payment_id, Integer player_id) {
+    public PaymentDto dropPlayerFromPayment(Integer paymentId, Integer playerId) {
         try {
-            Payment entity = paymentRepository.findById(payment_id).orElseThrow(() -> new NotFoundException("No existe un pago con ese id"));
-            Player playerToDrop = playerRepository.findById(player_id).orElseThrow(() -> new NotFoundException("No existe el jugador con ese id"));
+            Payment entity = paymentRepository.findById(paymentId).orElseThrow(() -> new NotFoundException("No existe un pago con ese id"));
+            Player playerToDrop = playerRepository.findById(playerId).orElseThrow(() -> new NotFoundException("No existe el jugador con ese id"));
             List<Player> players = entity.getPlayers();
             players.remove(playerToDrop);
             entity.setPlayers(players);

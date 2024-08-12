@@ -18,9 +18,11 @@ public interface IPaymentService {
 
     List<PaymentDto> findBySeason(String season);
 
+    List<String> findAvailableSeasons();
+
     PaymentDto save(Payment entity);
 
-    PaymentDto dropPlayerFromPayment(Integer payment_id, Integer player_id);
+    PaymentDto dropPlayerFromPayment(Integer paymentId, Integer playerId);
 
     void delete(PaymentDto paymentDto);
 }
