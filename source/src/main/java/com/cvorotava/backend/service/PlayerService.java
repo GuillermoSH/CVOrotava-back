@@ -106,6 +106,10 @@ public class PlayerService implements IPlayerService {
     @Transactional
     public PlayerDto save(Player entity) {
         try {
+            Optional<Player> player = playerRepository.findByDni(entity.getDni());
+            if (player.isPresent() && entity.getId()==null) {
+                entity.setId(player.get().getId());
+            }
             return playerMapper.playerToDTO(playerRepository.save(entity));
         } catch (Exception e) {
             throw new InternalServerException("No se ha podido insertar el jugador en la base de datos", e);

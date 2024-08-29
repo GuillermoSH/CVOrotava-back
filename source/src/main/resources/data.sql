@@ -11,23 +11,23 @@ INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, bi
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category) VALUES('32445678X', 'Luisa', 'Sicilia', 'Hernández', 78612534, 'luisasic@gmail.com', 'C/El Toscal nº37', '2007-01-22', 'JUV FEM');
 -- Insert 4
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
-VALUES ('44444444D', 'Robert', 'Garcia', 'Martinez', 333333333, 'robert.garcia@example.com', '1011 Pine St', '1993-09-10', 'SEN FEM');
+VALUES ('44444444D', 'Robert', 'Garcia', 'Martinez', 333333333, 'robert.garcia@example.com', '1011 Pine St', '1993-09-10', 'CAD FEM');
 
 -- Insert 5
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
-VALUES ('55555555E', 'Sophia', 'Lopez', 'Rodriguez', 222222222, 'sophia.lopez@example.com', '222 Cedar St', '1994-11-25', 'SEN FEM');
+VALUES ('55555555E', 'Sophia', 'Lopez', 'Rodriguez', 222222222, 'sophia.lopez@example.com', '222 Cedar St', '1994-11-25', 'INF FEM');
 
 -- Insert 6
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
-VALUES ('66666666F', 'Michael', 'Fernandez', 'Gomez', 777777777, 'michael.fernandez@example.com', '333 Maple St', '1996-04-05', 'SEN FEM');
+VALUES ('66666666F', 'Michael', 'Fernandez', 'Gomez', 777777777, 'michael.fernandez@example.com', '333 Maple St', '1996-04-05', 'JUN FEM');
 
 -- Insert 7
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
-VALUES ('77777777G', 'Olivia', 'Perez', 'Sanchez', 888888888, 'olivia.perez@example.com', '444 Birch St', '1997-08-15', 'SEN FEM');
+VALUES ('77777777G', 'Olivia', 'Perez', 'Sanchez', 888888888, 'olivia.perez@example.com', '444 Birch St', '1997-08-15', 'BEN FEM');
 
 -- Insert 8
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
-VALUES ('88888888H', 'William', 'Ramirez', 'Lopez', 999999999, 'william.ramirez@example.com', '555 Oak St', '1998-12-30', 'SEN FEM');
+VALUES ('88888888H', 'William', 'Ramirez', 'Lopez', 999999999, 'william.ramirez@example.com', '555 Oak St', '1998-12-30', 'ALE FEM');
 
 -- Insert 9
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
@@ -58,19 +58,19 @@ VALUES ('15151515O', 'Charlotte', 'Alvarez', 'Gonzalez', 444444444, 'charlotte.a
 
 -- Insert 16
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
-VALUES ('16161616P', 'Benjamin', 'Fernandez', 'Sanchez', 555555555, 'benjamin.fernandez@example.com', '4040 Elm St', '2006-12-07', 'SEN MAS');
+VALUES ('16161616P', 'Benjamin', 'Fernandez', 'Sanchez', 555555555, 'benjamin.fernandez@example.com', '4040 Elm St', '2006-12-07', 'CAD MAS');
 
 -- Insert 17
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
-VALUES ('17171717Q', 'Amelia', 'Perez', 'Martinez', 666666666, 'amelia.perez@example.com', '5050 Cedar St', '2007-03-22', 'SEN MAS');
+VALUES ('17171717Q', 'Amelia', 'Perez', 'Martinez', 666666666, 'amelia.perez@example.com', '5050 Cedar St', '2007-03-22', 'ALE MAS');
 
 -- Insert 18
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
-VALUES ('18181818R', 'Mason', 'Ramirez', 'Gomez', 777777777, 'mason.ramirez@example.com', '6060 Birch St', '2008-07-15', 'SEN MAS');
+VALUES ('18181818R', 'Mason', 'Ramirez', 'Gomez', 777777777, 'mason.ramirez@example.com', '6060 Birch St', '2008-07-15', 'INF MAS');
 
 -- Insert 19
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
-VALUES ('19191919S', 'Harper', 'Gonzalez', 'Lopez', 888888888, 'harper.gonzalez@example.com', '7070 Maple St', '2009-11-09', 'SEN MAS');
+VALUES ('19191919S', 'Harper', 'Gonzalez', 'Lopez', 888888888, 'harper.gonzalez@example.com', '7070 Maple St', '2009-11-09', 'BEN MAS');
 
 -- Insert 20
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
@@ -82,11 +82,11 @@ VALUES ('21212121U', 'Avery', 'Sanchez', 'Fernandez', 111111111, 'avery.sanchez@
 
 -- Insert 22
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
-VALUES ('22222222V', 'Liam', 'Perez', 'Gomez', 222222222, 'liam.perez@example.com', '10101 Elm St', '2012-10-14', 'SEN MAS');
+VALUES ('22222222V', 'Liam', 'Perez', 'Gomez', 222222222, 'liam.perez@example.com', '10101 Elm St', '2012-10-14', 'JUN MAS');
 
 -- Insert 23
 INSERT INTO player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
-VALUES ('23232323W', 'Mia', 'Ramirez', 'Alvarez', 333333333, 'mia.ramirez@example.com', '11111 Cedar St', '2013-04-26', 'SEN MAS');
+VALUES ('23232323W', 'Mia', 'Ramirez', 'Alvarez', 333333333, 'mia.ramirez@example.com', '11111 Cedar St', '2013-04-26', 'JUV MAS');
 
 -- Insert 24
 INSERT INTO Player (dni, name, surname1, surname2, telephone, email, address, birthday, category)
