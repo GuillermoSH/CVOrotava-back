@@ -3,8 +3,7 @@ name: Close Frontend Issues
 on:
   push:
     branches:
-      - main # Puedes especificar la rama que prefieras
-
+      - develop
 jobs:
   close-issues:
     runs-on: ubuntu-latest
