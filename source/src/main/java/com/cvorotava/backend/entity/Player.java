@@ -1,5 +1,6 @@
 package com.cvorotava.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -40,7 +41,7 @@ public class Player implements Serializable {
     private String surname2;
 
     @NotBlank(message = "Telephone must be fulfilled")
-    @Pattern(regexp = "^([(]?[+]?[(]?[0-9]{2,3}[)]?[- .]?)?[6-9]\\d{8}$", message = "Size must be fulfilled")
+    @Pattern(regexp = "^([(]?[+]?[(]?[0-9]{2,3}[)]?[- .]?)?[6-9]\\d{8}$", message = "Phone format not valid")
     private String telephone;
 
     @NotBlank(message = "Email must be fulfilled")
@@ -58,9 +59,21 @@ public class Player implements Serializable {
 
     private String image;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "player_payment",
+            joinColumns = @JoinColumn(name = "player_id"),
+            inverseJoinColumns = @JoinColumn(name = "payment_id")
+    )
+    @JsonIgnore
     private List<Payment> payments;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "player_equipments",
+            joinColumns = @JoinColumn(name = "player_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipment_id")
+    )
+    @JsonIgnore
     private List<Equipment> equipments;
 }

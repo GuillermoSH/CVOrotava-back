@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,8 +70,24 @@ public class PaymentService implements IPaymentService {
 
     @Override
     @Transactional
+    public PaymentDto assignPlayerToPayment(Integer paymentId, Player playerToAssign) {
+        try {
+            Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> new NotFoundException("No existe un pago con ese id"));
+            Player player = playerRepository.findByDni(playerToAssign.getDni()).orElseThrow(() -> new NotFoundException("El jugador que se quiere asignar al pago no existe"));
+            List<Player> paymentPlayers = payment.getPlayers();
+            paymentPlayers.add(player);
+            payment.setPlayers(paymentPlayers);
+            return paymentMapper.paymentToDTO(paymentRepository.save(payment));
+        } catch (Exception e) {
+            throw new InternalServerException("No se pudo guardar el pago en la BBDD", e);
+        }
+    }
+
+    @Override
+    @Transactional
     public PaymentDto save(Payment entity) {
         try {
+            System.out.println(entity);
             return paymentMapper.paymentToDTO(paymentRepository.save(entity));
         } catch (Exception e) {
             throw new InternalServerException("No se pudo guardar el pago en la BBDD", e);
@@ -84,7 +99,7 @@ public class PaymentService implements IPaymentService {
     public PaymentDto dropPlayerFromPayment(Integer paymentId, Integer playerId) {
         try {
             Payment entity = paymentRepository.findById(paymentId).orElseThrow(() -> new NotFoundException("No existe un pago con ese id"));
-            Player playerToDrop = playerRepository.findById(playerId).orElseThrow(() -> new NotFoundException("No existe el jugador con ese id"));
+            Player playerToDrop = playerRepository.findById(playerId).orElseThrow(() -> new NotFoundException("El jugador que se quiere borrar del pago no existe"));
             List<Player> players = entity.getPlayers();
             players.remove(playerToDrop);
             entity.setPlayers(players);

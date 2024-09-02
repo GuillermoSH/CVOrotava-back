@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class PlayerDto {
+    private Integer id;
     private String dni;
     private String name;
     private String surname1;

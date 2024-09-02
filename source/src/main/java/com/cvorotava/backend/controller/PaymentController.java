@@ -3,6 +3,7 @@ package com.cvorotava.backend.controller;
 import java.util.List;
 
 import com.cvorotava.backend.dto.PaymentDto;
+import com.cvorotava.backend.entity.Player;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,11 @@ public class PaymentController {
 	@PostMapping("/save")
 	public ResponseEntity<PaymentDto> save(@Valid @RequestBody Payment equipment) {
 		return ResponseEntity.ok(paymentservice.save(equipment));
+	}
+
+	@PostMapping("/{paymentId}/save/player/{player}")
+	public ResponseEntity<PaymentDto> assignPlayerFromPayment(@PathVariable Integer paymentId, @PathVariable Player player) {
+		return ResponseEntity.ok(paymentservice.assignPlayerToPayment(paymentId, player));
 	}
 
 	@DeleteMapping("/{paymentId}/delete/player/{playerId}")

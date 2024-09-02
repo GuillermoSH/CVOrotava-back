@@ -14,13 +14,6 @@ import java.util.List;
 
 @Component
 public class PlayerMapperImpl implements IPlayerMapper {
-    private final PlayerRepository playerRepository;
-
-    @Autowired
-    public PlayerMapperImpl(PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
-    }
-
     @Override
     public PlayerDto playerToDTO(Player player) {
         if (player == null) {
@@ -28,6 +21,7 @@ public class PlayerMapperImpl implements IPlayerMapper {
         }
 
         return PlayerDto.builder()
+                .id(player.getId())
                 .dni(player.getDni())
                 .name(player.getName())
                 .surname1(player.getSurname1())
@@ -47,10 +41,8 @@ public class PlayerMapperImpl implements IPlayerMapper {
             return null;
         }
 
-        Player player = playerRepository.findByDni(playerDTO.getDni()).orElseThrow(() -> new NotFoundException("That player couldn't be found"));
-
         return Player.builder()
-                .id(player.getId())
+                .id(playerDTO.getId())
                 .dni(playerDTO.getDni())
                 .name(playerDTO.getName())
                 .surname1(playerDTO.getSurname1())

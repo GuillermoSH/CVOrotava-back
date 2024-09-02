@@ -2,6 +2,7 @@ package com.cvorotava.backend.service;
 
 import com.cvorotava.backend.dto.PaymentDto;
 import com.cvorotava.backend.entity.Payment;
+import com.cvorotava.backend.entity.Player;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public interface IPaymentService {
     List<PaymentDto> findBySeason(String season);
 
     List<String> findAvailableSeasons();
+
+    PaymentDto assignPlayerToPayment(Integer paymentId, Player player);
 
     PaymentDto save(Payment entity);
 
