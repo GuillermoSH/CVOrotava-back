@@ -16,7 +16,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "equipment")
+@Table(name = "equipment", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"size", "type", "color", "useFor"})
+})
 public class Equipment implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
