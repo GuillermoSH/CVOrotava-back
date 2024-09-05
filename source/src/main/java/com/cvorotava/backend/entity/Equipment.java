@@ -1,5 +1,7 @@
 package com.cvorotava.backend.entity;
 
+import com.cvorotava.backend.enums.EquipmentSize;
+import com.cvorotava.backend.enums.EquipmentType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -17,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Table(name = "equipment", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"size", "type", "color", "useFor"})
+        @UniqueConstraint(columnNames = {"size", "type", "color"})
 })
 public class Equipment implements Serializable {
     @Serial
@@ -28,16 +30,15 @@ public class Equipment implements Serializable {
     private Integer id;
 
     @NotBlank(message = "Size must be fulfilled")
-    private String size;
+    @Enumerated(EnumType.STRING)
+    private EquipmentSize size;
 
     @NotBlank(message = "Type must be fulfilled")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private EquipmentType type;
 
     @NotBlank(message = "Color must be fulfilled")
     private String color;
-
-    @NotBlank(message = "The use of it must be fulfilled")
-    private String useFor;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(

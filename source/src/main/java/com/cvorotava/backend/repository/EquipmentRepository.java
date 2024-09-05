@@ -8,9 +8,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface EquipmentRepository extends JpaRepository<Equipment, Integer> {
-    @Query(value = "SELECT e FROM Equipment e ORDER BY e.size, e.type, e.useFor, e.color")
+    @Query(value = "SELECT e FROM Equipment e ORDER BY e.size, e.type, e.color")
     List<Equipment> findAll();
 
-    @Query(value = "SELECT e FROM Equipment e WHERE CONCAT_WS(' ', e.size, e.type, e.useFor, e.color) LIKE %:search%")
+    @Query(value = "SELECT e FROM Equipment e WHERE CONCAT_WS(' ', e.size, e.type, e.color) LIKE %:search%")
     List<Equipment> searchLike(@Param("search") String search);
 }

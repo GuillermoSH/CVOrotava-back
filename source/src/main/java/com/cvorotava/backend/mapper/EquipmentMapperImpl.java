@@ -31,7 +31,6 @@ public class EquipmentMapperImpl implements IEquipmentMapper {
                 .size(equipment.getSize())
                 .type(equipment.getType())
                 .color(equipment.getColor())
-                .useFor(equipment.getUseFor())
                 .players(equipment.getPlayers())
                 .build();
     }
@@ -49,7 +48,6 @@ public class EquipmentMapperImpl implements IEquipmentMapper {
                 .size(equipmentDto.getSize())
                 .type(equipmentDto.getType())
                 .color(equipmentDto.getColor())
-                .useFor(equipmentDto.getUseFor())
                 .players(equipmentDto.getPlayers())
                 .build();
     }
