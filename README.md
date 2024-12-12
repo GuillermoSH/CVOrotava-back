@@ -9,13 +9,14 @@ This repository contains the backend implementation of the **CVOrotava** applica
 ## 📋 Índice / Table of Contents
 
 1. [⚙️ Requisitos previos / Prerequisites](#️-requisitos-previos--prerequisites)
-2. [🛠️ Configuración inicial / Initial Setup](#️-configuración-inicial--initial-setup)
-3. [▶️ Ejecución del proyecto / Running the Project](#️-ejecución-del-proyecto--running-the-project)
-4. [📂 Estructura del proyecto / Project Structure](#-estructura-del-proyecto--project-structure)
-5. [🛠️ Tecnologías utilizadas / Technologies Used](#️-tecnologías-utilizadas--technologies-used)
-6. [📢 Endpoints disponibles / Available Endpoints](#-endpoints-disponibles--available-endpoints)
-7. [🤝 Contribución / Contribution](#-contribución--contribution)
-8. [📜 Licencia / License](#-licencia--license)
+2. [📊 Diagramas / Diagrams](#-diagramas--diagrams)
+3. [🛠️ Configuración inicial / Initial Setup](#️-configuración-inicial--initial-setup)
+4. [▶️ Ejecución del proyecto / Running the Project](#️-ejecución-del-proyecto--running-the-project)
+5. [📂 Estructura del proyecto / Project Structure](#-estructura-del-proyecto--project-structure)
+6. [🛠️ Tecnologías utilizadas / Technologies Used](#️-tecnologías-utilizadas--technologies-used)
+7. [📢 Endpoints disponibles / Available Endpoints](#-endpoints-disponibles--available-endpoints)
+8. [🤝 Contribución / Contribution](#-contribución--contribution)
+9. [📜 Licencia / License](#-licencia--license)
 
 ---
 
@@ -40,6 +41,22 @@ Before running this project, ensure you have the following installed:
 - **MySQL** 8.0 or higher
 - **Postman** (recommended for endpoint testing; a JSON collection is provided).
 - An IDE such as IntelliJ IDEA, Eclipse, or VS Code with Java support.
+
+---
+
+## 📊 Diagramas / Diagrams
+
+### Español:
+
+Estos son los diagramas del proyecto para tener una idea más clara de su estructura y de su funcionalidad:
+
+### English:
+
+These are the project's diagrams for a better understanding of it's structure and funcionalities:
+
+![image](https://github.com/GuillermoSH/CVOrotava-back/blob/develop/docs/diagrams/diagrama_ER_CVOrotava.png)
+
+> View more on [drawSQL](https://drawsql.app/teams/test-3947/diagrams/cvorotava)
 
 ---
 
