@@ -1,0 +1,849 @@
+{
+	"info": {
+		"_postman_id": "8bee5dd2-1d36-47cb-88e3-548829cd6797",
+		"name": "CVOrotava - RestAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29298159"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "getUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/users",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/users/1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByUsername",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/users/username/admin",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"users",
+								"username",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"6\",\r\n    \"username\": \"toto123\",\r\n    \"password\": \"1234\",\r\n    \"roles\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/users/save",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"users",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"toto123\",\r\n    \"password\": \"1234\",\r\n    \"roles\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/users/delete",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"users",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Player",
+			"item": [
+				{
+					"name": "getPlayers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/players",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPlayersCount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/players/total",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"players",
+								"total"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPlayersOrderedBy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/players/orderedBy/email",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"players",
+								"orderedBy",
+								"email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPlayersByCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/players/category/SEN MAS",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"players",
+								"category",
+								"SEN MAS"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchPlayersBy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/players/search/Fer",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"players",
+								"search",
+								"Fer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPlayerByDni",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/players/dni/43383780F",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"players",
+								"dni",
+								"43383780F"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPlayerById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/players/1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"players",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/a901323/Downloads/pwbz3a13oama1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{apiUrl}}/players/uploadImage",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"players",
+								"uploadImage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dni\": \"11111111U\",\r\n    \"name\": \"Pedrito\",\r\n    \"surname1\": \"Machín\",\r\n    \"surname2\": \"Caracalambre\",\r\n    \"telephone\": \"616298870\",\r\n    \"email\": \"pedritomachinca@gmail.com\",\r\n    \"address\": \"C/El Toscal nº37\",\r\n    \"birthday\": \"2000-05-16\",\r\n    \"category\": \"SEN MAS\",\r\n    \"image\": \"hola.jpg\",\r\n    \"payments\": [],\r\n    \"equipments\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/players/save",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"players",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dni\": \"11111111U\",\r\n    \"name\": \"Pedro\",\r\n    \"surname1\": \"Machín\",\r\n    \"surname2\": \"Caracalambre\",\r\n    \"telephone\": 681726312,\r\n    \"email\": \"pedritomachinca@gmail.com\",\r\n    \"address\": \"C/El Toscal nº37\",\r\n    \"birthday\": \"2000-05-16\",\r\n    \"category\": \"SEN MAS\",\r\n    \"payments\": [],\r\n    \"equipments\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/players/1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"players",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAll",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dni\": \"11111111U\",\r\n    \"name\": \"Pedro\",\r\n    \"surname1\": \"Machín\",\r\n    \"surname2\": \"Caracalambre\",\r\n    \"telephone\": 681726312,\r\n    \"email\": \"pedritomachinca@gmail.com\",\r\n    \"address\": \"C/El Toscal nº37\",\r\n    \"birthday\": \"2000-05-16\",\r\n    \"category\": \"SEN MAS\",\r\n    \"payments\": [],\r\n    \"equipments\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/players",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"players"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Config",
+			"item": [
+				{
+					"name": "getConfigurations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/configurations",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"configurations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"notification_emails\": \"example@example.com\",\r\n    \"benjamin_year\": 2022,\r\n    \"alevin_year\": 2021,\r\n    \"infantil_year\": 2020,\r\n    \"cadete_year\": 2019,\r\n    \"juvenil_year\": 2018,\r\n    \"junior_year\": 2017,\r\n    \"mod_date\": \"2024-07-18\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/configurations/save",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"configurations",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/configurations",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"configurations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Equipment",
+			"item": [
+				{
+					"name": "getEquipments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/equipments",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"equipments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEquipmentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/equipments/1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"equipments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchEquipmentsBy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/equipments/search/Camisa",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"equipments",
+								"search",
+								"Camisa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/equipments/1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"equipments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dropPlayerFromEquipment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/equipments/2/delete/player/1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"equipments",
+								"2",
+								"delete",
+								"player",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"size\": \"L\",\r\n    \"type\": \"Camisa\",\r\n    \"color\": \"Rojo\",\r\n    \"useFor\": \"Calentamiento\",\r\n    \"players\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/equipments/save",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"equipments",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "savePlayerToEquipment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"2\",\r\n    \"size\": \"L\",\r\n    \"type\": \"Camisa\",\r\n    \"color\": \"Rojo\",\r\n    \"useFor\": \"Calentamiento\",\r\n    \"players\": [\r\n        {\r\n            \"id\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/equipments/save",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"equipments",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "getPayments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/payments",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPaymentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/payments/1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"payments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPaymentByConcept",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/payments/concept/Mensualidad",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"payments",
+								"concept",
+								"Mensualidad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPaymentsBySeason",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/payments/season/2023-2024",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"payments",
+								"season",
+								"2023-2024"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchPaymentsBy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/payments/search/Mens",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"payments",
+								"search",
+								"Mens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAvailableSeason",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiUrl}}/payments/seasons",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"payments",
+								"seasons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 25.0,\r\n    \"month\": 9,\r\n    \"year\": 2024,\r\n    \"concept\": \"Mensualidd\",\r\n    \"players\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/payments/save",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"payments",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "savePlayerToPayment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 6,\r\n    \"quantity\": 25.0,\r\n    \"month\": 7,\r\n    \"year\": 2024,\r\n    \"concept\": \"Mensualidad\",\r\n    \"players\": [\r\n        {\r\n            \"id\": 1,\r\n            \"dni\": \"43383780F\",\r\n            \"name\": \"Guillermo\",\r\n            \"surname1\": \"Sicilia\",\r\n            \"surname2\": \"Hernández\",\r\n            \"telephone\": \"616298870\",\r\n            \"email\": \"siciliahernandezguillermo@gmail.com\",\r\n            \"address\": \"C/El Toscal nº37\",\r\n            \"birthday\": \"2000-05-16\",\r\n            \"category\": \"SEN MAS\",\r\n            \"image\": null\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/payments/save",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"payments",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dropPlayerFromPayment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 6,\r\n    \"quantity\": 25.0,\r\n    \"month\": 7,\r\n    \"year\": 2024,\r\n    \"concept\": \"Mensualidad\",\r\n    \"players\": [\r\n        {\r\n            \"id\": \"1\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/payments/6/delete/player/1",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"payments",
+								"6",
+								"delete",
+								"player",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 6,\r\n    \"quantity\": 25.0,\r\n    \"month\": 9,\r\n    \"year\": 2024,\r\n    \"concept\": \"Mensualidad\",\r\n    \"players\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiUrl}}/payments/delete",
+							"host": [
+								"{{apiUrl}}"
+							],
+							"path": [
+								"payments",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiUrl",
+			"value": "http://localhost:9097/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "apiUrl",
+			"value": "https://995dnb1x-9097.uks1.devtunnels.ms/api/v1",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
