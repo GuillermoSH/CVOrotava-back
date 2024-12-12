@@ -202,10 +202,12 @@ The endpoint collection is available in JSON format within the `docs/endpoints-p
    ```bash
    git checkout -b feature/new-feature
    ```
+> ⚠️ El formato para las ramas es [NombreDescriptivoEnCamelCase]#[Numero Issue]. Ej: EquipBtn#67 / Branch format must be [DescriptiveNameInCamelCase]#[Issue Number]. E. g: EquipBtn#67
 3. Realiza un commit de tus cambios / Commit your changes:
    ```bash
-   git commit -m "Added new feature"
+   git commit -m "✨ Added new feature; closes #[numero issue / issue number]"
    ```
+> ⚠️ Usar [gitmoji](https://gitmoji.dev/) como referencia para crear los commits y comentarlos en Inglés / Use [gitmoji](https://gitmoji.dev/) as the reference for creating the commits and comment them in English
 4. Haz un push de la rama / Push the branch:
    ```bash
    git push origin feature/new-feature
