@@ -164,8 +164,6 @@ CVOrotava
 │   └── test
 │       └── java
 │           └── com.cvorotava.backend  # Pruebas unitarias / Unit tests
-├── docs
-│   └── endpoints-postman              # Colección Postman / Postman collection
 ├── pom.xml    # Archivo de configuración de Maven / Maven configuration file
 └── README.md  # Documentación del proyecto / Project documentation
 ```
