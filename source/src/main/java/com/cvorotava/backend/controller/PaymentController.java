@@ -3,6 +3,7 @@ package com.cvorotava.backend.controller;
 import java.util.List;
 
 import com.cvorotava.backend.dto.PaymentDto;
+import com.cvorotava.backend.dto.PlayerDto;
 import com.cvorotava.backend.entity.Player;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,11 @@ public class PaymentController {
 	@GetMapping("/seasons")
 	public ResponseEntity<List<String>> getAvailableSeason() {
 		return ResponseEntity.ok(paymentservice.findAvailableSeasons());
+	}
+
+	@GetMapping("/{id}/defaulters")
+	public ResponseEntity<List<PlayerDto>> getPaymentDefaulters(@PathVariable Integer id) {
+		return ResponseEntity.ok(paymentservice.findAllDefaulters(id));
 	}
 
 	@PostMapping("/save")

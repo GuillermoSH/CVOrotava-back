@@ -1,6 +1,7 @@
 package com.cvorotava.backend.service;
 
 import com.cvorotava.backend.dto.PaymentDto;
+import com.cvorotava.backend.dto.PlayerDto;
 import com.cvorotava.backend.entity.Payment;
 import com.cvorotava.backend.entity.Player;
 import com.cvorotava.backend.error.exception.DeleteOperationException;
@@ -8,6 +9,7 @@ import com.cvorotava.backend.error.exception.InternalServerException;
 import com.cvorotava.backend.error.exception.NoContentException;
 import com.cvorotava.backend.error.exception.NotFoundException;
 import com.cvorotava.backend.mapper.IPaymentMapper;
+import com.cvorotava.backend.mapper.IPlayerMapper;
 import com.cvorotava.backend.repository.PaymentRepository;
 import com.cvorotava.backend.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +18,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PaymentService implements IPaymentService {
     private final IPaymentMapper paymentMapper;
+    private final IPlayerMapper playerMapper;
     private final PaymentRepository paymentRepository;
     private final PlayerRepository playerRepository;
+    private final PlayerService playerService;
 
     @Autowired
-    public PaymentService(PaymentRepository paymentRepository, PlayerRepository playerRepository, IPaymentMapper paymentMapper) {
+    public PaymentService(PaymentRepository paymentRepository, PlayerRepository playerRepository, IPaymentMapper paymentMapper, PlayerService playerService, IPlayerMapper playerMapper) {
         this.paymentRepository = paymentRepository;
         this.playerRepository = playerRepository;
         this.paymentMapper = paymentMapper;
+        this.playerService = playerService;
+        this.playerMapper = playerMapper;
     }
 
     @Override
@@ -81,6 +88,18 @@ public class PaymentService implements IPaymentService {
         } catch (Exception e) {
             throw new InternalServerException("No se pudo guardar el pago en la BBDD", e);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PlayerDto> findAllDefaulters(Integer id) {
+        List<PlayerDto> payers = playerMapper.playersListToDTOList(this.findById(id).getPlayers());
+        List<PlayerDto> defaulters = playerService.findAll().stream().filter(player -> !payers.contains(player)).collect(Collectors.toList());
+
+        if (defaulters.isEmpty()) {
+            throw new NoContentException("No hay morosos!");
+        }
+        return defaulters;
     }
 
     @Override
