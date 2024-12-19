@@ -16,8 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +46,12 @@ public class PaymentService implements IPaymentService {
     @Transactional(readOnly = true)
     public PaymentDto findById(Integer id) {
         return getPaymentOrThrowNotFound(paymentRepository.findById(id), "con ese id");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PaymentDto> findByMonth(String month, String year) {
+        return getPaymentOrThrowNoContent(paymentRepository.findByMonth(month, year), "en ese mes y año");
     }
 
     @Override
@@ -92,7 +97,7 @@ public class PaymentService implements IPaymentService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<PlayerDto> findAllDefaulters(Integer id) {
+    public List<PlayerDto> findAllDefaultersFromPayment(Integer id) {
         List<PlayerDto> payers = playerMapper.playersListToDTOList(this.findById(id).getPlayers());
         List<PlayerDto> defaulters = playerService.findAll().stream().filter(player -> !payers.contains(player)).collect(Collectors.toList());
 
@@ -100,6 +105,22 @@ public class PaymentService implements IPaymentService {
             throw new NoContentException("No hay morosos!");
         }
         return defaulters;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PlayerDto> findAllDefaultersByMonth(String month, String year) {
+        List<PaymentDto> paymentsByMonth = this.findByMonth(month, year);
+        Set<PlayerDto> defaulters = new HashSet<>();
+
+        for (PaymentDto paymentDto : paymentsByMonth) {
+            defaulters.addAll(playerService.findAll().stream().filter(player -> !playerMapper.playersListToDTOList(paymentDto.getPlayers()).contains(player)).toList());
+        }
+
+        if (defaulters.isEmpty()) {
+            throw new NoContentException("No hay morosos!");
+        }
+        return defaulters.stream().sorted(Comparator.comparing(PlayerDto::getId)).toList();
     }
 
     @Override

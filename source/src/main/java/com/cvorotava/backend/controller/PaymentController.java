@@ -59,7 +59,12 @@ public class PaymentController {
 
 	@GetMapping("/{id}/defaulters")
 	public ResponseEntity<List<PlayerDto>> getPaymentDefaulters(@PathVariable Integer id) {
-		return ResponseEntity.ok(paymentservice.findAllDefaulters(id));
+		return ResponseEntity.ok(paymentservice.findAllDefaultersFromPayment(id));
+	}
+
+	@GetMapping("/{year}/{month}/defaulters")
+	public ResponseEntity<List<PlayerDto>> getPaymentDefaultersByMonth(@PathVariable String month, @PathVariable String year) {
+		return ResponseEntity.ok(paymentservice.findAllDefaultersByMonth(month, year));
 	}
 
 	@PostMapping("/save")
